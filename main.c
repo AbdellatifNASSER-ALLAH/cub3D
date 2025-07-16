@@ -1,5 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
+/*   Updated: 2025/07/17 00:01:40 by ahakki           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
+
+void	put_pixel(int x, int y, int color, t_game *game)
+{
+	int	index;
+
+	if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
+		return ;
+	index = y * game->size_line + x * game->bpp / 8;
+	game->data[index] = color & 0xFF;
+	game->data[index + 1] = (color >> 8) & 0xFF;
+	game->data[index + 2] = (color >> 16) & 0xFF;
+}
+
+
+void	draw_squar(int x, int y, int size, int color, t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i <= size)
+	{
+		put_pixel(x + i, y, color, game);
+		put_pixel(x, y + i, color, game);
+		put_pixel(x + i, y + size, color, game);
+		put_pixel(x + size, y + i, color, game);
+		i++;
+	}
+}
 
 void	init_game(t_game *game)
 {
@@ -10,10 +50,45 @@ void	init_game(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0 , 0);
 }
 
+void	clear_img(t_game *game)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			put_pixel(x, y, 0x000000, game);
+			x++;
+		}
+		y++;
+	}
+	
+}
+
+int	draw_loop(t_game *game)
+{
+	t_player	*player;
+
+	player = &game->player;
+	move_player(player);
+	clear_img(game);
+	draw_squar(player->x, player->y, 15, 0x00FF00, game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+}
+
 int main(int ac, char **av)
 {
 	t_game	game;
 	init_game(&game);
+	
+	mlx_hook(game.win, 2, 1L<<0, key_press, &game.player);
+	mlx_hook(game.win, 3, 1L<<1, key_release, &game.player);
+
+	mlx_loop_hook(game.mlx, draw_loop, &game);
 
 	mlx_loop(game.mlx);
 }
