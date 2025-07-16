@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/16 23:48:02 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/17 00:43:30 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct	s_game
 	int			bpp;
 	int			size_line;
 	int			endian;
+	char		**map;
 	t_player	player;
 }	t_game;
 
