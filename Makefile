@@ -3,7 +3,7 @@ CC = cc
 OBJ = $(SRC:.c=.o)
 
 LFLAGE = -L./mlx -lmlx -lXext -lX11 -lm -lz
-INCLUDES = libmlx.a
+INCLUDES = libmlx.a ft_libft/libft.a
 SRC = main.c player.c
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/17 00:43:30 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/17 12:50:43 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <ulimit.h>
+# include "./ft_libft/libft.h"
 
 # define WIDTH 1280
 # define HEIGHT 720
