@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/18 23:44:48 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/18 23:48:49 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void	draw_vision(t_game *game)
 {
 	t_player	*player = &game->player;
 	int			x;
-	float		fov = PI / 3; // 60 degrees
+	float		fov = PI / 3;
 	float		ray_angle;
 	float		angle_step = fov / WIDTH;
 	float		ray_x;
@@ -197,19 +197,19 @@ void	draw_vision(t_game *game)
 
 		while (!touch(ray_x, ray_y, game))
 		{
-			put_pixel(ray_x, ray_y, 0xFF0000, game);
+			// put_pixel(ray_x, ray_y, 0xFF0000, game);
 			ray_x += cos_angle;
 			ray_y += sin_angle;
 		}
-		// float	dist = fixed_distance(player->x, ray_x, player->y, ray_y, game);
-		// float	height = (BLOCK / dist) * (WIDTH / 2);
-		// int		start_y = (HEIGHT - height) / 2;
-		// int		end = start_y + height;
-		// while (start_y < end)
-		// {
-		// 	put_pixel(x, start_y, 0x0000FF, game);
-		// 	start_y++;
-		// }
+		float	dist = fixed_distance(player->x, ray_x, player->y, ray_y, game);
+		float	height = (BLOCK / dist) * (WIDTH / 2);
+		int		start_y = (HEIGHT - height) / 2;
+		int		end = start_y + height;
+		while (start_y < end - 1)
+		{
+			put_pixel(x, start_y, 0x0000FF, game);
+			start_y++;
+		}
 		
 		x++;
 	}
@@ -222,8 +222,8 @@ int	draw_loop(t_game *game)
 	player = &game->player;
 	move_player(game);
 	clear_img(game);
-	draw_map(game);
-	draw_squar(player->x, player->y, PLAYER_SIZE, 0x00FF00, game);
+	// draw_map(game);
+	// draw_squar(player->x, player->y, PLAYER_SIZE, 0x00FF00, game);
 	draw_vision(game);
 	
 
