@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/18 14:35:17 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/18 23:37:51 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,18 +101,20 @@ void	map_width(t_game *game)
 
 void	get_map(t_game *game)
 {
-	char	**map = malloc(sizeof(char*) * 11);
-	map[0] = "111111111111111";
-	map[1] = "100000000000001";
-	map[2] = "100000000000001";
-	map[3] = "100000000000001";
-	map[4] = "100000000000000";
-	map[5] = "100000000000001";
-	map[6] = "100000000000001";
-	map[7] = "100000000000001";
-	map[8] = "100000000000001";
-	map[9] = "111111111111111";
-	map[10] = NULL;
+	char	**map = malloc(sizeof(char*) * 13);
+	map[0] = "111111111111111111";
+	map[1] = "100000000000000001";
+	map[2] = "100000000000000001";
+	map[3] = "100000000000000001";
+	map[4] = "100001000000000001";
+	map[5] = "100000000000000001";
+	map[6] = "100000001000000001";
+	map[7] = "100000000000000001";
+	map[8] = "100000000000000001";
+	map[9] = "100000000000000001";
+	map[10] = "100000000000000001";
+	map[11] = "111111111111111111";
+	map[12] = NULL;
 	game->map = map;
 	map_height(game);
 	map_width(game);
@@ -159,6 +161,18 @@ bool	touch(int px, int py, t_game *game)
 		return (true);
 	return (false);
 }
+float	distance(float x, float y)
+{
+	return (sqrt(x * x + y * y));
+}
+float	fixed_distance(float x1, float x2, float y1, float y2, t_game *game)
+{
+	float	delta_x = x2 - x1;
+	float	delta_y = y2 - y1;
+	float	angle = atan2(delta_y, delta_x) - game->player.angle;
+	float	fix_dist = distance(delta_x, delta_y) * cos(angle);
+	return (fix_dist);
+}
 
 void	draw_vision(t_game *game)
 {
@@ -183,15 +197,23 @@ void	draw_vision(t_game *game)
 
 		while (!touch(ray_x, ray_y, game))
 		{
-			put_pixel(ray_x, ray_y, 0xFF0000, game);
+			// put_pixel(ray_x, ray_y, 0xFF0000, game);
 			ray_x += cos_angle;
 			ray_y += sin_angle;
 		}
+		float	dist = fixed_distance(player->x, ray_x, player->y, ray_y, game);
+		float	height = (BLOCK / dist) * (WIDTH / 2);
+		int		start_y = (HEIGHT - height) / 2;
+		int		end = start_y + height;
+		while (start_y < end)
+		{
+			put_pixel(x, start_y, 0x0000FF, game);
+			start_y++;
+		}
+		
 		x++;
 	}
 }
-
-
 
 int	draw_loop(t_game *game)
 {
@@ -200,8 +222,8 @@ int	draw_loop(t_game *game)
 	player = &game->player;
 	move_player(game);
 	clear_img(game);
-	draw_map(game);
-	draw_squar(player->x, player->y, PLAYER_SIZE, 0x00FF00, game);
+	// draw_map(game);
+	// draw_squar(player->x, player->y, PLAYER_SIZE, 0x00FF00, game);
 	draw_vision(game);
 	
 

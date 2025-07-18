@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/18 14:28:15 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/18 23:30:32 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define WIDTH 1280
 # define HEIGHT 720
 # define BLOCK 64
+# define BLOCK_M 6
 
 # define W 119
 # define A 97
@@ -37,7 +38,7 @@
 
 # define PI 3.14159265359
 
-# define PLAYER_SIZE 64
+# define PLAYER_SIZE 2
 
 typedef struct s_player
 {

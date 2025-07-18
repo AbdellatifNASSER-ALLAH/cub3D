@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/18 14:32:42 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/18 16:01:17 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	move_player(t_game *game)
 	{
 		new_x = player->x - cos(player->angle) * move_step;
 		new_y = player->y - sin(player->angle) * move_step;
-		if (!touch(new_x + PLAYER_SIZE / 2.0f, PLAYER_SIZE / 2.0f + new_y, game))
+		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
 		{
 			player->x = new_x;
 			player->y = new_y;
