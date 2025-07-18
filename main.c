@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/18 12:02:53 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/18 12:21:52 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,38 +85,18 @@ void	draw_map(t_game *game)
 	int		y;
 	int		x;
 	int		color;
-	int		map_width;
-	int		map_height;
-	int		offset_x;
-	int		offset_y;
-	char	**map;
 
 	color = 0x0000FF;
-	map = game->map;
-
-	// 1. Calculate map height
-	map_height = 0;
-	while (map[map_height])
-		map_height++;
-
-	// 2. Calculate map width (assume all lines are same length)
-	map_width = ft_strlen(map[0]);
-
-	// 3. Compute offset to center the map
-	// offset_x = (WIDTH - (map_width * BLOCK)) / 2;
-	// offset_y = (HEIGHT - (map_height * BLOCK)) / 2;
-	offset_x = 0;
-	offset_y = 0;
 
 	// 4. Draw the map centered
 	y = 0;
-	while (map[y])
+	while (game->map[y])
 	{
 		x = 0;
-		while (map[y][x])
+		while (game->map[y][x])
 		{
-			if (map[y][x] == '1')
-				draw_full_squar(x * BLOCK + offset_x, y * BLOCK + offset_y, BLOCK, color, game);
+			if (game->map[y][x] == '1')
+				draw_full_squar(x * BLOCK, y * BLOCK, BLOCK, color, game);
 			x++;
 		}
 		y++;
