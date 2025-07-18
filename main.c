@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/18 23:48:49 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/18 23:51:10 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	map_width(t_game *game)
 
 void	get_map(t_game *game)
 {
-	char	**map = malloc(sizeof(char*) * 13);
+	char	**map = malloc(sizeof(char*) * 11);
 	map[0] = "111111111111111111";
 	map[1] = "100000000000000001";
 	map[2] = "100000000000000001";
@@ -111,10 +111,8 @@ void	get_map(t_game *game)
 	map[6] = "100000001000000001";
 	map[7] = "100000000000000001";
 	map[8] = "100000000000000001";
-	map[9] = "100000000000000001";
-	map[10] = "100000000000000001";
-	map[11] = "111111111111111111";
-	map[12] = NULL;
+	map[9] = "111111111111111111";
+	map[10] = NULL;
 	game->map = map;
 	map_height(game);
 	map_width(game);
