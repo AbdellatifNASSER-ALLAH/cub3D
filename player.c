@@ -6,24 +6,36 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/17 00:53:58 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/18 12:00:01 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_player(t_player *player)
+void	init_player(t_game *game)
 {
+	t_player *player;
+
+	player = &game->player;
+	// player->x = get_x();
+	// player->y = get_y();
 	player->x = WIDTH / 2;
 	player->y = HEIGHT / 2;
+	player->angle = PI / 2;
 	player->key_down = false;
 	player->key_left = false;
 	player->key_right = false;
 	player->key_up = false;
+	player->left_rotate = false;
+	player-> right_rotate = false;
+	player->speed = 1;
 }
 
-int key_press(int key, t_player *player)
+int key_press(int key, t_game *game)
 {
+	t_player *player;
+
+	player = &game->player;
 	if (key == W)
 		player->key_up = true;
 	if (key == S)
@@ -32,13 +44,21 @@ int key_press(int key, t_player *player)
 		player->key_left = true;
 	if (key == D)
 		player->key_right = true;
+	if (key == LEFT)
+		player->left_rotate = true;
+	if (key == RIGHT)
+		player->right_rotate = true;
 	if (key == 65307)
 		exit(0);
+	// printf("%i\n", key);
 	return (0);
 }
 
-int key_release(int key, t_player *player)
+int key_release(int key, t_game *game)
 {
+	t_player *player;
+
+	player = &game->player;
 	if (key == W)
 		player->key_up = false;
 	if (key == S)
@@ -47,23 +67,68 @@ int key_release(int key, t_player *player)
 		player->key_left = false;
 	if (key == D)
 		player->key_right = false;
+	if (key == LEFT)
+		player->left_rotate = false;
+	if (key == RIGHT)
+		player->right_rotate = false;
+	if (key == '=')
+		player->speed++;
+	if (key == '-')
+		player->speed--;
 	return (0);
 }
-int move_player(t_player *player)	
+int	move_player(t_game *game)	
 {
-	int	speed;
+	t_player	*player = &game->player;
+	float angle_speed = 0.05;
 
-	speed = 5;
+	// ROTATION
+	if (player->left_rotate)
+		player->angle -= angle_speed;
+	if (player->right_rotate)
+		player->angle += angle_speed;
+
+	// Normalize angle (keep between 0 and 2*PI)
+	if (player->angle > 2 * PI)
+		player->angle -= 2 * PI;
+	if (player->angle < 0)
+		player->angle += 2 * PI;
+
+	// Compute direction
+	float move_step = player->speed;
+	float new_x = player->x;
+	float new_y = player->y;
+
+	// FORWARD
 	if (player->key_up)
-		player->y -= speed;
+	{
+		new_x += cos(player->angle) * move_step;
+		new_y += sin(player->angle) * move_step;
+	}
+	// BACKWARD
 	if (player->key_down)
-		player->y += speed;
-	if (player->key_left)
-		player->x -= speed;
+	{
+		new_x -= cos(player->angle) * move_step;
+		new_y -= sin(player->angle) * move_step;
+	}
+	// STRAFE RIGHT
 	if (player->key_right)
-		player->x += speed;
+	{
+		new_x += cos(player->angle + PI / 2) * move_step;
+		new_y += sin(player->angle + PI / 2) * move_step;
+	}
+	// STRAFE LEFT
+	if (player->key_left)
+	{
+		new_x += cos(player->angle - PI / 2) * move_step;
+		new_y += sin(player->angle - PI / 2) * move_step;
+	}
+
+	// Optional: check collision here before updating (you can add collision logic later)
+	player->x = new_x;
+	player->y = new_y;
+
 	return (0);
 }
-
 
 
