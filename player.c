@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/18 12:00:01 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/18 14:32:42 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_player(t_game *game)
 	player->key_up = false;
 	player->left_rotate = false;
 	player-> right_rotate = false;
-	player->speed = 1;
+	player->speed = 5;
 }
 
 int key_press(int key, t_game *game)
@@ -102,31 +102,47 @@ int	move_player(t_game *game)
 	// FORWARD
 	if (player->key_up)
 	{
-		new_x += cos(player->angle) * move_step;
-		new_y += sin(player->angle) * move_step;
+		new_x = player->x + cos(player->angle) * move_step;
+		new_y = player->y + sin(player->angle) * move_step;
+		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
+		{
+			player->x = new_x;
+			player->y = new_y;
+		}
 	}
 	// BACKWARD
 	if (player->key_down)
 	{
-		new_x -= cos(player->angle) * move_step;
-		new_y -= sin(player->angle) * move_step;
+		new_x = player->x - cos(player->angle) * move_step;
+		new_y = player->y - sin(player->angle) * move_step;
+		if (!touch(new_x + PLAYER_SIZE / 2.0f, PLAYER_SIZE / 2.0f + new_y, game))
+		{
+			player->x = new_x;
+			player->y = new_y;
+		}
 	}
 	// STRAFE RIGHT
 	if (player->key_right)
 	{
-		new_x += cos(player->angle + PI / 2) * move_step;
-		new_y += sin(player->angle + PI / 2) * move_step;
+		new_x = player->x + cos(player->angle + PI / 2) * move_step;
+		new_y = player->y + sin(player->angle + PI / 2) * move_step;
+		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
+		{
+			player->x = new_x;
+			player->y = new_y;
+		}
 	}
 	// STRAFE LEFT
 	if (player->key_left)
 	{
-		new_x += cos(player->angle - PI / 2) * move_step;
-		new_y += sin(player->angle - PI / 2) * move_step;
+		new_x = player->x + cos(player->angle - PI / 2) * move_step;
+		new_y = player->y + sin(player->angle - PI / 2) * move_step;
+		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
+		{
+			player->x = new_x;
+			player->y = new_y;
+		}
 	}
-
-	// Optional: check collision here before updating (you can add collision logic later)
-	player->x = new_x;
-	player->y = new_y;
 
 	return (0);
 }

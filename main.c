@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/18 12:21:52 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/18 14:35:17 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,6 @@ void	draw_full_squar(int x, int y, int size, int color, t_game *game)
 	}
 }
 
-// void	draw_map(t_game *game)
-// {
-// 	int		y;
-// 	int		x;
-// 	int		color;
-// 	char	**map;
-
-// 	color = 0x0000FF;
-// 	map = game->map;
-// 	y = 0;
-// 	while (map[y])
-// 	{
-// 		x = 0;
-// 		while (x < map[y][x])
-// 		{
-// 			if (map[y][x] == '1')
-// 				draw_full_squar(x * 64, y * 64, 64, color, game);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
-
 void	draw_map(t_game *game)
 {
 	int		y;
@@ -87,8 +64,6 @@ void	draw_map(t_game *game)
 	int		color;
 
 	color = 0x0000FF;
-
-	// 4. Draw the map centered
 	y = 0;
 	while (game->map[y])
 	{
@@ -129,12 +104,12 @@ void	get_map(t_game *game)
 	char	**map = malloc(sizeof(char*) * 11);
 	map[0] = "111111111111111";
 	map[1] = "100000000000001";
-	map[2] = "101111111111101";
-	map[3] = "100000000000101";
-	map[4] = "101111111110101";
-	map[5] = "101000000000101";
-	map[6] = "101000000000101";
-	map[7] = "101111111111101";
+	map[2] = "100000000000001";
+	map[3] = "100000000000001";
+	map[4] = "100000000000000";
+	map[5] = "100000000000001";
+	map[6] = "100000000000001";
+	map[7] = "100000000000001";
 	map[8] = "100000000000001";
 	map[9] = "111111111111111";
 	map[10] = NULL;

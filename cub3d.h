@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/18 11:59:45 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/18 14:28:15 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 
 # define PI 3.14159265359
 
-# define PLAYER_SIZE 15
+# define PLAYER_SIZE 64
 
 typedef struct s_player
 {
