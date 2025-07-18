@@ -4,7 +4,8 @@
         "unistd.h": "c",
         "stdio.h": "c",
         "map": "c",
-        "format": "c"
+        "format": "c",
+        "ratio": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
