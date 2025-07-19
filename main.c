@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/18 23:51:10 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/19 11:14:46 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	put_pixel(int x, int y, int color, t_game *game)
 void	draw_squar(int x, int y, int size, int color, t_game *game)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i <= size)
 	{
@@ -71,7 +71,11 @@ void	draw_map(t_game *game)
 		while (game->map[y][x])
 		{
 			if (game->map[y][x] == '1')
+			{
+				int draw_x = (x * BLOCK) - game->player.x + CAMERA_X;
+				int draw_y = (y * BLOCK) - game->player.y + CAMERA_Y;	
 				draw_full_squar(x * BLOCK, y * BLOCK, BLOCK, color, game);
+			}
 			x++;
 		}
 		y++;
@@ -99,6 +103,39 @@ void	map_width(t_game *game)
 	}
 }
 
+void	get_player_cord(t_game *game)
+{
+	int		y = 0;
+	int		x;
+	char	dir;
+
+	while (game->map[y])
+	{
+		x = 0;
+		while (game->map[y][x])
+		{
+			dir = game->map[y][x];
+			if (dir == 'N' || dir == 'S' || dir == 'E' || dir == 'W')
+			{
+				game->player.x = x * BLOCK + BLOCK / 2;
+				game->player.y = y * BLOCK + BLOCK / 2;
+				if (dir == 'N')
+					game->player.angle = 3 * PI / 2;
+				else if (dir == 'S')
+					game->player.angle = PI / 2;
+				else if (dir == 'E')
+					game->player.angle = 0;
+				else if (dir == 'W')
+					game->player.angle = PI;
+				return ;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+
 void	get_map(t_game *game)
 {
 	char	**map = malloc(sizeof(char*) * 11);
@@ -110,12 +147,13 @@ void	get_map(t_game *game)
 	map[5] = "100000000000000001";
 	map[6] = "100000001000000001";
 	map[7] = "100000000000000001";
-	map[8] = "100000000000000001";
+	map[8] = "100000000000N00001";
 	map[9] = "111111111111111111";
 	map[10] = NULL;
 	game->map = map;
 	map_height(game);
 	map_width(game);
+	get_player_cord(game);
 }
 
 
@@ -195,20 +233,20 @@ void	draw_vision(t_game *game)
 
 		while (!touch(ray_x, ray_y, game))
 		{
-			// put_pixel(ray_x, ray_y, 0xFF0000, game);
+			put_pixel(ray_x, ray_y, 0xFF0000, game);
+
 			ray_x += cos_angle;
 			ray_y += sin_angle;
 		}
-		float	dist = fixed_distance(player->x, ray_x, player->y, ray_y, game);
-		float	height = (BLOCK / dist) * (WIDTH / 2);
-		int		start_y = (HEIGHT - height) / 2;
-		int		end = start_y + height;
-		while (start_y < end - 1)
-		{
-			put_pixel(x, start_y, 0x0000FF, game);
-			start_y++;
-		}
-		
+		// float	dist = fixed_distance(player->x, ray_x, player->y, ray_y, game);
+		// float	height = (BLOCK / dist) * (WIDTH / 2);
+		// int		start_y = (HEIGHT - height) / 2;
+		// int		end = start_y + height;
+		// while (start_y < end)
+		// {
+		// 	put_pixel(x, start_y, 0x0000FF, game);
+		// 	start_y++;
+		// }
 		x++;
 	}
 }
@@ -220,8 +258,8 @@ int	draw_loop(t_game *game)
 	player = &game->player;
 	move_player(game);
 	clear_img(game);
-	// draw_map(game);
-	// draw_squar(player->x, player->y, PLAYER_SIZE, 0x00FF00, game);
+	draw_map(game);
+	draw_squar(player->x, player->y, PLAYER_SIZE, 0x00FF00, game);
 	draw_vision(game);
 	
 

@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/18 16:01:17 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/19 11:21:24 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	init_player(t_game *game)
 	player = &game->player;
 	// player->x = get_x();
 	// player->y = get_y();
-	player->x = WIDTH / 2;
-	player->y = HEIGHT / 2;
-	player->angle = PI / 2;
+	// player->x = WIDTH / 2;
+	// player->y = HEIGHT / 2;
+	// player->angle = PI * -1 / 2;
 	player->key_down = false;
 	player->key_left = false;
 	player->key_right = false;
@@ -50,7 +50,18 @@ int key_press(int key, t_game *game)
 		player->right_rotate = true;
 	if (key == 65307)
 		exit(0);
-	// printf("%i\n", key);
+	if (key == 'i')
+		player->angle = 3 * PI / 2;
+	if (key == 'k')
+		player->angle = PI / 2;
+	if (key == 'l')
+		player->angle = 0;
+	if (key == 'j')
+		player->angle = PI;
+	if (key == '=')
+		player->speed++;
+	if (key == '-')
+		player->speed--;
 	return (0);
 }
 
@@ -71,10 +82,6 @@ int key_release(int key, t_game *game)
 		player->left_rotate = false;
 	if (key == RIGHT)
 		player->right_rotate = false;
-	if (key == '=')
-		player->speed++;
-	if (key == '-')
-		player->speed--;
 	return (0);
 }
 int	move_player(t_game *game)	
@@ -94,7 +101,7 @@ int	move_player(t_game *game)
 	if (player->angle < 0)
 		player->angle += 2 * PI;
 
-	// Compute direction
+	// Compute keyection
 	float move_step = player->speed;
 	float new_x = player->x;
 	float new_y = player->y;
