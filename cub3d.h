@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/19 10:59:43 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/19 19:59:56 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 
 # define PI 3.14159265359
 
-# define PLAYER_SIZE 15
+# define PLAYER_SIZE 64
 
 #define NORTH 0
 #define SOUTH 1
@@ -47,7 +47,6 @@
 #define MINI_WIDTH 400
 #define MINI_HEIGHT 400
 #define MINI_BLOCK 10
-#define PLAYER_SIZE 15
 
 #define CAMERA_X (MINI_WIDTH / 2)
 #define CAMERA_Y (MINI_HEIGHT / 2)
