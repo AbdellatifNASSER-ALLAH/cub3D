@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/19 19:59:56 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/25 09:33:41 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "./ft_libft/libft.h"
 
 # define WIDTH 1280
-# define HEIGHT 720
+# define HEIGHT 920
 # define BLOCK 64
 
 # define W 119
@@ -37,7 +37,7 @@
 
 # define PI 3.14159265359
 
-# define PLAYER_SIZE 64
+# define PLAYER_SIZE 0
 
 #define NORTH 0
 #define SOUTH 1
