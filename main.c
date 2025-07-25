@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/25 09:45:07 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/25 11:55:53 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,7 +252,7 @@ void	draw_vision(t_game *game)
 			if (ray_x > prev_x)
 				color = 0xA52A2A; // East wall - Brown
 			else
-				color = 0x5F9EA0; // West wall - CadetBlue
+				color = 0x008080; // West wall - Teal
 		}
 		else // Horizontal hit (North or South)
 		{
@@ -298,8 +298,8 @@ int	draw_loop(t_game *game)
 	player = &game->player;
 	move_player(game);
 	clear_img(game);
-	// draw_map(game);
-	// draw_squar(player->x, player->y, PLAYER_SIZE, 0x00FF00, game);
+	draw_map(game);
+	draw_squar(player->x, player->y, PLAYER_SIZE, 0x00FF00, game);
 	draw_vision(game);
 	
 
@@ -316,8 +316,9 @@ int main(int ac, char **av)
 	(void)av;
 	mlx_hook(game.win, 2, 1L<<0, key_press, &game);
 	mlx_hook(game.win, 3, 1L<<1, key_release, &game);
-
+	// mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
+	// mlx_mouse_hide(game.mlx, game.win);
 
 	mlx_loop(game.mlx);
 }

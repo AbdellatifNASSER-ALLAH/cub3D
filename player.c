@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/25 08:50:28 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/25 11:50:22 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,26 @@ int key_press(int key, t_game *game)
 		player->speed--;
 	return (0);
 }
+
+// int	mouse_move(int x, int y, t_game *game)
+// {
+// 	t_player *player = &game->player;
+
+// 	(void)y;
+// 	if (x < player->prev_mouse_x && x < WIDTH / 2 && player->prev_mouse_x < WIDTH / 2)
+// 		player->left_rotate = true;
+// 	else if (x > player->prev_mouse_x && x > WIDTH / 2 && player->prev_mouse_x > WIDTH / 2)
+// 		player->right_rotate = true;
+// 	else
+// 	{
+// 		player->left_rotate = false;
+// 		player->right_rotate = false;
+// 	}
+// 	player->prev_mouse_x = x;
+// 	return (0);
+// }
+
+
 
 int key_release(int key, t_game *game)
 {

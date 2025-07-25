@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/25 09:33:41 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/25 11:18:31 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct s_player
 	
 	bool	left_rotate;
 	bool	right_rotate;
+
+	int		prev_mouse_x;
 }	t_player;
 
 typedef struct	s_game
@@ -90,6 +92,8 @@ void	init_player(t_game *game);
 int		key_press(int key, t_game *game);
 int 	key_release(int key, t_game *game);
 int 	move_player(t_game *game);
+int		mouse_move(int x, int y, t_game *game);
+void 	update(t_game *game);
 
 bool	touch(int px, int py, t_game *game);
 #endif
