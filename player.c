@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/27 14:07:15 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/27 18:25:25 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,8 @@ int	move_player(t_game *game)
 	// BACKWARD
 	if (player->key_down)
 	{
-		new_x = player->x - cos(player->angle) * move_step;
-		new_y = player->y - sin(player->angle) * move_step;
+		new_x = player->x + cos(player->angle + PI) * move_step;
+		new_y = player->y + sin(player->angle + PI) * move_step;
 		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
 		{
 			player->x = new_x;

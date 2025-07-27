@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/26 17:00:31 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/27 19:28:40 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@
 #define EAST  2
 #define WEST  3
 
-#define MINI_WIDTH 400
-#define MINI_HEIGHT 400
+#define MINI_WIDTH 200
+#define MINI_HEIGHT 200
 #define MINI_BLOCK 10
 
 #define CAMERA_X (MINI_WIDTH / 2)

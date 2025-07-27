@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/27 13:55:14 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/27 20:09:26 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,7 @@ void	draw_map(t_game *game)
 		while (game->map[y][x])
 		{
 			if (game->map[y][x] == '1')
-			{
-				// int draw_x = (x * BLOCK) - game->player.x + CAMERA_X;
-				// int draw_y = (y * BLOCK) - game->player.y + CAMERA_Y;	
-				draw_full_squar(x * BLOCK, y * BLOCK, BLOCK, color, game);
-			}
+				draw_full_squar(x * MINI_BLOCK, y * MINI_BLOCK, MINI_BLOCK, color, game);
 			x++;
 		}
 		y++;
@@ -216,6 +212,16 @@ bool	touch(int px, int py, t_game *game)
 	return (game->map[block_y][block_x] == '1');
 }
 
+bool	touch2(int px, int py, t_game *game)
+{
+	int block_x = px / MINI_BLOCK;
+	int block_y = py / MINI_BLOCK;
+
+	if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
+		return (true);
+	return (game->map[block_y][block_x] == '1');
+}
+
 float	distance(float x, float y)
 {
 	return (sqrt(x * x + y * y));
@@ -307,6 +313,44 @@ void	draw_vision(t_game *game)
 	}
 }
 
+void	draw_minimap(t_game *game)
+{
+	t_player	*player = &game->player;
+
+	int mini_y = 0;
+	while (mini_y < MINI_HEIGHT)
+	{
+		int mini_x = 0;
+		while (mini_x < MINI_WIDTH)
+		{
+			put_pixel(mini_x, mini_y, 0x000000, game);
+			mini_x++;
+		}
+		mini_y++;
+	}
+	float	fov = PI / 3;
+	float	angle_step = fov / MINI_WIDTH;
+	float	ray_angle;
+	int		x = 0;
+
+	while (x < MINI_WIDTH)
+	{
+		ray_angle = player->angle - (fov / 2) + (x * angle_step);
+
+		float	ray_x = player->x / BLOCK * MINI_BLOCK;
+		float	ray_y = player->y / BLOCK * MINI_BLOCK;
+		float	cos_a = cos(ray_angle) / 2;
+		float	sin_a = sin(ray_angle) / 2;
+
+		while (!touch2(ray_x, ray_y, game))
+		{
+			put_pixel(ray_x, ray_y, 0xFFFF00, game);
+			ray_x += cos_a;
+			ray_y += sin_a;
+		}
+		x++;
+	}
+}
 
 
 int	draw_loop(t_game *game)
@@ -316,9 +360,10 @@ int	draw_loop(t_game *game)
 	player = &game->player;
 	move_player(game);
 	clear_img(game);
-	draw_map(game);
-	draw_squar(player->x, player->y, PLAYER_SIZE, 0x00FF00, game);
 	draw_vision(game);
+	// draw_squar(player->x, player->y, PLAYER_SIZE, 0x00FF00, game);
+	draw_minimap(game);
+	draw_map(game);
 	
 
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
@@ -334,7 +379,7 @@ int main(int ac, char **av)
 	(void)av;
 	mlx_hook(game.win, 2, 1L<<0, key_press, &game);
 	mlx_hook(game.win, 3, 1L<<1, key_release, &game);
-	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
+	// mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
 	// mlx_mouse_hide(game.mlx, game.win);
 
