@@ -2,7 +2,7 @@ NAME = game
 CC = cc
 OBJ = $(SRC:.c=.o)
 
-LFLAGE =  -Wall -Wextra -Werror -I -L./mlx -lmlx -lXext -lX11 -lm -lz
+LFLAGE =  -Wall -Wextra -Werror -g3 -I -L./mlx -lmlx -lXext -lX11 -lm -lz
 INCLUDES = libmlx.a ft_libft/libft.a
 SRC = main.c player.c
 

@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/25 11:55:53 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/27 13:55:14 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,9 +145,9 @@ void	get_map(t_game *game)
 	map[3]  = "1000000000000000001";
 	map[4]  = "1000010000001000001";
 	map[5]  = "1000000000000000001";
-	map[6]  = "1000000010000000001";
+	map[6]  = "1000000000000000001";
 	map[7]  = "10000000000N0000001";
-	map[8]  = "1000001000000000001";
+	map[8]  = "1000001000000100001";
 	map[9]  = "1000000000000000001";
 	map[10] = "1000100000000000001";
 	map[11] = "1000000010000000001";
@@ -159,6 +159,18 @@ void	get_map(t_game *game)
 	map[17] = "1000000000000000001";
 	map[18] = "1111111111111111111";
 	map[19] = NULL;
+	// char **map = malloc(sizeof(char*) * 11);
+	// map[0]  = "111111111111";
+	// map[1]  = "1N0000000001";
+	// map[2]  = "100000000001";
+	// map[3]  = "100000000001";
+	// map[4]  = "100000000001";
+	// map[5]  = "100000000001";
+	// map[6]  = "100000N00001";
+	// map[7]  = "100000000001";
+	// map[8]  = "100000000001";
+	// map[9]  = "111111111111";
+	// map[10] = NULL;
 	game->map = map;
 	map_height(game);
 	map_width(game);
@@ -196,12 +208,12 @@ void	clear_img(t_game *game)
 }
 bool	touch(int px, int py, t_game *game)
 {
-	int tile_x = px / BLOCK;
-	int tile_y = py / BLOCK;
+	int block_x = px / BLOCK;
+	int block_y = py / BLOCK;
 
-	if (tile_x < 0 || tile_x >= game->map_width || tile_y < 0 || tile_y >= game->map_height)
+	if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
 		return (true);
-	return (game->map[tile_y][tile_x] == '1');
+	return (game->map[block_y][block_x] == '1');
 }
 
 float	distance(float x, float y)
@@ -230,32 +242,41 @@ void	draw_vision(t_game *game)
 	{
 		ray_angle = player->angle - (fov / 2) + (x * angle_step);
 
-		float	ray_x = player->x + (PLAYER_SIZE / 2);
-		float	ray_y = player->y + (PLAYER_SIZE / 2);
+		float	ray_x = player->x;
+		float	ray_y = player->y;
 		float	cos_a = cos(ray_angle);
 		float	sin_a = sin(ray_angle);
 
 		float	prev_x, prev_y;
-
+	
 		while (!touch(ray_x, ray_y, game))
 		{
-			prev_x = ray_x;
+			// put_pixel(ray_x, ray_y, 0xFFFF00, game);
 			prev_y = ray_y;
+			prev_x = ray_x;
 			ray_x += cos_a;
 			ray_y += sin_a;
 		}
 
 		// Determine wall side
+		int prev_block_x = (int)(prev_x / BLOCK);
+		int prev_block_y = (int)(prev_y / BLOCK);
+		int curr_block_x = (int)(ray_x / BLOCK);
+		int curr_block_y = (int)(ray_y / BLOCK);
+
 		int color;
-		if ((int)(prev_x / BLOCK) != (int)(ray_x / BLOCK)) // Vertical hit (East or West)
+
+		if (curr_block_x != prev_block_x && curr_block_y == prev_block_y)
 		{
+			// Vertical wall hit (East or West)
 			if (ray_x > prev_x)
 				color = 0xA52A2A; // East wall - Brown
 			else
 				color = 0x008080; // West wall - Teal
 		}
-		else // Horizontal hit (North or South)
+		else if (curr_block_y != prev_block_y && curr_block_x == prev_block_x)
 		{
+			// Horizontal wall hit (North or South)
 			if (ray_y > prev_y)
 				color = 0xDEB887; // South wall - BurlyWood
 			else
@@ -281,9 +302,6 @@ void	draw_vision(t_game *game)
 		// Draw floor (bottom half below wall)
 		while (y < HEIGHT)
 			put_pixel(x, y++, 0x654321, game); // Dark brown floor
-
-		// while (start_y < end_y)
-		// 	put_pixel(x, start_y++, color, game);
 		
 		x++;
 	}
@@ -316,7 +334,7 @@ int main(int ac, char **av)
 	(void)av;
 	mlx_hook(game.win, 2, 1L<<0, key_press, &game);
 	mlx_hook(game.win, 3, 1L<<1, key_release, &game);
-	// mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
+	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
 	// mlx_mouse_hide(game.mlx, game.win);
 

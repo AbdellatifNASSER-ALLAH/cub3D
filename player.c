@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/25 11:50:22 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/27 14:07:15 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,23 @@ int key_press(int key, t_game *game)
 	return (0);
 }
 
-// int	mouse_move(int x, int y, t_game *game)
-// {
-// 	t_player *player = &game->player;
+int	mouse_move(int x, int y, t_game *game)
+{
+	t_player *player = &game->player;
 
-// 	(void)y;
-// 	if (x < player->prev_mouse_x && x < WIDTH / 2 && player->prev_mouse_x < WIDTH / 2)
-// 		player->left_rotate = true;
-// 	else if (x > player->prev_mouse_x && x > WIDTH / 2 && player->prev_mouse_x > WIDTH / 2)
-// 		player->right_rotate = true;
-// 	else
-// 	{
-// 		player->left_rotate = false;
-// 		player->right_rotate = false;
-// 	}
-// 	player->prev_mouse_x = x;
-// 	return (0);
-// }
+	(void)y;
+	if (x >=0 && x<= (WIDTH / 10) * 4)
+		player->left_rotate = true;
+	else if (x >= WIDTH - ((WIDTH / 10) * 4) && x <= WIDTH)
+		player->right_rotate = true;
+	else
+	{
+		player->left_rotate = false;
+		player->right_rotate = false;
+	}
+	player->prev_mouse_x = x;
+	return (0);
+}
 
 
 
@@ -123,8 +123,8 @@ int	move_player(t_game *game)
 
 	// Compute keyection
 	float move_step = player->speed;
-	float new_x = player->x;
-	float new_y = player->y;
+	float new_x;
+	float new_y;
 
 	// FORWARD
 	if (player->key_up)
