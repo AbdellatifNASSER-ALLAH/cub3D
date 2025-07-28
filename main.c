@@ -6,13 +6,11 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/27 20:09:26 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/28 18:25:05 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
 
 void	put_pixel(int x, int y, int color, t_game *game)
 {
@@ -26,20 +24,29 @@ void	put_pixel(int x, int y, int color, t_game *game)
 	game->data[index + 2] = (color >> 16) & 0xFF;
 }
 
-void	draw_squar(int x, int y, int size, int color, t_game *game)
+void	draw_circle(int cx, int cy, int radius, int color, t_game *game)
 {
-	int	i;
+	int	x;
+	int	y;
+	int	distance_squared;
+	int	radius_squared = radius * radius;
 
-	i = 0;
-	while (i <= size)
+	y = -radius;
+	while (y <= radius)
 	{
-		put_pixel(x + i, y, color, game);
-		put_pixel(x, y + i, color, game);
-		put_pixel(x + i, y + size, color, game);
-		put_pixel(x + size, y + i, color, game);
-		i++;
+		x = -radius;
+		while (x <= radius)
+		{
+			distance_squared = x * x + y * y;
+			if (distance_squared >= radius_squared - radius && distance_squared <= radius_squared + radius)
+				put_pixel(cx + x, cy + y, color, game);
+			x++;
+		}
+		y++;
 	}
 }
+
+
 void	draw_full_squar(int x, int y, int size, int color, t_game *game)
 {
 	int i, j;
@@ -250,8 +257,8 @@ void	draw_vision(t_game *game)
 
 		float	ray_x = player->x;
 		float	ray_y = player->y;
-		float	cos_a = cos(ray_angle);
-		float	sin_a = sin(ray_angle);
+		float	cos_a = cos(ray_angle) / 2;
+		float	sin_a = sin(ray_angle) / 2;
 
 		float	prev_x, prev_y;
 	
@@ -292,9 +299,8 @@ void	draw_vision(t_game *game)
 		// Correct distance to avoid fish-eye distortion
 		float dist = fixed_distance(player->x, ray_x, player->y, ray_y, ray_angle, player->angle);
 		float wall_height = (BLOCK / dist) * (WIDTH / 2);
-		int start_y = (HEIGHT - wall_height) / 2;
+		int start_y = (HEIGHT - wall_height) * player->z_eye;
 		int end_y = start_y + wall_height;
-
 		
 		int y = 0;
 		// Draw sky (top half above wall)
@@ -341,7 +347,6 @@ void	draw_minimap(t_game *game)
 		float	ray_y = player->y / BLOCK * MINI_BLOCK;
 		float	cos_a = cos(ray_angle) / 2;
 		float	sin_a = sin(ray_angle) / 2;
-
 		while (!touch2(ray_x, ray_y, game))
 		{
 			put_pixel(ray_x, ray_y, 0xFFFF00, game);
@@ -361,7 +366,6 @@ int	draw_loop(t_game *game)
 	move_player(game);
 	clear_img(game);
 	draw_vision(game);
-	// draw_squar(player->x, player->y, PLAYER_SIZE, 0x00FF00, game);
 	draw_minimap(game);
 	draw_map(game);
 	
@@ -379,7 +383,8 @@ int main(int ac, char **av)
 	(void)av;
 	mlx_hook(game.win, 2, 1L<<0, key_press, &game);
 	mlx_hook(game.win, 3, 1L<<1, key_release, &game);
-	// mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
+	// mlx_mouse_hook(game.win, draw_aim,)
+	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
 	// mlx_mouse_hide(game.mlx, game.win);
 

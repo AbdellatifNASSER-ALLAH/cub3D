@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/27 18:25:25 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/28 18:51:53 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_player(t_game *game)
 	player->left_rotate = false;
 	player-> right_rotate = false;
 	player->speed = 5;
+	player->z_eye = 0.5;
 }
 
 int key_press(int key, t_game *game)
@@ -48,6 +49,10 @@ int key_press(int key, t_game *game)
 		player->left_rotate = true;
 	if (key == RIGHT)
 		player->right_rotate = true;
+	if (key == UP)
+		player->up_rotate = true;
+	if (key == DOWN)
+		player->down_rotate = true;
 	if (key == 65307)
 		exit(0);
 	if (key == 'i')
@@ -102,18 +107,28 @@ int key_release(int key, t_game *game)
 		player->left_rotate = false;
 	if (key == RIGHT)
 		player->right_rotate = false;
+	if (key == UP)
+		player->up_rotate = false;
+	if (key == DOWN)
+		player->down_rotate = false;
 	return (0);
 }
 int	move_player(t_game *game)	
 {
 	t_player	*player = &game->player;
 	float angle_speed = 0.05;
+	float z_eye_speed = 0.05;
 
-	// ROTATION
+	// ROTATION left right
 	if (player->left_rotate)
 		player->angle -= angle_speed;
 	if (player->right_rotate)
 		player->angle += angle_speed;
+	// ROTATION up down
+	if (player->up_rotate && player->z_eye < 1)
+		player->z_eye += z_eye_speed;
+	if (player->down_rotate && player->z_eye > 0)
+		player->z_eye -= z_eye_speed;
 
 	// Normalize angle (keep between 0 and 2*PI)
 	if (player->angle > 2 * PI)
@@ -122,15 +137,14 @@ int	move_player(t_game *game)
 		player->angle += 2 * PI;
 
 	// Compute keyection
-	float move_step = player->speed;
 	float new_x;
 	float new_y;
 
 	// FORWARD
 	if (player->key_up)
 	{
-		new_x = player->x + cos(player->angle) * move_step;
-		new_y = player->y + sin(player->angle) * move_step;
+		new_x = player->x + cos(player->angle) * player->speed;
+		new_y = player->y + sin(player->angle) * player->speed;
 		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
 		{
 			player->x = new_x;
@@ -140,8 +154,8 @@ int	move_player(t_game *game)
 	// BACKWARD
 	if (player->key_down)
 	{
-		new_x = player->x + cos(player->angle + PI) * move_step;
-		new_y = player->y + sin(player->angle + PI) * move_step;
+		new_x = player->x + cos(player->angle + PI) * player->speed;
+		new_y = player->y + sin(player->angle + PI) * player->speed;
 		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
 		{
 			player->x = new_x;
@@ -151,8 +165,8 @@ int	move_player(t_game *game)
 	// STRAFE RIGHT
 	if (player->key_right)
 	{
-		new_x = player->x + cos(player->angle + PI / 2) * move_step;
-		new_y = player->y + sin(player->angle + PI / 2) * move_step;
+		new_x = player->x + cos(player->angle + PI / 2) * player->speed;
+		new_y = player->y + sin(player->angle + PI / 2) * player->speed;
 		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
 		{
 			player->x = new_x;
@@ -162,8 +176,8 @@ int	move_player(t_game *game)
 	// STRAFE LEFT
 	if (player->key_left)
 	{
-		new_x = player->x + cos(player->angle - PI / 2) * move_step;
-		new_y = player->y + sin(player->angle - PI / 2) * move_step;
+		new_x = player->x + cos(player->angle - PI / 2) * player->speed;
+		new_y = player->y + sin(player->angle - PI / 2) * player->speed;
 		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
 		{
 			player->x = new_x;

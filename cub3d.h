@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/27 19:28:40 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/28 18:07:48 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 
 # define LEFT 65361
 # define RIGHT 65363
+# define UP 65362
+# define DOWN 65364
 
 # define PI 3.14159265359
 
@@ -56,6 +58,7 @@ typedef struct s_player
 {
 	float	x;
 	float	y;
+	float	z_eye;
 	float	angle;
 
 	int		speed;
@@ -66,6 +69,8 @@ typedef struct s_player
 	bool	key_down;
 	
 	bool	left_rotate;
+	bool	up_rotate;
+	bool	down_rotate;
 	bool	right_rotate;
 
 	int		prev_mouse_x;
