@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/28 20:57:12 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/28 22:58:19 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@ void	init_player(t_game *game)
 	t_player *player;
 
 	player = &game->player;
-	// player->x = get_x();
-	// player->y = get_y();
-	// player->x = WIDTH / 2;
-	// player->y = HEIGHT / 2;
-	// player->angle = PI * -1 / 2;
 	player->key_down = false;
 	player->key_left = false;
 	player->key_right = false;
