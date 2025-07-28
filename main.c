@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/28 18:25:05 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/28 20:06:26 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,8 +214,8 @@ bool	touch(int px, int py, t_game *game)
 	int block_x = px / BLOCK;
 	int block_y = py / BLOCK;
 
-	if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
-		return (true);
+	// if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
+	// 	return (true);
 	return (game->map[block_y][block_x] == '1');
 }
 
@@ -224,8 +224,8 @@ bool	touch2(int px, int py, t_game *game)
 	int block_x = px / MINI_BLOCK;
 	int block_y = py / MINI_BLOCK;
 
-	if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
-		return (true);
+	// if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
+	// 	return (true);
 	return (game->map[block_y][block_x] == '1');
 }
 

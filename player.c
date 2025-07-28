@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/28 18:51:53 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/28 20:57:12 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,44 +145,34 @@ int	move_player(t_game *game)
 	{
 		new_x = player->x + cos(player->angle) * player->speed;
 		new_y = player->y + sin(player->angle) * player->speed;
-		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
 	}
-	// BACKWARD
 	if (player->key_down)
 	{
 		new_x = player->x + cos(player->angle + PI) * player->speed;
 		new_y = player->y + sin(player->angle + PI) * player->speed;
-		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
 	}
-	// STRAFE RIGHT
 	if (player->key_right)
 	{
 		new_x = player->x + cos(player->angle + PI / 2) * player->speed;
 		new_y = player->y + sin(player->angle + PI / 2) * player->speed;
-		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
 	}
-	// STRAFE LEFT
 	if (player->key_left)
 	{
 		new_x = player->x + cos(player->angle - PI / 2) * player->speed;
 		new_y = player->y + sin(player->angle - PI / 2) * player->speed;
-		if (!touch(new_x + PLAYER_SIZE / 2.0f, new_y + PLAYER_SIZE / 2.0f, game))
-		{
-			player->x = new_x;
-			player->y = new_y;
-		}
+	}
+
+	if (!touch(new_x, new_y, game))
+	{
+		player->x = new_x;
+		player->y = new_y;
+	}
+	else
+	{
+		if (!touch(new_x, player->y, game))
+			player->x += (new_x - player->x) * 0.3;
+		if (!touch(player->x, new_y, game))
+			player->y += (new_y - player->y) * 0.3;
 	}
 
 	return (0);
