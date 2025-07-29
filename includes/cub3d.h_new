@@ -23,7 +23,7 @@
 # include "libft.h"
 
 # define WIDTH 1280
-# define HEIGHT 720
+# define HEIGHT 920
 # define BLOCK 64
 
 # define W 119
@@ -33,28 +33,35 @@
 
 # define LEFT 65361
 # define RIGHT 65363
+# define UP 65362
+# define DOWN 65364
 
 # define PI 3.14159265359
 
-# define PLAYER_SIZE 64
+# define PLAYER_SIZE 0
 
 #define NORTH 0
 #define SOUTH 1
 #define EAST  2
 #define WEST  3
 
-#define MINI_WIDTH 400
-#define MINI_HEIGHT 400
+#define MINI_WIDTH 200
+#define MINI_HEIGHT 200
 #define MINI_BLOCK 10
 
-#define CAMERA_X (MINI_WIDTH / 2)
-#define CAMERA_Y (MINI_HEIGHT / 2)
+
+typedef struct s_hit
+{
+	float	x;
+	float	y;
+}	t_hit;
 
 
 typedef struct s_player
 {
 	float	x;
 	float	y;
+	float	z_eye;
 	float	angle;
 
 	int		speed;
@@ -65,7 +72,11 @@ typedef struct s_player
 	bool	key_down;
 	
 	bool	left_rotate;
+	bool	up_rotate;
+	bool	down_rotate;
 	bool	right_rotate;
+
+	int		prev_mouse_x;
 }	t_player;
 
 typedef struct	s_game
@@ -89,6 +100,8 @@ void	init_player(t_game *game);
 int		key_press(int key, t_game *game);
 int 	key_release(int key, t_game *game);
 int 	move_player(t_game *game);
+int		mouse_move(int x, int y, t_game *game);
+void 	update(t_game *game);
 
 bool	touch(int px, int py, t_game *game);
 #endif
