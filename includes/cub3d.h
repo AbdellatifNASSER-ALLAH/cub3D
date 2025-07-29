@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/19 19:59:56 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/29 15:28:41 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 # define CUB3D_H
 
 # include <mlx.h>
-# include "./minilibx-linux/mlx.h"
 # include <stdio.h>
 # include <math.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <ulimit.h>
-# include "./ft_libft/libft.h"
+# include "libft.h"
 
 # define WIDTH 1280
 # define HEIGHT 720
