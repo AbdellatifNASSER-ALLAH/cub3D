@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/28 22:59:41 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/29 12:45:07 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@
 #define MINI_HEIGHT 200
 #define MINI_BLOCK 10
 
+
+typedef struct s_hit
+{
+	float	x;
+	float	y;
+}	t_hit;
 
 
 typedef struct s_player

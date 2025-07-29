@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/28 22:24:50 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/29 12:56:11 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,8 @@ void	get_map(t_game *game)
 	char **map = malloc(sizeof(char*) * 20);
 	map[0]  = "1111111111111111111";
 	map[1]  = "1000000000000000001";
-	map[2]  = "1000001000000010001";
-	map[3]  = "1000000000000000001";
+	map[2]  = "1000000000000010001";
+	map[3]  = "1000001000000000001";
 	map[4]  = "1000010000001000001";
 	map[5]  = "1000000000000000001";
 	map[6]  = "1000000000000000001";
@@ -214,8 +214,8 @@ bool	touch(int px, int py, t_game *game)
 	int block_x = px / BLOCK;
 	int block_y = py / BLOCK;
 
-	// if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
-	// 	return (true);
+	if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
+		return (true);
 	return (game->map[block_y][block_x] == '1');
 }
 
@@ -224,8 +224,8 @@ bool	touch2(int px, int py, t_game *game)
 	int block_x = px / MINI_BLOCK;
 	int block_y = py / MINI_BLOCK;
 
-	// if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
-	// 	return (true);
+	if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
+		return (true);
 	return (game->map[block_y][block_x] == '1');
 }
 

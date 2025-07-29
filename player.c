@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/28 22:58:19 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/29 10:08:36 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int key_press(int key, t_game *game)
 		player->angle = 0;
 	if (key == 'j')
 		player->angle = PI;
-	if (key == '=')
+	if (key == '=' && player->speed < 10)
 		player->speed++;
-	if (key == '-')
+	if (key == '-' && player->speed > 1)
 		player->speed--;
 	return (0);
 }
@@ -165,9 +165,9 @@ int	move_player(t_game *game)
 	else
 	{
 		if (!touch(new_x, player->y, game))
-			player->x += (new_x - player->x) * 0.3;
+			player->x += (new_x - player->x) * 0.2;
 		if (!touch(player->x, new_y, game))
-			player->y += (new_y - player->y) * 0.3;
+			player->y += (new_y - player->y) * 0.2;
 	}
 
 	return (0);
