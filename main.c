@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/29 12:56:11 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/29 17:49:30 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,12 @@ void	get_map(t_game *game)
 	map[1]  = "1000000000000000001";
 	map[2]  = "1000000000000010001";
 	map[3]  = "1000001000000000001";
-	map[4]  = "1000010000001000001";
-	map[5]  = "1000000000000000001";
-	map[6]  = "1000000000000000001";
-	map[7]  = "10000000000N0000001";
-	map[8]  = "1000001000000100001";
-	map[9]  = "1000000000000000001";
+	map[4]  = "1000010000000000001";
+	map[5]  = "1000000000011000001";
+	map[6]  = "1000000000100100001";
+	map[7]  = "10000000001E0000001";
+	map[8]  = "1000001000100100001";
+	map[9]  = "1000000000011000001";
 	map[10] = "1000100000000000001";
 	map[11] = "1000000010000000001";
 	map[12] = "1000000000000100001";
@@ -209,7 +209,7 @@ void	clear_img(t_game *game)
 		y++;
 	}
 }
-bool	touch(int px, int py, t_game *game)
+bool	 touch(int px, int py, t_game *game)
 {
 	int block_x = px / BLOCK;
 	int block_y = py / BLOCK;
@@ -218,7 +218,6 @@ bool	touch(int px, int py, t_game *game)
 		return (true);
 	return (game->map[block_y][block_x] == '1');
 }
-
 bool	touch2(int px, int py, t_game *game)
 {
 	int block_x = px / MINI_BLOCK;
@@ -257,12 +256,12 @@ void	draw_vision(t_game *game)
 
 		float	ray_x = player->x;
 		float	ray_y = player->y;
-		float	cos_a = cos(ray_angle) / 2;
-		float	sin_a = sin(ray_angle) / 2;
+		float	cos_a = cos(ray_angle);
+		float	sin_a = sin(ray_angle);
 
 		float	prev_x, prev_y;
 	
-		while (!touch(ray_x, ray_y, game))
+		while (!touch(ray_x , ray_y, game))
 		{
 			// put_pixel(ray_x, ray_y, 0xFFFF00, game);
 			prev_y = ray_y;
@@ -294,6 +293,27 @@ void	draw_vision(t_game *game)
 				color = 0xDEB887; // South wall - BurlyWood
 			else
 				color = 0x8A2BE2; // North wall - BlueViolet
+		}
+		else
+		{
+			int xx = (ray_x + cos_a) / BLOCK;
+			int yy = (ray_y + sin_a) / BLOCK;
+			if (xx != prev_block_x && yy == prev_block_y)
+			{
+				// Vertical wall hit (East or West)
+				if (ray_x > prev_x)
+					color = 0xA52A2A; // East wall - Brown
+				else
+					color = 0x008080; // West wall - Teal
+			}
+			else if (yy != prev_block_y && xx == prev_block_x)
+			{
+				// Horizontal wall hit (North or South)
+				if (ray_y > prev_y)
+					color = 0xDEB887; // South wall - BurlyWood
+				else
+					color = 0x8A2BE2; // North wall - BlueViolet
+			}
 		}
 
 		// Correct distance to avoid fish-eye distortion
@@ -347,9 +367,9 @@ void	draw_minimap(t_game *game)
 		float	ray_y = player->y / BLOCK * MINI_BLOCK;
 		float	cos_a = cos(ray_angle) / 2;
 		float	sin_a = sin(ray_angle) / 2;
-		while (!touch2(ray_x, ray_y, game))
+		while (!touch2(ray_x + cos_a, ray_y, game) && !touch2(ray_x, ray_y + sin_a, game))
 		{
-			put_pixel(ray_x, ray_y, 0xFFFF00, game);
+			put_pixel(ray_x + cos_a, ray_y + sin_a, 0xFFFF00, game);
 			ray_x += cos_a;
 			ray_y += sin_a;
 		}
@@ -384,7 +404,7 @@ int main(int ac, char **av)
 	mlx_hook(game.win, 2, 1L<<0, key_press, &game);
 	mlx_hook(game.win, 3, 1L<<1, key_release, &game);
 	// mlx_mouse_hook(game.win, draw_aim,)
-	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
+	// mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
 	// mlx_mouse_hide(game.mlx, game.win);
 

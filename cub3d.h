@@ -6,14 +6,14 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/29 12:45:07 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/29 17:06:32 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <mlx.h>
+// # include <mlx.h>
 # include "./minilibx-linux/mlx.h"
 # include <stdio.h>
 # include <math.h>

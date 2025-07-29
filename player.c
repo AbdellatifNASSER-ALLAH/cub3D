@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/29 10:08:36 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/29 17:41:28 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ int	mouse_move(int x, int y, t_game *game)
 	return (0);
 }
 
-
-
 int key_release(int key, t_game *game)
 {
 	t_player *player;
@@ -108,6 +106,7 @@ int key_release(int key, t_game *game)
 		player->down_rotate = false;
 	return (0);
 }
+
 int	move_player(t_game *game)	
 {
 	t_player	*player = &game->player;
@@ -132,8 +131,8 @@ int	move_player(t_game *game)
 		player->angle += 2 * PI;
 
 	// Compute keyection
-	float new_x;
-	float new_y;
+	float new_x = 0;
+	float new_y = 0;
 
 	// FORWARD
 	if (player->key_up)
@@ -156,8 +155,7 @@ int	move_player(t_game *game)
 		new_x = player->x + cos(player->angle - PI / 2) * player->speed;
 		new_y = player->y + sin(player->angle - PI / 2) * player->speed;
 	}
-
-	if (!touch(new_x, new_y, game))
+	if (!touch(new_x, player->y, game) && !touch(player->x, new_y, game))
 	{
 		player->x = new_x;
 		player->y = new_y;
