@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/29 17:49:30 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/30 17:21:24 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,6 +242,8 @@ float	fixed_distance(float x1, float x2, float y1, float y2, float ray_angle, fl
 	return (raw_dist * cos(angle_diff));
 }
 
+
+
 void	draw_vision(t_game *game)
 {
 	t_player	*player = &game->player;
@@ -261,14 +263,27 @@ void	draw_vision(t_game *game)
 
 		float	prev_x, prev_y;
 	
-		while (!touch(ray_x , ray_y, game))
+		while (!touch(ray_x, ray_y, game))
 		{
-			// put_pixel(ray_x, ray_y, 0xFFFF00, game);
 			prev_y = ray_y;
+			ray_y += sin_a;
 			prev_x = ray_x;
 			ray_x += cos_a;
-			ray_y += sin_a;
 		}
+		// while (!touch(ray_x + cos_a, ray_y, game) || !touch(ray_x, ray_y + sin_a, game))
+		// {
+		// 	if (!touch(ray_x + cos_a, ray_y, game))
+		// 	{
+		// 		prev_x = ray_x;
+		// 		ray_x += cos_a;
+		// 	}
+		// 	else
+		// 	{
+		// 		prev_y = ray_y;
+		// 		ray_y += sin_a;
+		// 	}
+		// }
+		
 
 		// Determine wall side
 		int prev_block_x = (int)(prev_x / BLOCK);
@@ -293,27 +308,6 @@ void	draw_vision(t_game *game)
 				color = 0xDEB887; // South wall - BurlyWood
 			else
 				color = 0x8A2BE2; // North wall - BlueViolet
-		}
-		else
-		{
-			int xx = (ray_x + cos_a) / BLOCK;
-			int yy = (ray_y + sin_a) / BLOCK;
-			if (xx != prev_block_x && yy == prev_block_y)
-			{
-				// Vertical wall hit (East or West)
-				if (ray_x > prev_x)
-					color = 0xA52A2A; // East wall - Brown
-				else
-					color = 0x008080; // West wall - Teal
-			}
-			else if (yy != prev_block_y && xx == prev_block_x)
-			{
-				// Horizontal wall hit (North or South)
-				if (ray_y > prev_y)
-					color = 0xDEB887; // South wall - BurlyWood
-				else
-					color = 0x8A2BE2; // North wall - BlueViolet
-			}
 		}
 
 		// Correct distance to avoid fish-eye distortion
