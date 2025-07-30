@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/30 17:25:36 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/07/30 18:53:54 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	get_player_cord(t_game *game)
 void	get_map(t_game *game)
 {
 	char **map = malloc(sizeof(char*) * 20);
-	map[0]  = "1111111111111111111";
+	map[0]  = "111111111111111111";
 	map[1]  = "1000000000000000001";
 	map[2]  = "1000000000000010001";
 	map[3]  = "1000001000000000001";
@@ -263,29 +263,13 @@ void	draw_vision(t_game *game)
 
 		float	prev_x, prev_y;
 	
-		while (!touch(ray_x + cos_a, ray_y, game) || !touch(ray_x, ray_y + sin_a, game))
-		{
-			if (!touch(ray_x + cos_a, ray_y, game))
-			{
-				prev_x = ray_x;
-				ray_x += cos_a;
-			}
-			else
-			{
-				prev_y = ray_y;
-				ray_y += sin_a;
-			}
-		}
 		while (!touch(ray_x, ray_y, game))
 		{
 			prev_y = ray_y;
-			ray_y += sin_a;
 			prev_x = ray_x;
+			ray_y += sin_a;
 			ray_x += cos_a;
 		}
-		
-
-		// Determine wall side
 		int prev_block_x = (int)(prev_x / BLOCK);
 		int prev_block_y = (int)(prev_y / BLOCK);
 		int curr_block_x = (int)(ray_x / BLOCK);
