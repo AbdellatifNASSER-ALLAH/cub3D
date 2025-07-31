@@ -1,3 +1,8 @@
+## How to clone (there is submodle)
+You can add this ```--recurse-submodules``` to git clone or you can just copy this:
+```
+git clone --recurse-submodules https://github.com/AbdellatifNASSER-ALLAH/cub3D.git
+```
 # Understanding Ray Casting
 
 # Implementation Details
