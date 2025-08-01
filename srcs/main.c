@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/01 09:52:34 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/01 10:36:52 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,21 @@ void	draw_circle(int cx, int cy, int radius, int color, t_game *game)
 		y++;
 	}
 }
+void	draw_aim(int cx, int cy, int radius, int color, t_game *game)
+{
+	// Draw a central dot
+	put_pixel(cx, cy, color, game);
+
+	// Draw small cross lines
+	for (int i = 1; i <= radius; i++)
+	{
+		put_pixel(cx + i, cy, color, game); // right
+		put_pixel(cx - i, cy, color, game); // left
+		put_pixel(cx, cy + i, color, game); // down
+		put_pixel(cx, cy - i, color, game); // up
+	}
+}
+
 
 
 void	draw_full_squar(int x, int y, int size, int color, t_game *game)
@@ -370,6 +385,7 @@ int	draw_loop(t_game *game)
 	move_player(game);
 	clear_img(game);
 	draw_vision(game);
+	draw_aim(WIDTH / 2, HEIGHT / 2, 7, 0x7FFF00, game);
 	draw_minimap(game);
 	draw_map(game);
 	
@@ -387,8 +403,7 @@ int main(int ac, char **av)
 	(void)av;
 	mlx_hook(game.win, 2, 1L<<0, key_press, &game);
 	mlx_hook(game.win, 3, 1L<<1, key_release, &game);
-	// mlx_mouse_hook(game.win, draw_aim,)
-	// mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
+	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
 	// mlx_mouse_hide(game.mlx, game.win);
 
