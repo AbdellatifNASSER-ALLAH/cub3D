@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/01 09:44:29 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/01 09:49:16 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,44 +276,23 @@ void	draw_vision(t_game *game)
 		int curr_block_x = (int)(ray_x / BLOCK);
 		int curr_block_y = (int)(ray_y / BLOCK);
 
-		int color;
+		float dx = ray_x - prev_x;
+		float dy = ray_y - prev_y;
 
-		if (curr_block_x != prev_block_x && curr_block_y == prev_block_y)
+		int color;
+		if (fabs(dx) > fabs(dy))
 		{
-			// Vertical wall hit (East or West)
-			if (ray_x > prev_x)
+			if (dx > 0)
 				color = 0xA52A2A; // East wall - Brown
 			else
 				color = 0x008080; // West wall - Teal
 		}
-		else if (curr_block_y != prev_block_y && curr_block_x == prev_block_x)
+		else
 		{
-			// Horizontal wall hit (North or South)
-			if (ray_y > prev_y)
+			if (dy > 0)
 				color = 0xDEB887; // South wall - BurlyWood
 			else
 				color = 0x8A2BE2; // North wall - BlueViolet
-		}
-		else
-		{
-			int xx = (ray_x + cos_a) / BLOCK;
-			int yy = (ray_y + sin_a) / BLOCK;
-			if (xx != prev_block_x && yy == prev_block_y)
-			{
-				// Vertical wall hit (East or West)
-				if (ray_x > prev_x)
-					color = 0xA52A2A; // East wall - Brown
-				else
-					color = 0x008080; // West wall - Teal
-			}
-			else if (yy != prev_block_y && xx == prev_block_x)
-			{
-				// Horizontal wall hit (North or South)
-				if (ray_y > prev_y)
-					color = 0xDEB887; // South wall - BurlyWood
-				else
-					color = 0x8A2BE2; // North wall - BlueViolet
-			}
 		}
 		// Correct distance to avoid fish-eye distortion
 		float dist = fixed_distance(player->x, ray_x, player->y, ray_y, ray_angle, player->angle);
