@@ -6,11 +6,11 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/07/30 18:53:54 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/01 09:44:29 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../includes/cub3d.h"
 
 void	put_pixel(int x, int y, int color, t_game *game)
 {
@@ -143,13 +143,13 @@ void	get_map(t_game *game)
 {
 	char **map = malloc(sizeof(char*) * 20);
 	map[0]  = "111111111111111111";
-	map[1]  = "1000000000000000001";
+	map[1]  = "1N00000000000000001";
 	map[2]  = "1000000000000010001";
 	map[3]  = "1000001000000000001";
 	map[4]  = "1000010000000000001";
 	map[5]  = "1000000000011000001";
 	map[6]  = "1000000000100100001";
-	map[7]  = "10000000001E0000001";
+	map[7]  = "1000000000100000001";
 	map[8]  = "1000001000100100001";
 	map[9]  = "1000000000011000001";
 	map[10] = "1000100000000000001";
@@ -243,7 +243,6 @@ float	fixed_distance(float x1, float x2, float y1, float y2, float ray_angle, fl
 }
 
 
-
 void	draw_vision(t_game *game)
 {
 	t_player	*player = &game->player;
@@ -263,13 +262,15 @@ void	draw_vision(t_game *game)
 
 		float	prev_x, prev_y;
 	
-		while (!touch(ray_x, ray_y, game))
+		while (!touch(ray_x + cos_a, ray_y, game) && !touch(ray_x, ray_y + sin_a, game))
 		{
 			prev_y = ray_y;
 			prev_x = ray_x;
-			ray_y += sin_a;
 			ray_x += cos_a;
+			ray_y += sin_a;
 		}
+
+		// Determine wall side
 		int prev_block_x = (int)(prev_x / BLOCK);
 		int prev_block_y = (int)(prev_y / BLOCK);
 		int curr_block_x = (int)(ray_x / BLOCK);
@@ -293,7 +294,27 @@ void	draw_vision(t_game *game)
 			else
 				color = 0x8A2BE2; // North wall - BlueViolet
 		}
-
+		else
+		{
+			int xx = (ray_x + cos_a) / BLOCK;
+			int yy = (ray_y + sin_a) / BLOCK;
+			if (xx != prev_block_x && yy == prev_block_y)
+			{
+				// Vertical wall hit (East or West)
+				if (ray_x > prev_x)
+					color = 0xA52A2A; // East wall - Brown
+				else
+					color = 0x008080; // West wall - Teal
+			}
+			else if (yy != prev_block_y && xx == prev_block_x)
+			{
+				// Horizontal wall hit (North or South)
+				if (ray_y > prev_y)
+					color = 0xDEB887; // South wall - BurlyWood
+				else
+					color = 0x8A2BE2; // North wall - BlueViolet
+			}
+		}
 		// Correct distance to avoid fish-eye distortion
 		float dist = fixed_distance(player->x, ray_x, player->y, ray_y, ray_angle, player->angle);
 		float wall_height = (BLOCK / dist) * (WIDTH / 2);
