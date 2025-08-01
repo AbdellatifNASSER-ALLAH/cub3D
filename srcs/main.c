@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/01 10:36:52 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/01 16:09:33 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -403,7 +403,7 @@ int main(int ac, char **av)
 	(void)av;
 	mlx_hook(game.win, 2, 1L<<0, key_press, &game);
 	mlx_hook(game.win, 3, 1L<<1, key_release, &game);
-	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
+	// mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
 	// mlx_mouse_hide(game.mlx, game.win);
 
