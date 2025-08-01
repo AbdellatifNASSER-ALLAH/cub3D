@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/01 09:49:16 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/01 09:52:34 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,39 +261,45 @@ void	draw_vision(t_game *game)
 		float	sin_a = sin(ray_angle);
 
 		float	prev_x, prev_y;
-	
-		while (!touch(ray_x + cos_a, ray_y, game) && !touch(ray_x, ray_y + sin_a, game))
+		
+		int side = -1;
+		while (1)
 		{
-			prev_y = ray_y;
+			if (touch(ray_x + cos_a, ray_y, game)) // hit vertical wall
+			{
+				ray_x += cos_a;
+				side = 0;
+				break;
+			}
+			else if (touch(ray_x, ray_y + sin_a, game)) // hit horizontal wall
+			{
+				ray_y += sin_a;
+				side = 1;
+				break;
+			}
 			prev_x = ray_x;
+			prev_y = ray_y;
 			ray_x += cos_a;
 			ray_y += sin_a;
 		}
 
 		// Determine wall side
-		int prev_block_x = (int)(prev_x / BLOCK);
-		int prev_block_y = (int)(prev_y / BLOCK);
-		int curr_block_x = (int)(ray_x / BLOCK);
-		int curr_block_y = (int)(ray_y / BLOCK);
-
-		float dx = ray_x - prev_x;
-		float dy = ray_y - prev_y;
-
 		int color;
-		if (fabs(dx) > fabs(dy))
+		if (side == 0)
 		{
-			if (dx > 0)
-				color = 0xA52A2A; // East wall - Brown
+			if (cos_a > 0)
+				color = 0xA52A2A; // East
 			else
-				color = 0x008080; // West wall - Teal
+				color = 0x008080; // West
 		}
 		else
 		{
-			if (dy > 0)
-				color = 0xDEB887; // South wall - BurlyWood
+			if (sin_a > 0)
+				color = 0xDEB887; // South
 			else
-				color = 0x8A2BE2; // North wall - BlueViolet
+				color = 0x8A2BE2; // North
 		}
+
 		// Correct distance to avoid fish-eye distortion
 		float dist = fixed_distance(player->x, ray_x, player->y, ray_y, ray_angle, player->angle);
 		float wall_height = (BLOCK / dist) * (WIDTH / 2);
