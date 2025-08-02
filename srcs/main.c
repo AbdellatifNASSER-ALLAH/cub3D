@@ -6,11 +6,14 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/01 16:09:33 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/02 20:02:09 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+
+
 
 void	put_pixel(int x, int y, int color, t_game *game)
 {
