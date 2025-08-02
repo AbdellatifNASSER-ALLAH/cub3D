@@ -1,0 +1,732 @@
+[
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_atoi.o",
+   "./srcs/ft_atoi.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_atoi.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_bzero.o",
+   "./srcs/ft_bzero.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_bzero.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_calloc.o",
+   "./srcs/ft_calloc.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_calloc.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_isalnum.o",
+   "./srcs/ft_isalnum.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_isalnum.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_isalpha.o",
+   "./srcs/ft_isalpha.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_isalpha.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_isascii.o",
+   "./srcs/ft_isascii.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_isascii.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_isdigit.o",
+   "./srcs/ft_isdigit.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_isdigit.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_isprint.o",
+   "./srcs/ft_isprint.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_isprint.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_itoa.o",
+   "./srcs/ft_itoa.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_itoa.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_memchr.o",
+   "./srcs/ft_memchr.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_memchr.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_memcmp.o",
+   "./srcs/ft_memcmp.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_memcmp.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_memcpy.o",
+   "./srcs/ft_memcpy.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_memcpy.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_memmove.o",
+   "./srcs/ft_memmove.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_memmove.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_memset.o",
+   "./srcs/ft_memset.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_memset.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_putchar_fd.o",
+   "./srcs/ft_putchar_fd.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_putchar_fd.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_putendl_fd.o",
+   "./srcs/ft_putendl_fd.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_putendl_fd.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_putnbr_fd.o",
+   "./srcs/ft_putnbr_fd.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_putnbr_fd.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_putstr_fd.o",
+   "./srcs/ft_putstr_fd.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_putstr_fd.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_split.o",
+   "./srcs/ft_split.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_split.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_strchr.o",
+   "./srcs/ft_strchr.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_strchr.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_strdup.o",
+   "./srcs/ft_strdup.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_strdup.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_striteri.o",
+   "./srcs/ft_striteri.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_striteri.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_strjoin.o",
+   "./srcs/ft_strjoin.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_strjoin.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_strlcat.o",
+   "./srcs/ft_strlcat.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_strlcat.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_strlcpy.o",
+   "./srcs/ft_strlcpy.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_strlcpy.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_strlen.o",
+   "./srcs/ft_strlen.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_strlen.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_strmapi.o",
+   "./srcs/ft_strmapi.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_strmapi.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_strncmp.o",
+   "./srcs/ft_strncmp.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_strncmp.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_strnstr.o",
+   "./srcs/ft_strnstr.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_strnstr.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_strrchr.o",
+   "./srcs/ft_strrchr.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_strrchr.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_strtrim.o",
+   "./srcs/ft_strtrim.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_strtrim.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_substr.o",
+   "./srcs/ft_substr.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_substr.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_tolower.o",
+   "./srcs/ft_tolower.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_tolower.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_toupper.o",
+   "./srcs/ft_toupper.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_toupper.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_printf.o",
+   "./srcs/ft_printf/ft_printf.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_printf/ft_printf.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_putchar.o",
+   "./srcs/ft_printf/ft_putchar.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_printf/ft_putchar.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_puthex.o",
+   "./srcs/ft_printf/ft_puthex.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_printf/ft_puthex.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_putnbr.o",
+   "./srcs/ft_printf/ft_putnbr.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_printf/ft_putnbr.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_putptr.o",
+   "./srcs/ft_printf/ft_putptr.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_printf/ft_putptr.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_putstr.o",
+   "./srcs/ft_printf/ft_putstr.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_printf/ft_putstr.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_putunbr.o",
+   "./srcs/ft_printf/ft_putunbr.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_printf/ft_putunbr.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/ft_utils.o",
+   "./srcs/ft_printf/ft_utils.c",
+   "-c"
+  ],
+  "file": "./srcs/ft_printf/ft_utils.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/get_next_line.o",
+   "./srcs/GetNextLine/get_next_line.c",
+   "-c"
+  ],
+  "file": "./srcs/GetNextLine/get_next_line.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D/libft",
+  "arguments": [
+   "cc",
+   "-Wall",
+   "-Wextra",
+   "-Werror",
+   "-I./includes",
+   "-o",
+   "objdir/get_next_line_utils.o",
+   "./srcs/GetNextLine/get_next_line_utils.c",
+   "-c"
+  ],
+  "file": "./srcs/GetNextLine/get_next_line_utils.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D",
+  "arguments": [
+   "cc",
+   "-I./libft/includes",
+   "-I./includes",
+   "-I/usr/local/include",
+   "-c",
+   "./srcs/main.c",
+   "-o",
+   "build/main.o"
+  ],
+  "file": "./srcs/main.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D",
+  "arguments": [
+   "cc",
+   "-I./libft/includes",
+   "-I./includes",
+   "-I/usr/local/include",
+   "-c",
+   "./srcs/player.c",
+   "-o",
+   "build/player.o"
+  ],
+  "file": "./srcs/player.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D",
+  "arguments": [
+   "cc",
+   "-I./libft/includes",
+   "-I./includes",
+   "-I/usr/local/include",
+   "-c",
+   "./utils/handle_exit.c",
+   "-o",
+   "build/handle_exit.o"
+  ],
+  "file": "./utils/handle_exit.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D",
+  "arguments": [
+   "cc",
+   "-I./libft/includes",
+   "-I./includes",
+   "-I/usr/local/include",
+   "-c",
+   "./srcs/parse/valid_file.c",
+   "-o",
+   "build/valid_file.o"
+  ],
+  "file": "./srcs/parse/valid_file.c"
+ },
+ {
+  "directory": "/home/abdnasse/Files/cub3D",
+  "arguments": [
+   "cc",
+   "-I./libft/includes",
+   "-I./includes",
+   "-I/usr/local/include",
+   "-c",
+   "test.c",
+   "-o",
+   "build/test.o"
+  ],
+  "file": "test.c"
+ }
+]

@@ -1,5 +1,7 @@
 
 vpath %.c ./srcs
+vpath %.c ./utils
+vpath %.c ./srcs/parse
 
 
 CC=cc
@@ -14,7 +16,11 @@ LIBFT=./libft/libft.a
 
 HEADER=./includes/cub3d.h
 
-SRC = main.c player.c
+PARSE= valid_file.c
+UTILS= handle_exit.c
+
+#SRC = main.c player.c $(UTILS)  $(PARSE)
+SRC = test.c $(UTILS)  $(PARSE)
 OBJ = $(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
 NAME = game

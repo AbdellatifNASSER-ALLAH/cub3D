@@ -1,8 +1,9 @@
-/build/
-/.vscode/
-/compile_commands.json
-/game
+./build/
+./.cache/
+./.vscode/
+./compile_commands.json
+./game
 *.o
 **/*.o
-/a.out
+./a.out
 **/a.out

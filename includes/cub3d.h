@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/01 16:53:30 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/02 14:59:47 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <ulimit.h>
+# include <fcntl.h>
 # include "libft.h"
+
+// === Colors ===
+#define RED     "\033[31m"
+#define RESET   "\033[0m"
 
 # define WIDTH 1280
 # define HEIGHT 920
@@ -104,4 +109,10 @@ int		mouse_move(int x, int y, t_game *game);
 void 	update(t_game *game);
 
 bool	touch(int px, int py, t_game *game);
+
+// ====== Parse ==========
+void	valid_file(char *path);
+
+// ====== Utils ==========
+void	exit_err(const char *msg, int st);
 #endif
