@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/02 14:59:47 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/02 21:51:55 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,15 @@
 
 # define PLAYER_SIZE 0
 
-#define NORTH 0
-#define SOUTH 1
-#define EAST  2
-#define WEST  3
+# define NORTH 0
+# define SOUTH 1
+# define EAST  2
+# define WEST  3
 
-#define MINI_WIDTH 200
-#define MINI_HEIGHT 200
-#define MINI_BLOCK 10
+# define MINI_WIDTH 200
+# define MINI_HEIGHT 200
+# define MINI_BLOCK 10
+# define RADIUS MINI_WIDTH / 2
 
 
 typedef struct s_hit

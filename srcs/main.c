@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/02 20:02:09 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/02 21:55:35 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,6 @@ void	put_pixel(int x, int y, int color, t_game *game)
 	game->data[index + 2] = (color >> 16) & 0xFF;
 }
 
-void	draw_circle(int cx, int cy, int radius, int color, t_game *game)
-{
-	int	x;
-	int	y;
-	int	distance_squared;
-	int	radius_squared = radius * radius;
-
-	y = -radius;
-	while (y <= radius)
-	{
-		x = -radius;
-		while (x <= radius)
-		{
-			distance_squared = x * x + y * y;
-			if (distance_squared >= radius_squared - radius && distance_squared <= radius_squared + radius)
-				put_pixel(cx + x, cy + y, color, game);
-			x++;
-		}
-		y++;
-	}
-}
 void	draw_aim(int cx, int cy, int radius, int color, t_game *game)
 {
 	// Draw a central dot
@@ -60,46 +39,6 @@ void	draw_aim(int cx, int cy, int radius, int color, t_game *game)
 		put_pixel(cx - i, cy, color, game); // left
 		put_pixel(cx, cy + i, color, game); // down
 		put_pixel(cx, cy - i, color, game); // up
-	}
-}
-
-
-
-void	draw_full_squar(int x, int y, int size, int color, t_game *game)
-{
-	int i, j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			put_pixel(x + j, y + i, color, game);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	draw_map(t_game *game)
-{
-	int		y;
-	int		x;
-	int		color;
-
-	color = 0x0000FF;
-	y = 0;
-	while (game->map[y])
-	{
-		x = 0;
-		while (game->map[y][x])
-		{
-			if (game->map[y][x] == '1')
-				draw_full_squar(x * MINI_BLOCK, y * MINI_BLOCK, MINI_BLOCK, color, game);
-			x++;
-		}
-		y++;
 	}
 }
 
@@ -341,39 +280,96 @@ void	draw_vision(t_game *game)
 	}
 }
 
+void draw_full_squar(int x, int y, int size, int color, t_game *game)
+{
+	int i = 0;
+	int center_x = MINI_WIDTH / 2;
+	int center_y = MINI_HEIGHT / 2;
+
+	while (i < size)
+	{
+		int j = 0;
+		while (j < size)
+		{
+			int px = x + j;
+			int py = y + i;
+
+			int dist_x = px - center_x;
+			int dist_y = py - center_y;
+
+			// Draw pixel only if inside the circle
+			if (dist_x * dist_x + dist_y * dist_y <= RADIUS * RADIUS)
+				put_pixel(px, py, color, game);
+			j++;
+		}
+		i++;
+	}
+}
+
+void draw_map(t_game *game)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (game->map[y])
+	{
+		x = 0;
+		while (game->map[y][x])
+		{
+			// Calculate block position on minimap
+			int block_x = x * MINI_BLOCK + MINI_BLOCK / 2;
+			int block_y = y * MINI_BLOCK + MINI_BLOCK / 2;
+
+			// Calculate distance from center of minimap circle
+			int dist_x = block_x - MINI_WIDTH / 2;
+			int dist_y = block_y - MINI_WIDTH / 2;
+
+			// Check if block is inside the circle (distance squared <= RADIUS squared)
+			if (dist_x * dist_x + dist_y * dist_y <= RADIUS * RADIUS)
+			{
+				if (game->map[y][x] == '1')
+					draw_full_squar(x * MINI_BLOCK, y * MINI_BLOCK, MINI_BLOCK, 0x0000FF, game);
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw_minimap(t_game *game)
 {
 	t_player	*player = &game->player;
-
-	int mini_y = 0;
-	while (mini_y < MINI_HEIGHT)
-	{
-		int mini_x = 0;
-		while (mini_x < MINI_WIDTH)
-		{
-			put_pixel(mini_x, mini_y, 0x000000, game);
-			mini_x++;
-		}
-		mini_y++;
-	}
-	float	fov = PI / 3;
-	float	angle_step = fov / MINI_WIDTH;
+	int		x;
+	int		y;
 	float	ray_angle;
-	int		x = 0;
+	float	ray_x;
+	float	ray_y;
 
+	x = 0;
+	while (x < MINI_HEIGHT)
+	{
+		y = 0;
+		while (y < MINI_WIDTH)
+		{
+			if (sqrt(pow(x - MINI_WIDTH / 2, 2) + pow(y - MINI_HEIGHT / 2, 2)) <= MINI_WIDTH / 2)
+				put_pixel(y, x, 0x000000, game);
+			y++;
+		}
+		x++;
+	}
+	x = 0;
 	while (x < MINI_WIDTH)
 	{
-		ray_angle = player->angle - (fov / 2) + (x * angle_step);
-
-		float	ray_x = player->x / BLOCK * MINI_BLOCK;
-		float	ray_y = player->y / BLOCK * MINI_BLOCK;
-		float	cos_a = cos(ray_angle) / 2;
-		float	sin_a = sin(ray_angle) / 2;
-		while (!touch2(ray_x + cos_a, ray_y, game) && !touch2(ray_x, ray_y + sin_a, game))
+		ray_angle = player->angle - (PI / 6) + (x * PI / 3 / MINI_WIDTH);
+		ray_x = player->x / BLOCK * MINI_BLOCK;
+		ray_y = player->y / BLOCK * MINI_BLOCK;
+		while (!touch2(ray_x + cos(ray_angle), ray_y, game) \
+		&& !touch2(ray_x, ray_y + sin(ray_angle), game))
 		{
-			put_pixel(ray_x + cos_a, ray_y + sin_a, 0xFFFF00, game);
-			ray_x += cos_a;
-			ray_y += sin_a;
+			put_pixel(ray_x + cos(ray_angle), ray_y + sin(ray_angle), 0xFF0000, game);
+			ray_x += cos(ray_angle);
+			ray_y += sin(ray_angle);
 		}
 		x++;
 	}

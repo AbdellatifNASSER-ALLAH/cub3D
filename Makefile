@@ -6,7 +6,7 @@ vpath %.c ./srcs/parse
 
 CC=cc
 CFLAGS= 
-#CFLAGS= -Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror
 INCLUDE = -I./libft/includes -I./includes -I/usr/local/include
 LIBS = -L./libft -lft -L/usr/local/lib -lmlx -lXext -lX11 -lm
 
