@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 11:19:21 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/03 11:45:09 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/03 15:40:05 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	parse(t_config *cfg, char *path)
 	(void)cfg;
 	valid_file(path, ".cub");
 	lines = read_file(path);
+	return ;
 }
 
 char	**read_file(char *path)
