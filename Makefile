@@ -5,7 +5,6 @@ vpath %.c ./srcs/parse
 
 
 CC=cc
-CFLAGS= 
 CFLAGS= -Wall -Wextra -Werror
 INCLUDE = -I./libft/includes -I./includes -I/usr/local/include
 LIBS = -L./libft -lft -L/usr/local/lib -lmlx -lXext -lX11 -lm
@@ -16,7 +15,7 @@ LIBFT=./libft/libft.a
 
 HEADER=./includes/cub3d.h
 
-PARSE= valid_file.c
+PARSE= valid_file.c parse.c
 UTILS= handle_exit.c
 
 SRC = main.c player.c $(UTILS)  $(PARSE)
