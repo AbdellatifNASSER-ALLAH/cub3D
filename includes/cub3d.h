@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/02 21:51:55 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/03 08:58:38 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@
 # define RADIUS MINI_WIDTH / 2
 
 
-typedef struct s_hit
+typedef struct s_displacement
 {
-	float	x;
-	float	y;
-}	t_hit;
+	float	disp_x;
+	float	disp_y;
+}	t_disp;
 
 
 typedef struct s_player
@@ -99,6 +99,7 @@ typedef struct	s_game
 	int			map_width;
 	int			map_height;
 	t_player	player;
+	t_disp		disp;
 }	t_game;
 
 
