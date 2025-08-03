@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/01 16:53:26 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/03 10:27:15 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	init_player(t_game *game)
 	player->key_up = false;
 	player->left_rotate = false;
 	player-> right_rotate = false;
+	player->up_rotate = false;
+	player->down_rotate = false;
 	player->speed = 5;
 	player->z_eye = 0.5;
 }
