@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/03 10:30:55 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/03 10:36:51 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void 	update(t_game *game);
 bool	touch(int px, int py, t_game *game);
 
 // ====== Parse ==========
-void	valid_file(char *path);
+void	valid_file(char *path, char *extension);
 
 // ====== Utils ==========
 void	exit_err(const char *msg, int st);

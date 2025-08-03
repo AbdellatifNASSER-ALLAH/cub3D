@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:00:20 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/02 15:06:38 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/03 10:36:18 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 // 	The existence of the file
 // 	Shouldn't be empty file 
 
-void	valid_file(char *path)
+void	valid_file(char *path, char *extension)
 {
 	char	*tmp;
 	int	fd;
 
 	tmp = ft_strchr(path, '.');
-	if (!tmp || ft_strncmp(tmp, ".cub", 4) != 0)
+	if (!tmp || ft_strncmp(tmp, extension, 4) != 0)
 		exit_err("Invalid extension", 1);
 	fd = open(path, O_DIRECTORY);
 	if (fd >= 0)
