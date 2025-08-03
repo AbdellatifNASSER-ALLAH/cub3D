@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/03 11:41:29 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/03 14:54:44 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,10 @@
 # define MINI_BLOCK 10
 # define RADIUS ((MINI_WIDTH / 2) - 5)
 
-
-typedef struct s_displacement
+typedef	struct	s_config
 {
-	float	disp_x;
-	float	disp_y;
-}	t_disp;
 
+}	t_config;
 
 typedef struct s_player
 {
@@ -99,7 +96,7 @@ typedef struct	s_game
 	int			map_width;
 	int			map_height;
 	t_player	player;
-	t_disp		disp;
+	t_config	config;
 }	t_game;
 
 
@@ -113,10 +110,7 @@ void 	update(t_game *game);
 bool	touch(int px, int py, t_game *game);
 
 // ====== Parse ==========
-typedef	struct	s_config
-{
 
-}	t_config;
 void	valid_file(char *path, char *extension);
 void	parse(t_config *cfg, char *path);
 char	**read_file(char *path);
