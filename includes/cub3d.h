@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/03 14:54:44 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/03 16:41:53 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int		key_press(int key, t_game *game);
 int 	key_release(int key, t_game *game);
 int 	move_player(t_game *game);
 int		mouse_move(int x, int y, t_game *game);
+void	mouse_move_handler(int x, int y, t_game *game);
 void 	update(t_game *game);
 
 bool	touch(int px, int py, t_game *game);

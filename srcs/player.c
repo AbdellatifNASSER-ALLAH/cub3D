@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/03 15:09:07 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/04 16:46:59 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,23 @@ int key_press(int key, t_game *game)
 int	mouse_move(int x, int y, t_game *game)
 {
 	t_player *player = &game->player;
-
 	(void)y;
-	if (x >=0 && x<= (WIDTH / 10) * 4)
-		player->left_rotate = true;
-	else if (x >= WIDTH - ((WIDTH / 10) * 4) && x <= WIDTH)
-		player->right_rotate = true;
-	else
-	{
-		player->left_rotate = false;
-		player->right_rotate = false;
-	}
-	player->prev_mouse_x = x;
+
+	int center_x = WIDTH / 2;
+	int delta_x = x - center_x;
+
+	float sensitivity = 0.0015;
+	player->angle += delta_x * sensitivity;
+
+	if (player->angle < 0)
+		player->angle += 2 * M_PI;
+	else if (player->angle >= 2 * M_PI)
+		player->angle -= 2 * M_PI;
+	mlx_mouse_move(game->mlx, game->win, center_x, HEIGHT / 2);
 	return (0);
 }
+
+
 
 int key_release(int key, t_game *game)
 {
