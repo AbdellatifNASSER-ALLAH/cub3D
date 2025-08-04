@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/04 16:48:46 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/04 21:17:06 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,10 @@ void	get_player_cord(t_game *game)
 void	get_map(t_game *game)
 {
 	char **map = malloc(sizeof(char*) * 20);
-	map[0]  = "111111111111111111";
+	map[0]  = "1111111111111111111";
 	map[1]  = "1N00000000000000001";
 	map[2]  = "1000000000000010001";
-	map[3]  = "1000001000000000001";
+	map[3]  = "1000001D10000000001";
 	map[4]  = "1000010000000000001";
 	map[5]  = "1000000000011000001";
 	map[6]  = "1000000000100100001";
@@ -173,17 +173,20 @@ bool	 touch(int px, int py, t_game *game)
 
 	if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
 		return (true);
-	return (game->map[block_y][block_x] == '1');
+	if (game->map[block_y][block_x] == '1' || game->map[block_y][block_x] == 'D')
+		return (true);
+	return (false);
 }
 bool	touch2(int px, int py, t_game *game)
 {
 	int block_x = (px + (game->player.x / BLOCK * MINI_BLOCK) - MINI_WIDTH / 2) / MINI_BLOCK;
 	int block_y = (py + (game->player.y / BLOCK * MINI_BLOCK) - MINI_HEIGHT / 2) / MINI_BLOCK;
 
-	
 	if (block_x < 0 || block_x >= game->map_width || block_y < 0 || block_y >= game->map_height)
 		return (true);
-	return (game->map[block_y][block_x] == '1');
+	if (game->map[block_y][block_x] == '1' || game->map[block_y][block_x] == 'D')
+		return (true);
+	return (false);
 }
 
 float	distance(float x, float y)
@@ -243,7 +246,9 @@ void	draw_vision(t_game *game)
 
 		// Determine wall side
 		int color;
-		if (side == 0)
+		if (game->map[(int)ray_y / BLOCK][(int)ray_x / BLOCK] == 'D')
+			color = 0xFFFFFF;
+		else if (side == 0)
 		{
 			if (cos_a > 0)
 				color = 0xA52A2A; // East
