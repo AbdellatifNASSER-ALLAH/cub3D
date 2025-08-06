@@ -18,7 +18,7 @@ HEADER=./includes/cub3d.h
 PARSE= valid_file.c parse.c
 UTILS= handle_exit.c
 
-SRC = main.c player.c $(UTILS) 
+SRC = main.c player.c $(UTILS) $(PARSE)
 OBJ = $(addprefix $(BUILD_DIR), $(SRC:.c=.o))
 
 NAME = game
