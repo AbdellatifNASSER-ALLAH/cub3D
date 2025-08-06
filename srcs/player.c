@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/04 16:46:59 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/06 15:12:03 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,18 @@ int key_press(int key, t_game *game)
 int	mouse_move(int x, int y, t_game *game)
 {
 	t_player *player = &game->player;
-	(void)y;
+	float r;
 
 	int center_x = WIDTH / 2;
+	int center_y = HEIGHT / 2;
 	int delta_x = x - center_x;
+	int delta_y = y - center_y;
 
 	float sensitivity = 0.0015;
 	player->angle += delta_x * sensitivity;
-
-	if (player->angle < 0)
-		player->angle += 2 * M_PI;
-	else if (player->angle >= 2 * M_PI)
-		player->angle -= 2 * M_PI;
+	r = player->z_eye - delta_y * sensitivity;
+	if (r >= 0 && r <= 1)
+		player->z_eye -= delta_y * sensitivity;
 	mlx_mouse_move(game->mlx, game->win, center_x, HEIGHT / 2);
 	return (0);
 }
@@ -124,9 +124,9 @@ int	move_player(t_game *game)
 	if (player->right_rotate)
 		player->angle += angle_speed;
 	// ROTATION up down
-	if (player->up_rotate && player->z_eye < 1)
+	if (player->up_rotate && player->z_eye < 0.7)
 		player->z_eye += z_eye_speed;
-	if (player->down_rotate && player->z_eye > 0)
+	if (player->down_rotate && player->z_eye > 0.3)
 		player->z_eye -= z_eye_speed;
 
 	// Normalize angle (keep between 0 and 2*PI)
