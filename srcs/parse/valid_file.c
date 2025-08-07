@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:00:20 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/07 02:44:09 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/07 06:39:15 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,27 @@
 // 	The existence of the file
 // 	Shouldn't be empty file 
 
-void	valid_file(char *path, char *extension)
+void	valid_file(char *path, char *extension, t_config *cfg)
 {
 	char	*tmp;
 	int	fd;
 
 	tmp = ft_strchr(path, '.');
 	if (!tmp || ft_strncmp(tmp, extension, 4) != 0)
-		exit_err("Invalid extension", 1);
+		exit_err("Invalid extension", 1, cfg);
 	fd = open(path, O_DIRECTORY);
 	if (fd >= 0)
 	{
 		if (-1 == close(fd))
-			exit_err("close: failed ", 1);
-		exit_err("No such file", 1);
+			exit_err("close: failed ", 1, cfg);
+		exit_err("No such file", 1, cfg);
 	}
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		exit_err("No such file", 1);
+		exit_err("No such file", 1, cfg);
 	if (read(fd, tmp, 1) <= 0)
-		exit_err("Empty file or read failed", 1);
+		exit_err("Empty file or read failed", 1, cfg);
 	if (-1 == close(fd))
-		exit_err("close: failed ", 1);
+		exit_err("close: failed ", 1, cfg);
 	return ;
 }
