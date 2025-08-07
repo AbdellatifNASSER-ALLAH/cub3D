@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:00:20 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/07 06:39:15 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:22:17 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 void	valid_file(char *path, char *extension, t_config *cfg)
 {
 	char	*tmp;
+	char	bf;
 	int	fd;
 
 	tmp = ft_strchr(path, '.');
@@ -36,7 +37,7 @@ void	valid_file(char *path, char *extension, t_config *cfg)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		exit_err("No such file", 1, cfg);
-	if (read(fd, tmp, 1) <= 0)
+	if (read(fd, &bf, 1) <= 0)
 		exit_err("Empty file or read failed", 1, cfg);
 	if (-1 == close(fd))
 		exit_err("close: failed ", 1, cfg);

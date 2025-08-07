@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/06 15:27:48 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/07 19:12:44 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 
 
 
+void	put_pixel(int x, int y, int color, t_game *game);
+void	draw_aim(int cx, int cy, int radius, int color, t_game *game);
+void	map_height(t_game *game);
+void	map_width(t_game *game);
+void	get_player_cord(t_game *game);
+int	draw_loop(t_game *game);
+void	draw_minimap(t_game *game);
+void 	draw_map(t_game *game);
+void 	draw_full_squar(int x, int y, int size, int color, t_game *game);
+void	draw_vision(t_game *game);
+float	fixed_distance(float x1, float x2, float y1, float y2, float ray_angle, float player_angle);
+float	distance(float x, float y);
+bool	touch2(int px, int py, t_game *game);
+bool	 touch(int px, int py, t_game *game);
+void	clear_img(t_game *game);
+void	init_game(t_game *game);
 
 void	put_pixel(int x, int y, int color, t_game *game)
 {
@@ -393,9 +409,6 @@ void	draw_minimap(t_game *game)
 
 int	draw_loop(t_game *game)
 {
-	t_player	*player;
-
-	player = &game->player;
 	move_player(game);
 	clear_img(game);
 	draw_vision(game);
@@ -411,10 +424,10 @@ int	draw_loop(t_game *game)
 int main(int ac, char **av)
 {
 	t_game	game;
+	
+	if (ac == 2)
+		parse(&game.config, av[1]);
 	init_game(&game);
-
-	(void)ac;
-	(void)av;
 	mlx_hook(game.win, 2, 1L<<0, key_press, &game);
 	mlx_hook(game.win, 3, 1L<<1, key_release, &game);
 	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);

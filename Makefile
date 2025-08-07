@@ -5,7 +5,7 @@ vpath %.c ./srcs/parse
 
 
 CC=cc
-CFLAGS= -Wall -Wextra -Werror
+CFLAGS= -Wall -Wextra -Werror -g
 INCLUDE = -I./libft/includes -I./includes -I/usr/local/include
 LIBS = -L./libft -lft -L/usr/local/lib -lmlx -lXext -lX11 -lm
 
@@ -51,6 +51,9 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+d: $(NAME)
+	gdbtui ./$<
 
 .PHONY: all clean fclean re
 .SECONDARY: $(OBJ) $(BUILD_DIR)

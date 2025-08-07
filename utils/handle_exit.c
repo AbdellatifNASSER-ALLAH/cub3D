@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:31:09 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/07 06:31:39 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:19:57 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_configs(t_config *cfg)
 	cfg->lines = NULL;
 	i = -1;
 	while (++i < 4)
-		if (cfg->tex[i])
+		if (cfg->tex_found[i])
 			free(cfg->tex[i]);
 }
 

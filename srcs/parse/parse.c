@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 11:19:21 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/07 06:39:45 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:45:59 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 // [*] - get all lines
 // [*] - extract textures and colors TODO: need to be TESTED
 // [ ] - parse map
+// [ ] - parse the longest line for the WIDTH;
 
 static	void init_config(t_config *cfg, char *path);
 
