@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/03 16:41:53 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/07 03:20:43 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,15 @@
 
 typedef	struct	s_config
 {
-
+	char	*path;
+	char	**lines;
+	int	nb_lines;
+	char	*tex[4];
+	int	tex_found;
+	int	f_rgb[3];
+	int	c_rgb[3];
+	int	c_found;
+	char	**map;
 }	t_config;
 
 typedef struct s_player
@@ -114,7 +122,8 @@ bool	touch(int px, int py, t_game *game);
 
 void	valid_file(char *path, char *extension);
 void	parse(t_config *cfg, char *path);
-char	**read_file(char *path);
+void	read_file(t_config *cfg);
+void	extract_configs(t_config *cfg);
 
 // ====== Utils ==========
 void	exit_err(const char *msg, int st);
