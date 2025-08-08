@@ -7,4 +7,3 @@
 **/*.o
 /a.out
 **/a.out
-/libft/

@@ -6,11 +6,12 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 03:21:37 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/08 11:40:11 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/09 00:23:24 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
 static	char	*skip_ws(char *s);
 static	void	do_tex(int n, char *line, t_config *cfg);
@@ -27,7 +28,7 @@ void	extract_configs(t_config *cfg)
 		if (*l && ( *l == '0' || *l == '1'))
 			break ;
 		else if (*l && *l == '\n')
-			cfg->map_start++;
+			continue;
 		else if (ft_strncmp(l, "NO ", 3) == 0)
 			do_tex(0, l, cfg);
 		else if (ft_strncmp(l, "SO ", 3) == 0)
@@ -53,10 +54,9 @@ static	void	missing_textures(t_config *cfg)
 	i = -1;
 	while (++i < 4)
 		if (!cfg->tex[i])
-            		exit_err("Missing texture config", 1, cfg);
-
-    if (!cfg->f_found || !cfg->c_found)
-        exit_err("Missing F or C config", 1, cfg);
+			exit_err("Missing texture config", 1, cfg);
+	if (!cfg->f_found || !cfg->c_found)
+		exit_err("Missing F or C config", 1, cfg);
 }
 
 static	int	rgb(char *s, int *rgb)
@@ -68,10 +68,10 @@ static	int	rgb(char *s, int *rgb)
 	{
 		s = skip_ws(s);
 		rgb[i++] = ft_atoi(s);
-		while(!ft_isdigit(*s))
+		while(ft_isdigit(*s))
 			s++;
 		s = skip_ws(s);
-		if (*s && *s != ',')
+		if (i < 2 && *s && *s != ',')
 			return 0;
 		s++;
 	}
