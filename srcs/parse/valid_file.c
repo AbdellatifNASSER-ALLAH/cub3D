@@ -6,27 +6,34 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:00:20 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/07 16:22:17 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/08 11:11:24 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "libft.h"
 
-// Here we are checking for a valide .cub file 
+// Here we are checking for a valide .cub file
 // 	The extension .cub
-// 	Shouldn't be a directory 
+// 	Shouldn't be a directory
 // 	The existence of the file
-// 	Shouldn't be empty file 
+// 	Shouldn't be empty file
+
+static	char	*find_last_dot(char *p);
 
 void	valid_file(char *path, char *extension, t_config *cfg)
 {
 	char	*tmp;
 	char	bf;
-	int	fd;
+	int		fd;
 
-	tmp = ft_strchr(path, '.');
+	tmp = find_last_dot(path);
 	if (!tmp || ft_strncmp(tmp, extension, 4) != 0)
 		exit_err("Invalid extension", 1, cfg);
+	if (*(tmp + 4) && *(tmp + 4) == '\n')
+		*(tmp + 4) = 0;
+	if(*(tmp + 4))
+		exit_err("Invalid path", 1, cfg);
 	fd = open(path, O_DIRECTORY);
 	if (fd >= 0)
 	{
@@ -38,8 +45,22 @@ void	valid_file(char *path, char *extension, t_config *cfg)
 	if (fd < 0)
 		exit_err("No such file", 1, cfg);
 	if (read(fd, &bf, 1) <= 0)
-		exit_err("Empty file or read failed", 1, cfg);
+		exit_err("valid_file: Empty file or read failed", 1, cfg);
 	if (-1 == close(fd))
 		exit_err("close: failed ", 1, cfg);
-	return ;
+}
+
+static	char	*find_last_dot(char *p)
+{
+	char	*tmp;
+
+	tmp = ft_strchr(p, '/');
+	while(tmp)
+	{
+		tmp = ft_strchr(p, '/');
+		if (!tmp)
+			break;
+		p = tmp + 1;
+	}
+	return (ft_strchr(p, '.'));
 }

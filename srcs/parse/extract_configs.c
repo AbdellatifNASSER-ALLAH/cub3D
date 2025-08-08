@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 03:21:37 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/07 06:40:44 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/08 11:40:11 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	extract_configs(t_config *cfg)
 		l = skip_ws(cfg->lines[cfg->map_start++]);
 		if (*l && ( *l == '0' || *l == '1'))
 			break ;
+		else if (*l && *l == '\n')
+			cfg->map_start++;
 		else if (ft_strncmp(l, "NO ", 3) == 0)
 			do_tex(0, l, cfg);
 		else if (ft_strncmp(l, "SO ", 3) == 0)
@@ -86,7 +88,7 @@ static	void	do_tex(int n, char *line, t_config *cfg)
 {
 	if (n < 4)
 	{
-		valid_file(line, ".xpm", cfg);
+		valid_file(line + 3, ".xpm", cfg);
 		if (cfg->tex_found[n]++)
 			exit_err("Dubplicated config", 1, cfg);
 		cfg->tex[n] = ft_strdup(line + 3);
@@ -109,7 +111,7 @@ static	void	do_tex(int n, char *line, t_config *cfg)
 
 static	char	*skip_ws(char *s)
 {
-	while (*s == 32 || (*s >= 9 && *s <= 13))
+	while (*s == 32 || *s == '\t')
 		s++;
 	return (s);
 }
