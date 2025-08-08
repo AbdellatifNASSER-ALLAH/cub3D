@@ -7,3 +7,5 @@
 **/*.o
 /a.out
 **/a.out
+/libft/objdir/
+/libft/libft.a
