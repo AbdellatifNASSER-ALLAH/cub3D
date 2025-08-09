@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/07 19:12:44 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/09 10:15:21 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ void	get_map(t_game *game)
 {
 	char **map = malloc(sizeof(char*) * 20);
 	map[0]  = "1111111111111111111";
-	map[1]  = "1N00000000000000001";
+	map[1]  = "1000000000000000001";
 	map[2]  = "1000000000000010001";
-	map[3]  = "1000001010000000001";
-	map[4]  = "1000010000000000001";
+	map[3]  = "100001N100000000001";
+	map[4]  = "1000001000000000001";
 	map[5]  = "1000000000011000001";
 	map[6]  = "1000000000100100001";
 	map[7]  = "1000000000100000001";
@@ -410,7 +410,6 @@ void	draw_minimap(t_game *game)
 int	draw_loop(t_game *game)
 {
 	move_player(game);
-	clear_img(game);
 	draw_vision(game);
 	draw_aim(WIDTH / 2, HEIGHT / 2, 7, 0x7FFF00, game);
 	draw_minimap(game);
@@ -428,8 +427,8 @@ int main(int ac, char **av)
 	if (ac == 2)
 		parse(&game.config, av[1]);
 	init_game(&game);
-	mlx_hook(game.win, 2, 1L<<0, key_press, &game);
-	mlx_hook(game.win, 3, 1L<<1, key_release, &game);
+	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
+	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
 	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
 	mlx_mouse_hide(game.mlx, game.win);
