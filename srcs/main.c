@@ -6,13 +6,11 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/09 17:59:34 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/09 22:49:57 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-
 
 void    put_pixel(int x, int y, int color, t_game *game);
 void    draw_aim(int cx, int cy, int radius, int color, t_game *game);
@@ -238,7 +236,7 @@ float	fixed_distance(float x1, float x2, float y1, float y2, float ray_angle, fl
 float get_ray_angle(t_player *player, float fov, int x)
 {
     float angle_step = fov / WIDTH;
-    return player->angle - (fov / 2) + (x * angle_step);
+    return (player->angle - (fov / 2) + (x * angle_step));
 }
 
 // Handles DDA algorithm and returns wall hit info
@@ -373,8 +371,8 @@ void draw_vision(t_game *game)
         int mapY = (int)(player->y) / BLOCK;
         int side = -1, wallX = mapX, wallY = mapY;
         dda_cast_ray(game, rayDirX, rayDirY, &mapX, &mapY, &side, &wallX, &wallY);
-        int stepX = (rayDirX < 0) ? -1 : 1;
-        int stepY = (rayDirY < 0) ? -1 : 1;
+        int stepX = (rayDirX < 0) * -1 + (rayDirX >= 0) * 1;
+        int stepY = (rayDirY < 0) * -1 + (rayDirY >= 0) * 1;
         float perpWallDist = get_perp_wall_dist(player, mapX, mapY, stepX, stepY, rayDirX, rayDirY, side);
         float dist = perpWallDist * BLOCK * cos(ray_angle - player->angle);
         if (dist == 0) dist = 0.01f; // Prevent division by zero
