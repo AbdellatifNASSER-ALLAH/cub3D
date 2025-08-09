@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 03:21:37 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/09 00:23:24 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/09 18:40:57 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	extract_configs(t_config *cfg)
 			do_tex(0, l, cfg);
 		else if (ft_strncmp(l, "SO ", 3) == 0)
 			do_tex(1, l, cfg);
-		else if (ft_strncmp(l, "WE ", 3) == 0)
-			do_tex(2, l, cfg);
 		else if (ft_strncmp(l, "EA ", 3) == 0)
+			do_tex(2, l, cfg);
+		else if (ft_strncmp(l, "WE ", 3) == 0)
 			do_tex(3, l, cfg);
 		else if (ft_strncmp(l, "C ", 2) == 0)
 			do_tex(4, l, cfg);
