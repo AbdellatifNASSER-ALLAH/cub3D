@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/07 06:40:19 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:49:17 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ typedef	struct	s_config
 	char	**map;
 }	t_config;
 
+typedef struct s_texture
+{
+    void    *img;
+    int     width;
+    int     height;
+    int     *data;
+}   t_texture;
+
 typedef struct s_player
 {
 	float	x;
@@ -103,8 +111,7 @@ typedef struct	s_game
 	int			size_line;
 	int			endian;
 	char		**map;
-	int			map_width;
-	int			map_height;
+	t_texture textures[4]; // 0=NORTH, 1=SOUTH, 2=EAST, 3=WEST
 	t_player	player;
 	t_config	config;
 }	t_game;
