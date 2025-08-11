@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 11:19:21 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/11 15:46:44 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/11 16:49:16 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 // [*] - validate the file
 // [*] - get all lines
 // [*] - extract textures and colors
-// [ ] - parse map
-// [ ] - parse the longest line for the WIDTH;
+// [ ] - parse and fill the map
 
 static	void init_config(t_config *cfg, char *path);
 
@@ -27,6 +26,7 @@ void	parse(t_config *cfg, char *path)
 	valid_file(path, ".cub", cfg);
 	read_file(cfg);
 	extract_configs(cfg);
+	fill_map(cfg);
 	return ;
 }
 

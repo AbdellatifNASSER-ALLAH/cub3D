@@ -6,7 +6,11 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/08/11 16:49:17 by ahakki           ###   ########.fr       */
+=======
+/*   Updated: 2025/08/11 16:54:19 by abdnasse         ###   ########.fr       */
+>>>>>>> a2e809d (working on file map.c while for looping on all map lines)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +49,13 @@
 
 # define PLAYER_SIZE 0
 
-# define NORTH 0
-# define SOUTH 1
-# define EAST  2
-# define WEST  3
+typedef enum s_tex{
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST,
+	NB_TEX
+}	e_texture;
 
 # define MINI_WIDTH 200
 # define MINI_HEIGHT 200
@@ -60,7 +67,7 @@ typedef	struct	s_config
 	char	*path;
 	char	**lines;
 	int	nb_lines;
-	char	*tex[4];
+	char	*tex[NB_TEX];
 	int	tex_found[4];
 	int	f_rgb[3];
 	int	c_rgb[3];
@@ -86,12 +93,12 @@ typedef struct s_player
 	float	angle;
 
 	int		speed;
-	
+
 	bool	key_up;
 	bool	key_left;
 	bool	key_right;
 	bool	key_down;
-	
+
 	bool	left_rotate;
 	bool	up_rotate;
 	bool	down_rotate;
@@ -133,6 +140,7 @@ void	valid_file(char *path, char *extension, t_config *cfg);
 void	parse(t_config *cfg, char *path);
 void	read_file(t_config *cfg);
 void	extract_configs(t_config *cfg);
+void	fill_map(char **map,int	start, int end, t_config *cfg);
 
 // ====== Utils ==========
 void	exit_err(const char *msg, int st, t_config *cfg);
