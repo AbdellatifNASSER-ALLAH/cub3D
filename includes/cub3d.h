@@ -6,11 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/08/11 16:49:17 by ahakki           ###   ########.fr       */
-=======
-/*   Updated: 2025/08/11 16:54:19 by abdnasse         ###   ########.fr       */
->>>>>>> a2e809d (working on file map.c while for looping on all map lines)
+/*   Updated: 2025/08/11 18:00:04 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
