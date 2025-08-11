@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 11:19:21 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/07 16:45:59 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/11 15:46:44 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // [*] - init the data
 // [*] - validate the file
 // [*] - get all lines
-// [*] - extract textures and colors TODO: need to be TESTED
+// [*] - extract textures and colors
 // [ ] - parse map
 // [ ] - parse the longest line for the WIDTH;
 
