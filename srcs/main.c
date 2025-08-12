@@ -6,16 +6,16 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/11 16:49:41 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/12 11:47:28 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-
-
 void    put_pixel(int x, int y, int color, t_game *game);
 void    draw_aim(int cx, int cy, int radius, int color, t_game *game);
+void    map_height(t_game *game);
+void    map_width(t_game *game);
 void    get_player_cord(t_game *game);
 void    get_map(t_game *game);
 void    init_game(t_game *game);
@@ -34,10 +34,8 @@ void    perform_dda(t_game *game, int *mapX, int *mapY, int *side, int *wallX, i
                     int stepX, int stepY);
 void    dda_cast_ray(t_game *game, float rayDirX, float rayDirY, int *mapX, int *mapY, int *side, int *wallX, int *wallY);
 float   get_perp_wall_dist(t_player *player, int mapX, int mapY, int stepX, int stepY, float rayDirX, float rayDirY, int side);
-int		get_wall_color(t_game *game, int side, float rayDirX, float rayDirY,
-                   int wallX, int wallY, float playerX, float playerY);
-void	draw_stripe(int x, int start_y, int end_y, t_game *game,
-                 int tex_id, int tex_x, float wall_height);
+int     get_wall_color(char wall, int side, float rayDirX, float rayDirY);
+void    draw_stripe(int x, int start_y, int end_y, int color, t_game *game);
 void    draw_vision(t_game *game);
 void    draw_full_squar(int x, int y, int size, int color, t_game *game);
 void    draw_map(t_game *game);
@@ -71,6 +69,7 @@ void	draw_aim(int cx, int cy, int radius, int color, t_game *game)
 		put_pixel(cx, cy - i, color, game); // up
 	}
 }
+
 
 void	get_player_cord(t_game *game)
 {
@@ -143,24 +142,13 @@ void	get_map(t_game *game)
 	game->map = map;
 	get_player_cord(game);
 }
-void load_textures(t_game *game)
-{
-    char **paths = game->config.tex;
-    for (int i = 0; i < 4; i++)
-    {
-        game->textures[i].img = mlx_xpm_file_to_image(game->mlx, paths[i],
-            &game->textures[i].width, &game->textures[i].height);
-        game->textures[i].data = (int *)mlx_get_data_addr(game->textures[i].img,
-            &game->bpp, &game->size_line, &game->endian);
-    }
-}
+
 
 void	init_game(t_game *game)
 {
 	game->mlx = mlx_init();
 	get_map(game);
 	init_player(game);
-	load_textures(game);
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, &game->endian);
@@ -198,6 +186,7 @@ bool	touch2(int px, int py, t_game *game)
 	int block_x = (px + (game->player.x / BLOCK * MINI_BLOCK) - MINI_WIDTH / 2) / MINI_BLOCK;
 	int block_y = (py + (game->player.y / BLOCK * MINI_BLOCK) - MINI_HEIGHT / 2) / MINI_BLOCK;
 
+
 	if (game->map[block_y][block_x] == '1' || game->map[block_y][block_x] == 'D')
 		return (true);
 	return (false);
@@ -222,7 +211,7 @@ float	fixed_distance(float x1, float x2, float y1, float y2, float ray_angle, fl
 float get_ray_angle(t_player *player, float fov, int x)
 {
     float angle_step = fov / WIDTH;
-    return player->angle - (fov / 2) + (x * angle_step);
+    return (player->angle - (fov / 2) + (x * angle_step));
 }
 
 // Handles DDA algorithm and returns wall hit info
@@ -280,7 +269,7 @@ void perform_dda(t_game *game, int *mapX, int *mapY, int *side, int *wallX, int 
             *mapY += stepY;
             *side = 1;
         }
-        if ((game->map[*mapY][*mapX] == '1' || game->map[*mapY][*mapX] == 'D'))
+        if (game->map[*mapY][*mapX] == '1' || game->map[*mapY][*mapX] == 'D')
         {
             hit = 1;
             *wallX = *mapX;
@@ -319,49 +308,24 @@ float get_perp_wall_dist(t_player *player, int mapX, int mapY, int stepX, int st
 }
 
 // Handles color selection
-int get_wall_color(t_game *game, int side, float rayDirX, float rayDirY,
-                   int wallX, int wallY, float playerX, float playerY)
+int get_wall_color(char wall, int side, float rayDirX, float rayDirY)
 {
-    int tex_id;
+    if (wall == 'D')
+        return 0xFFFFFF;
     if (side == 0)
-        tex_id = (rayDirX > 0) ? EAST : WEST;
+        return ((rayDirX > 0) * 0xA52A2A + !(rayDirX > 0) * 0x008080);
     else
-        tex_id = (rayDirY > 0) ? SOUTH : NORTH;
-
-    t_texture *tex = &game->textures[tex_id];
-
-    // Find the exact hit position on the wall (between 0 and 1)
-    float wall_hit;
-    if (side == 0)
-        wall_hit = playerY / BLOCK + ((wallX - playerX / BLOCK) / rayDirX) * rayDirY;
-    else
-        wall_hit = playerX / BLOCK + ((wallY - playerY / BLOCK) / rayDirY) * rayDirX;
-    wall_hit -= floor(wall_hit); // Get fractional part
-
-    // Map fractional hit position to texture x coordinate
-    int tex_x = (int)(wall_hit * tex->width);
-
-    // Flip texture horizontally if needed
-    if ((side == 0 && rayDirX < 0) || (side == 1 && rayDirY > 0))
-        tex_x = tex->width - tex_x - 1;
-
-    return tex_x;
+        return ((rayDirY > 0) * 0xDEB887 + !(rayDirY > 0) * 0x8A2BE2);
 }
 
-void draw_stripe(int x, int start_y, int end_y, t_game *game,
-                 int tex_id, int tex_x, float wall_height)
+// Handles drawing a vertical stripe
+void draw_stripe(int x, int start_y, int end_y, int color, t_game *game)
 {
     int y = 0;
-    t_texture *tex = &game->textures[tex_id];
     while (y < start_y)
         put_pixel(x, y++, 0x87CEEB, game); // Sky
     while (y < end_y && y < HEIGHT)
-    {
-        int d = y - start_y;
-        int tex_y = (int)((float)d / wall_height * tex->height);
-        int color = tex->data[tex_y * tex->width + tex_x];
-        put_pixel(x, y++, color, game);
-    }
+        put_pixel(x, y++, color, game);    // Wall
     while (y < HEIGHT)
         put_pixel(x, y++, 0x654321, game); // Floor
 }
@@ -385,22 +349,12 @@ void draw_vision(t_game *game)
         int stepY = (rayDirY < 0) * -1 + (rayDirY >= 0) * 1;
         float perpWallDist = get_perp_wall_dist(player, mapX, mapY, stepX, stepY, rayDirX, rayDirY, side);
         float dist = perpWallDist * BLOCK * cos(ray_angle - player->angle);
-        if (dist == 0) dist = 0.01f;
+        if (dist == 0) dist = 0.01f; // Prevent division by zero
         float wall_height = (BLOCK / dist) * (WIDTH / 2);
         int start_y = (HEIGHT - wall_height) * player->z_eye;
         int end_y = start_y + wall_height;
-
-        int tex_id;
-        if (side == 0)
-            tex_id = (rayDirX > 0) ? EAST : WEST;
-        else
-            tex_id = (rayDirY > 0) ? SOUTH : NORTH;
-
-        float playerX = player->x;
-        float playerY = player->y;
-        int tex_x = get_wall_color(game, side, rayDirX, rayDirY, wallX, wallY, playerX, playerY);
-
-        draw_stripe(x, start_y, end_y, game, tex_id, tex_x, wall_height);
+        int color = get_wall_color(game->map[wallY][wallX], side, rayDirX, rayDirY);
+        draw_stripe(x, start_y, end_y, color, game);
         x++;
     }
 }
