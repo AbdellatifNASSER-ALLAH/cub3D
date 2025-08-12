@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/12 15:12:05 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/12 15:22:55 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef	struct	s_config
 	int	c_found;
 	int	f_found;
 	int	map_start;
+	int	map_end;
 	char	**map;
 }	t_config;
 
