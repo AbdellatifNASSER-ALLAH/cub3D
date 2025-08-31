@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/12 10:24:15 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/08/28 18:01:54 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ typedef struct	s_game
 	int			size_line;
 	int			endian;
 	char		**map;
-	t_texture textures[4]; // 0=NORTH, 1=SOUTH, 2=EAST, 3=WEST
+	t_texture textures[4];
 	t_player	player;
 	t_config	config;
 }	t_game;
