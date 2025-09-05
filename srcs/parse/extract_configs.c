@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 03:21:37 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/09 18:40:57 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/08/13 06:59:18 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	extract_configs(t_config *cfg)
 static	void	missing_textures(t_config *cfg)
 {
 	int	i;
+	char	*l;
 
 	i = -1;
 	while (++i < 4)
@@ -57,6 +58,15 @@ static	void	missing_textures(t_config *cfg)
 			exit_err("Missing texture config", 1, cfg);
 	if (!cfg->f_found || !cfg->c_found)
 		exit_err("Missing F or C config", 1, cfg);
+	cfg->map_end = cfg->map_start;
+	while (cfg->map_end < cfg->nb_lines)
+	{
+		l = skip_ws(cfg->lines[cfg->map_end]);
+		if (*l && ( *l == '0' || *l == '1'))
+			cfg->map_end++;
+		else
+			break;
+	}
 }
 
 static	int	rgb(char *s, int *rgb)

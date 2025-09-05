@@ -1,14 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   t_line.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/06 15:17:12 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/07 03:00:14 by abdnasse         ###   ########.fr       */
+/*   Created: 2025/08/12 14:38:41 by abdnasse          #+#    #+#             */
+/*   Updated: 2025/08/12 15:05:58 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	wrap_line(t_line *line, char *s)
+{
+	line->val = s;
+	line->i = 0;
+	line->size = ft_strlen(s);
+	return ;
+}
+
+int	peek_line(t_line *line)
+{
+	if (!line || !line->val || line->i >= line->size)
+		return (-1);
+	return ((unsigned char)line->val[line->i]);
+}
+
+int	next_char_line(t_line *line)
+{
+	int	c;
+	c = peek_line(line);
+	if (c != -1)
+		line->i++;
+	return (c);
+}
+
+void	iter_line(t_line *line, 

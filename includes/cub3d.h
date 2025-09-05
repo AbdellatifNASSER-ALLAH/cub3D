@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/28 18:01:54 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/09/02 23:22:23 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef	struct	s_config
 	int	c_found;
 	int	f_found;
 	int	map_start;
+	int	map_end;
 	char	**map;
 }	t_config;
 
@@ -131,6 +132,18 @@ void 	update(t_game *game);
 bool	touch(int px, int py, t_game *game);
 
 // ====== Parse ==========
+typedef struct s_line {
+	char	*val;
+	int	i;
+	int	size;
+	char	up;
+	char	down;
+	char	left;
+	char	right;
+}	t_line;
+void	wrap_line(t_line *line, char *s);
+int	next_char_line(t_line *line);
+int	peek_line(t_line *line);
 
 void	valid_file(char *path, char *extension, t_config *cfg);
 void	parse(t_config *cfg, char *path);
