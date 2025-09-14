@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/14 06:40:24 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/09/14 09:05:50 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,12 @@
 
 void    put_pixel(int x, int y, int color, t_game *game);
 void    draw_aim(int cx, int cy, int radius, int color, t_game *game);
-void    map_height(t_game *game);
-void    map_width(t_game *game);
 void    get_player_cord(t_game *game);
 void    get_map(t_game *game);
 void    init_game(t_game *game);
 void    clear_img(t_game *game);
 bool    touch(int px, int py, t_game *game);
 bool    touch2(int px, int py, t_game *game);
-float   distance(float x, float y);
-float   fixed_distance(float x1, float x2, float y1, float y2, float ray_angle, float player_angle);
-float   get_ray_angle(t_player *player, float fov, int x);
-void    get_delta_dist(float rayDirX, float rayDirY, float *deltaDistX, float *deltaDistY);
-void    init_dda_steps(float px, float py, int mapX, int mapY, float rayDirX, float rayDirY,
-                       float deltaDistX, float deltaDistY, int *stepX, int *stepY,
-                       float *sideDistX, float *sideDistY);
-void    perform_dda(t_game *game, int *mapX, int *mapY, int *side, int *wallX, int *wallY,
-                    float *sideDistX, float *sideDistY, float deltaDistX, float deltaDistY,
-                    int stepX, int stepY);
-void    dda_cast_ray(t_game *game, float rayDirX, float rayDirY, int *mapX, int *mapY, int *side, int *wallX, int *wallY);
-float   get_perp_wall_dist(t_player *player, int mapX, int mapY, int stepX, int stepY, float rayDirX, float rayDirY, int side);
-int     get_wall_color(char wall, int side, float rayDirX, float rayDirY);
 void    draw_stripe(int x, int start_y, int end_y, int color, t_game *game);
 void    draw_vision(t_game *game);
 void    draw_full_squar(int x, int y, int size, int color, t_game *game);
@@ -191,161 +176,137 @@ bool	touch2(int px, int py, t_game *game)
 		return (true);
 	return (false);
 }
-
-
-
-// Handles FOV and ray angle calculation
-float get_ray_angle(t_player *player, float fov, int x)
-{
-    float angle_step = fov / WIDTH;
-    return (player->angle - (fov / 2) + (x * angle_step));
-}
-
-// Handles DDA algorithm and returns wall hit info
-// Calculate delta distances for DDA
-void get_delta_dist(float rayDirX, float rayDirY, float *deltaDistX, float *deltaDistY)
-{
-    *deltaDistX = fabs(1.0f / rayDirX);
-    *deltaDistY = fabs(1.0f / rayDirY);
-}
-
-// Initialize DDA steps and side distances
-void init_dda_steps(float px, float py, int mapX, int mapY, float rayDirX, float rayDirY,
-                    float deltaDistX, float deltaDistY, int *stepX, int *stepY,
-                    float *sideDistX, float *sideDistY)
-{
-    if (rayDirX < 0)
-    {
-        *stepX = -1;
-        *sideDistX = (px - mapX) * deltaDistX;
-    }
-    else
-    {
-        *stepX = 1;
-        *sideDistX = (mapX + 1.0f - px) * deltaDistX;
-    }
-    if (rayDirY < 0)
-    {
-        *stepY = -1;
-        *sideDistY = (py - mapY) * deltaDistY;
-    }
-    else
-    {
-        *stepY = 1;
-        *sideDistY = (mapY + 1.0f - py) * deltaDistY;
-    }
-}
-
-// Perform DDA grid stepping until wall hit
-void perform_dda(t_game *game, int *mapX, int *mapY, int *side, int *wallX, int *wallY,
-                 float *sideDistX, float *sideDistY, float deltaDistX, float deltaDistY,
-                 int stepX, int stepY)
-{
-    int hit = 0;
-    while (!hit)
-    {
-        if (*sideDistX < *sideDistY)
-        {
-            *sideDistX += deltaDistX;
-            *mapX += stepX;
-            *side = 0;
-        }
-        else
-        {
-            *sideDistY += deltaDistY;
-            *mapY += stepY;
-            *side = 1;
-        }
-        if (game->map[*mapY][*mapX] == '1' || game->map[*mapY][*mapX] == 'D')
-        {
-            hit = 1;
-            *wallX = *mapX;
-            *wallY = *mapY;
-        }
-    }
-}
-
-// Main DDA cast ray function (now just orchestrates the helpers)
-void dda_cast_ray(t_game *game, float rayDirX, float rayDirY, int *mapX, int *mapY, int *side, int *wallX, int *wallY)
-{
-    float deltaDistX, deltaDistY;
-    get_delta_dist(rayDirX, rayDirY, &deltaDistX, &deltaDistY);
-
-    float px = game->player.x / BLOCK;
-    float py = game->player.y / BLOCK;
-    int stepX, stepY;
-    float sideDistX, sideDistY;
-
-    init_dda_steps(px, py, *mapX, *mapY, rayDirX, rayDirY, deltaDistX, deltaDistY,
-                   &stepX, &stepY, &sideDistX, &sideDistY);
-
-    perform_dda(game, mapX, mapY, side, wallX, wallY,
-                &sideDistX, &sideDistY, deltaDistX, deltaDistY, stepX, stepY);
-}
-
-// Handles distance calculation
-float get_perp_wall_dist(t_player *player, int mapX, int mapY, int stepX, int stepY, float rayDirX, float rayDirY, int side)
-{
-    float px = player->x / BLOCK;
-    float py = player->y / BLOCK;
-    if (side == 0)
-        return (mapX - px + (1 - stepX) / 2) / rayDirX;
-    else
-        return (mapY - py + (1 - stepY) / 2) / rayDirY;
-}
-
-// Handles color selection
-int get_wall_color(char wall, int side, float rayDirX, float rayDirY)
-{
-    if (wall == 'D')
-        return 0xFFFFFF;
-    if (side == 0)
-        return ((rayDirX > 0) * 0xA52A2A + !(rayDirX > 0) * 0x008080);
-    else
-        return ((rayDirY > 0) * 0xDEB887 + !(rayDirY > 0) * 0x8A2BE2);
-}
-
 // Handles drawing a vertical stripe
 void draw_stripe(int x, int start_y, int end_y, int color, t_game *game)
 {
-    int y = 0;
-    while (y < start_y)
-        put_pixel(x, y++, 0x87CEEB, game); // Sky
-    while (y < end_y && y < HEIGHT)
-        put_pixel(x, y++, color, game);    // Wall
-    while (y < HEIGHT)
-        put_pixel(x, y++, 0x654321, game); // Floor
+	int y = 0;
+	while (y < start_y)
+		put_pixel(x, y++, 0x87CEEB, game); // Sky
+	while (y < end_y && y < HEIGHT)
+		put_pixel(x, y++, color, game);    // Wall
+	while (y < HEIGHT)
+		put_pixel(x, y++, 0x654321, game); // Floor
 }
 
-// Main draw_vision function
 void draw_vision(t_game *game)
 {
-    t_player *player = &game->player;
-    float fov = PI / 3;
-    int x = 0;
-    while (x < WIDTH)
-    {
-        float ray_angle = get_ray_angle(player, fov, x);
-        float rayDirX = cos(ray_angle);
-        float rayDirY = sin(ray_angle);
-        int mapX = (int)(player->x) / BLOCK;
-        int mapY = (int)(player->y) / BLOCK;
-        int side = -1, wallX = mapX, wallY = mapY;
-        dda_cast_ray(game, rayDirX, rayDirY, &mapX, &mapY, &side, &wallX, &wallY);
-        int stepX = (rayDirX < 0) * -1 + (rayDirX >= 0) * 1;
-        int stepY = (rayDirY < 0) * -1 + (rayDirY >= 0) * 1;
-        float perpWallDist = get_perp_wall_dist(player, mapX, mapY, stepX, stepY, rayDirX, rayDirY, side);
-        float dist = perpWallDist * BLOCK * cos(ray_angle - player->angle);
-        if (dist == 0) dist = 0.01f; // Prevent division by zero
-        float wall_height = (BLOCK / dist) * (WIDTH / 2);
-        int start_y = (HEIGHT - wall_height) * player->z_eye;
-        int end_y = start_y + wall_height;
-        int color = get_wall_color(game->map[wallY][wallX], side, rayDirX, rayDirY);
-        draw_stripe(x, start_y, end_y, color, game);
-        x++;
-    }
-}
+	t_player	*player;
+	int x;
 
+	x = 0;
+	player = &game->player;
+	while (x < WIDTH)
+	{
+		// Calculate ray direction for this column
+		float ray_angle;
+		float rayDirX;
+		float rayDirY;
+		int mapX;
+		int mapY;
+		int side;
+		int wallX;
+		int wallY;
+		int stepX;
+		int stepY;
+		float perpWallDist;
+		float dist;
+		float wall_height;
+		int start_y;
+		int end_y;
+		int color;
+
+		ray_angle = player->angle - (FOV / 2) + (x * (FOV / WIDTH));
+		rayDirX = cos(ray_angle);
+		rayDirY = sin(ray_angle);
+
+		mapX = (int)(player->x) / BLOCK;
+		mapY = (int)(player->y) / BLOCK;
+		side = -1;
+		wallX = mapX;
+		wallY = mapY;
+
+		// DDA algorithm (no helper functions, all inline)
+		float deltaDistX;
+		float deltaDistY;
+		float px;
+		float py;
+		float sideDistX;
+		float sideDistY;
+		int hit;
+
+		px = player->x / BLOCK;
+		py = player->y / BLOCK;
+		deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1.0f / rayDirX);
+		deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1.0f / rayDirY);
+
+		if (rayDirX < 0)
+		{
+			stepX = -1;
+			sideDistX = (px - mapX) * deltaDistX;
+		}
+		else
+		{
+			stepX = 1;
+			sideDistX = (mapX + 1.0f - px) * deltaDistX;
+		}
+		if (rayDirY < 0)
+		{
+			stepY = -1;
+			sideDistY = (py - mapY) * deltaDistY;
+		}
+		else
+		{
+			stepY = 1;
+			sideDistY = (mapY + 1.0f - py) * deltaDistY;
+		}
+		hit = 0;
+		while (!hit)
+		{
+			if (sideDistX < sideDistY)
+			{
+				sideDistX += deltaDistX;
+				mapX += stepX;
+				side = 0;
+			}
+			else
+			{
+				sideDistY += deltaDistY;
+				mapY += stepY;
+				side = 1;
+			}
+			if (game->map[mapY][mapX] == '1' || game->map[mapY][mapX] == 'D')
+			{
+				hit = 1;
+				wallX = mapX;
+				wallY = mapY;
+			}
+		}
+
+		// Distance calculation (no helper)
+		if (side == 0)
+			perpWallDist = (mapX - px + (1 - stepX) / 2) / rayDirX;
+		else
+			perpWallDist = (mapY - py + (1 - stepY) / 2) / rayDirY;
+
+		dist = perpWallDist * BLOCK * cos(ray_angle - player->angle);
+		if (dist < 0.01f)
+			dist = 0.01f;
+
+		wall_height = (BLOCK / dist) * (WIDTH / 2);
+		start_y = (HEIGHT - wall_height) * player->z_eye;
+		end_y = start_y + wall_height;
+
+		// Color selection (no helper)
+		if (game->map[wallY][wallX] == 'D')
+			color = 0xFFFFFF;
+		else if (side == 0)
+			color = (rayDirX > 0) ? 0xA52A2A : 0x008080;
+		else
+			color = (rayDirY > 0) ? 0xDEB887 : 0x8A2BE2;
+		draw_stripe(x, start_y, end_y, color, game);
+		x++;
+	}
+}
 
 void draw_full_squar(int x, int y, int size, int color, t_game *game)
 {
