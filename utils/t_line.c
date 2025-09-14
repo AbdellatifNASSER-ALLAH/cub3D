@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   t_line.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:38:41 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/12 15:05:58 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/11 07:46:21 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,4 @@ int	next_char_line(t_line *line)
 	return (c);
 }
 
-void	iter_line(t_line *line, 
+// void	iter_line(t_line *line, 

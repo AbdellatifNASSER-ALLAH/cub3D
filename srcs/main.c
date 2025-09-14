@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/08/12 13:27:17 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/09/14 06:40:24 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,19 +192,6 @@ bool	touch2(int px, int py, t_game *game)
 	return (false);
 }
 
-float	distance(float x, float y)
-{
-	return (sqrt(x * x + y * y));
-}
-
-float	fixed_distance(float x1, float x2, float y1, float y2, float ray_angle, float player_angle)
-{
-	float dx = x2 - x1;
-	float dy = y2 - y1;
-	float raw_dist = distance(dx, dy);
-	float angle_diff = ray_angle - player_angle;
-	return (raw_dist * cos(angle_diff));
-}
 
 
 // Handles FOV and ray angle calculation
