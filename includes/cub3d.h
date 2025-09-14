@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/14 06:54:52 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/09/14 09:21:51 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,33 @@ typedef struct s_player
 
 	int		prev_mouse_x;
 }	t_player;
+
+typedef struct s_ray
+{
+	float	ray_angle;
+	float	rayDirX;
+	float	rayDirY;
+	int		mapX;
+	int		mapY;
+	int		side;
+	int		wallX;
+	int		wallY;
+	int		stepX;
+	int		stepY;
+	float	perpWallDist;
+	float	dist;
+	float	wall_height;
+	int		start_y;
+	int		end_y;
+	int		color;
+	float	deltaDistX;
+	float	deltaDistY;
+	float	px;
+	float	py;
+	float	sideDistX;
+	float	sideDistY;
+	int		hit;
+}	t_ray;
 
 typedef struct s_game
 {
