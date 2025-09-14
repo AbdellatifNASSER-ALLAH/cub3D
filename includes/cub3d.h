@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/14 18:44:39 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/14 18:50:35 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include "libft.h"
 
 // === Colors ===
-#define RED     "\033[31m"
-#define RESET   "\033[0m"
+# define RED     "\033[31m"
+# define RESET   "\033[0m"
 
 # define WIDTH 1280
 # define HEIGHT 920
@@ -42,45 +42,47 @@
 # define DOWN 65364
 
 # define PI 3.14159265359
+# define FOV 1.0471975512
 
 # define PLAYER_SIZE 0
 
-typedef enum s_tex{
+typedef enum s_tex
+{
 	NORTH,
 	SOUTH,
 	EAST,
 	WEST,
 	NB_TEX
-}	e_texture;
+}	t_tex;
 
 # define MINI_WIDTH 200
 # define MINI_HEIGHT 200
 # define MINI_BLOCK 10
-# define RADIUS ((MINI_WIDTH / 2) - 5)
+# define RADIUS 95
 
-typedef	struct	s_config
+typedef struct s_config
 {
 	char	*path;
 	char	**lines;
-	int	nb_lines;
+	int		nb_lines;
 	char	*tex[NB_TEX];
-	int	tex_found[4];
-	int	f_rgb[3];
-	int	c_rgb[3];
-	int	c_found;
-	int	f_found;
-	int	map_start;
-	int	map_end;
+	int		tex_found[4];
+	int		f_rgb[3];
+	int		c_rgb[3];
+	int		c_found;
+	int		f_found;
+	int		map_start;
+	int		map_end;
 	char	**map;
 }	t_config;
 
 typedef struct s_texture
 {
-    void    *img;
-    int     width;
-    int     height;
-    int     *data;
-}   t_texture;
+	void	*img;
+	int		width;
+	int		height;
+	int		*data;
+}	t_texture;
 
 typedef struct s_player
 {
@@ -104,7 +106,34 @@ typedef struct s_player
 	int		prev_mouse_x;
 }	t_player;
 
-typedef struct	s_game
+typedef struct s_ray
+{
+	float	ray_angle;
+	float	rayDirX;
+	float	rayDirY;
+	int		mapX;
+	int		mapY;
+	int		side;
+	int		wallX;
+	int		wallY;
+	int		stepX;
+	int		stepY;
+	float	perpWallDist;
+	float	dist;
+	float	wall_height;
+	int		start_y;
+	int		end_y;
+	int		color;
+	float	deltaDistX;
+	float	deltaDistY;
+	float	px;
+	float	py;
+	float	sideDistX;
+	float	sideDistY;
+	int		hit;
+}	t_ray;
+
+typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
@@ -115,19 +144,18 @@ typedef struct	s_game
 	int			size_line;
 	int			endian;
 	char		**map;
-	t_texture textures[4];
+	t_texture	textures[4];
 	t_player	player;
 	t_config	config;
 }	t_game;
 
-
 void	init_player(t_game *game);
 int		key_press(int key, t_game *game);
-int 	key_release(int key, t_game *game);
-int 	move_player(t_game *game);
+int		key_release(int key, t_game *game);
+int		move_player(t_game *game);
 int		mouse_move(int x, int y, t_game *game);
 void	mouse_move_handler(int x, int y, t_game *game);
-void 	update(t_game *game);
+void	update(t_game *game);
 
 bool	touch(int px, int py, t_game *game);
 
@@ -137,7 +165,7 @@ void	valid_file(char *path, char *extension, t_config *cfg);
 void	parse(t_config *cfg, char *path);
 void	read_file(t_config *cfg);
 void	extract_configs(t_config *cfg);
-void	fill_map(char **map,int	start, int end, t_config *cfg);
+void	fill_map(char **map, int start, int end, t_config *cfg);
 
 // ====== Utils ==========
 void	exit_err(const char *msg, int st, t_config *cfg);
