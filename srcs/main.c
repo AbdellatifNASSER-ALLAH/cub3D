@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/14 09:35:17 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/09/14 09:57:39 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -347,6 +347,7 @@ void draw_full_squar(int x, int y, int size, int color, t_game *game)
 			// Draw pixel only if inside the circle
 			if (dist_x * dist_x + dist_y * dist_y <= RADIUS * RADIUS)
 				put_pixel(px, py, color, game);
+				
 			j++;
 		}
 		i++;
@@ -380,7 +381,7 @@ void draw_map(t_game *game)
 			if (dist_x * dist_x + dist_y * dist_y <= RADIUS * RADIUS)
 			{
 				if (game->map[y][x] == '1')
-					draw_full_squar((x * MINI_BLOCK) - dx, (y * MINI_BLOCK) - dy, MINI_BLOCK, 0x0000FF, game);
+					draw_full_squar((x * MINI_BLOCK) - dx, (y * MINI_BLOCK) - dy, MINI_BLOCK, 0xF0FFFF, game);
 			}
 			x++;
 		}
@@ -404,6 +405,25 @@ void	draw_minimap(t_game *game)
 		while (y < MINI_WIDTH)
 		{
 			if (sqrt(pow(x - MINI_WIDTH / 2, 2) + pow(y - MINI_HEIGHT / 2, 2)) <= MINI_WIDTH / 2)
+				put_pixel(y, x, 0xF0FFFF, game);
+			y++;
+		}
+		x++;
+	}
+	x = 0;
+	// Draw a smaller circle (radius = RADIUS / 2) inside the main minimap circle
+	int center_x = MINI_WIDTH / 2;
+	int center_y = MINI_HEIGHT / 2;
+
+	x = 0;
+	while (x < MINI_HEIGHT)
+	{
+		y = 0;
+		while (y < MINI_WIDTH)
+		{
+			int dx = x - center_x;
+			int dy = y - center_y;
+			if (dx * dx + dy * dy <= RADIUS * RADIUS)
 				put_pixel(y, x, 0x000000, game);
 			y++;
 		}

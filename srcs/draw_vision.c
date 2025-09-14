@@ -6,11 +6,21 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/14 09:01:41 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/14 09:33:30 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/09/14 09:42:13 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	draw_stripe(int x, t_ray *r, t_game *game);
+void	init_ray_dir_and_map(t_ray *r, t_player *player, int x);
+void	init_ray_delta(t_ray *r);
+void	init_ray_steps(t_ray *r);
+void	init_ray(t_ray *r, t_player *player, int x);
+void	perform_dda(t_ray *r, t_game *game);
+void	calc_dist_and_height(t_ray *r, t_player *player);
+void	select_color(t_ray *r, t_game *game);
+void	draw_vision(t_game *game);
 
 // Handles drawing a vertical stripe
 void	draw_stripe(int x, t_ray *r, t_game *game)
