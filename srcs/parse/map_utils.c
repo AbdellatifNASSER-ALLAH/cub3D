@@ -6,15 +6,8 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 15:17:12 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/09/05 17:11:45 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/14 18:45:29 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	wrap_line(t_line *line, char *s)
-{
-	(void)line;
-	(void)s;
-	return ;
-}
