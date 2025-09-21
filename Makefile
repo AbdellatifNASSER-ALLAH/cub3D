@@ -16,7 +16,8 @@ LIBFT=./libft/libft.a
 
 HEADER=./includes/cub3d.h
 
-PARSE= valid_file.c parse.c read_file.c extract_configs.c map.c
+# PARSE= valid_file.c parse.c read_file.c extract_configs.c map.c
+PARSE= valid_file.c parse.c read_file.c extract_configs.c
 UTILS= handle_exit.c
 
 SRC = main.c player.c $(UTILS) $(PARSE) hooks.c

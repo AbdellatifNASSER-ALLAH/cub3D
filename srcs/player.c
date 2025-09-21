@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/14 07:03:14 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/09/21 07:25:46 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	init_player(t_game *game)
 
 int	is_blocked(float x, float y, t_game *game)
 {
-	return touch(x - BLOCK / 50, y - BLOCK / 50, game) ||
-			touch(x + BLOCK / 50, y - BLOCK / 50, game) ||
-			touch(x - BLOCK / 50, y + BLOCK / 50, game) ||
-			touch(x + BLOCK / 50, y + BLOCK / 50, game);
+	return touch(x - BLOCK / 20, y - BLOCK / 20, game) ||
+			touch(x + BLOCK / 20, y - BLOCK / 20, game) ||
+			touch(x - BLOCK / 20, y + BLOCK / 20, game) ||
+			touch(x + BLOCK / 20, y + BLOCK / 20, game);
 }
 
 static void	normalize_angle(t_player *player)
