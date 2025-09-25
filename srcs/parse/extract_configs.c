@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 03:21:37 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/13 06:59:18 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:09:09 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static	void	missing_textures(t_config *cfg)
 	while (cfg->map_end < cfg->nb_lines)
 	{
 		l = skip_ws(cfg->lines[cfg->map_end]);
-		if (*l && ( *l == '0' || *l == '1'))
+		if (l && *l && ( *l == '0' || *l == '1'))
 			cfg->map_end++;
 		else
 			break;
@@ -121,7 +121,7 @@ static	void	do_tex(int n, char *line, t_config *cfg)
 
 static	char	*skip_ws(char *s)
 {
-	while (*s == 32 || *s == '\t')
+	while (s && (*s == 32 || *s == '\t'))
 		s++;
 	return (s);
 }
