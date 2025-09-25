@@ -158,6 +158,7 @@ void	mouse_move_handler(int x, int y, t_game *game);
 void	update(t_game *game);
 
 bool	touch(int px, int py, t_game *game);
+void	put_pixel(int x, int y, int color, t_game *game);
 
 // ====== Parse ==========
 
@@ -169,5 +170,12 @@ void	fill_map(char **map, int start, int end, t_config *cfg);
 
 // ====== Utils ==========
 void	exit_err(const char *msg, int st, t_config *cfg);
+
+// ====== execution ============
+
+void draw_full_squar(int x, int y, int size, int color, t_game *game);
+void draw_map(t_game *game);
+void	draw_minimap(t_game *game);
+
 
 #endif
