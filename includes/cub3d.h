@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/21 10:08:52 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/09/25 17:22:39 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_config
 	int		f_found;
 	int		map_start;
 	int		map_end;
+	int		player_count;
 	char	**map;
 }	t_config;
 

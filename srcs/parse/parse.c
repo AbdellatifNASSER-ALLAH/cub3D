@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 11:19:21 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/09/17 11:18:24 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:31:33 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	parse(t_config *cfg, char *path)
 	valid_file(path, ".cub", cfg);
 	read_file(cfg);
 	extract_configs(cfg);
-//	fill_map(cfg->map, cfg->map_start, cfg->map_end, cfg);
+	fill_map(cfg->lines, cfg->map_start, cfg->map_end, cfg);
 	return ;
 }
 

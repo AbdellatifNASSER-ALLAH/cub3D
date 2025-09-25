@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:50:41 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/09/25 16:25:53 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/25 17:22:57 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #include "cub3d.h"
 
 /* Directions around a cell */
-enum { UP, DOWN, LEFT, RIGHT, ME };
+enum { U, Do, L, R, ME };
 
 /* Check if a character is a player symbol */
 static int is_player(char c)
@@ -38,29 +38,29 @@ static void get_item(char **map, int line, int i, t_config *cfg, char *item)
 {
     item[ME] = map[line][i];
 
-    // UP neighbor
+    // U neighbor
     if (line == cfg->map_start || (int)ft_strlen(map[line - 1]) <= i)
-        item[UP] = '\0';
+        item[U] = '\0';
     else
-        item[UP] = map[line - 1][i];
+        item[U] = map[line - 1][i];
 
-    // DOWN neighbor
+    // Do neighbor
     if (line == cfg->map_end || (int)ft_strlen(map[line + 1]) <= i)
-        item[DOWN] = '\0';
+        item[Do] = '\0';
     else
-        item[DOWN] = map[line + 1][i];
+        item[Do] = map[line + 1][i];
 
-    // LEFT neighbor
+    // L neighbor
     if (i == 0)
-        item[LEFT] = '\0';
+        item[L] = '\0';
     else
-        item[LEFT] = map[line][i - 1];
+        item[L] = map[line][i - 1];
 
-    // RIGHT neighbor
+    // R neighbor
     if (map[line][i + 1] == '\0')
-        item[RIGHT] = '\0';
+        item[R] = '\0';
     else
-        item[RIGHT] = map[line][i + 1];
+        item[R] = map[line][i + 1];
 }
 
 /* Validate if the current map member is correct */
@@ -72,26 +72,26 @@ static void validate_member_map(char c, char *item, t_config *cfg)
     else if (is_player(c))
     {
         cfg->player_count++;
-        if (item[UP] == '\0' || item[DOWN] == '\0'
-            || item[LEFT] == '\0' || item[RIGHT] == '\0')
+        if (item[U] == '\0' || item[Do] == '\0'
+            || item[L] == '\0' || item[R] == '\0')
             exit_err("Player cannot touch space or map edge", 1, cfg);
     }
 
     else if (c == '0') // floor
     {
-        if (item[UP] == '\0' || item[DOWN] == '\0'
-            || item[LEFT] == '\0' || item[RIGHT] == '\0')
+        if (item[U] == '\0' || item[Do] == '\0'
+            || item[L] == '\0' || item[R] == '\0')
             exit_err("Floor cannot touch space or map edge", 1, cfg);
     }
 
     else if (c == 'D') // door
     {
-        if (item[UP] == '\0' || item[DOWN] == '\0'
-            || item[LEFT] == '\0' || item[RIGHT] == '\0')
+        if (item[U] == '\0' || item[Do] == '\0'
+            || item[L] == '\0' || item[R] == '\0')
             exit_err("Door cannot touch space or map edge", 1, cfg);
 
-        if (!((item[UP] == '1' && item[DOWN] == '1')
-           || (item[LEFT] == '1' && item[RIGHT] == '1')))
+        if (!((item[U] == '1' && item[Do] == '1')
+           || (item[L] == '1' && item[R] == '1')))
             exit_err("Door must be between two walls vertically or horizontally", 1, cfg);
     }
 
@@ -104,7 +104,7 @@ void fill_map(char **map, int start, int end, t_config *cfg)
 {
     int line;
     int i;
-    char item[5]; // UP, DOWN, LEFT, RIGHT, ME
+    char item[5]; // U, Do, L, R, ME
 
     cfg->player_count = 0;
 
