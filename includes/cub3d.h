@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/21 10:08:52 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/09/26 09:53:04 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,9 +173,11 @@ void	exit_err(const char *msg, int st, t_config *cfg);
 
 // ====== execution ============
 
-void draw_full_squar(int x, int y, int size, int color, t_game *game);
-void draw_map(t_game *game);
+void	draw_full_squar(int x, int y, int size, int color, t_game *game);
+void	draw_map(t_game *game);
 void	draw_minimap(t_game *game);
+void	init_ray(t_ray *r, t_player *player, int x);
+void	perform_dda(t_ray *r, t_game *game);
 
 
 #endif
