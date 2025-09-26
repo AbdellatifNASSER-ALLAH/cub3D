@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:50:41 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/09/25 17:22:57 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:47:27 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 // 	[ ] - get the char and the up, down, right and left char next to him
 // 		if its the first line form the map the up should be null-terminator
 // 		and for the last line donw should be null-terminator
-// 	[ ] - 1 can have any neighbors 
-// 	[ ] - 0 can have any neighbors except space or null-terminator
-// 	[ ] - Player if char is N or S or W or E : 
-// 		can have any neighbors except space or null-terminator
-// 	[ ] - D for the door should be between tow 1s right and left or up and down
-// 		can have any neighbors except space or null-terminator
-
+// 	[ ] - 0 and Player cannot touch space or null-terminator
+//	[ ] - door cannot touch space or null-terminator
+//	[ ] - door must be between two walls : up-down or left-right
+//	[ ] - 1 can have any neighbors
 
 #include "cub3d.h"
 
-/* Directions around a cell */
+/* Enum indices for neighbor array */
 enum { U, Do, L, R, ME };
 
 /* Check if a character is a player symbol */
@@ -38,56 +35,86 @@ static void get_item(char **map, int line, int i, t_config *cfg, char *item)
 {
     item[ME] = map[line][i];
 
-    // U neighbor
+    /* U neighbor */
     if (line == cfg->map_start || (int)ft_strlen(map[line - 1]) <= i)
         item[U] = '\0';
     else
         item[U] = map[line - 1][i];
 
-    // Do neighbor
+    /* Do neighbor */
     if (line == cfg->map_end || (int)ft_strlen(map[line + 1]) <= i)
         item[Do] = '\0';
     else
         item[Do] = map[line + 1][i];
 
-    // L neighbor
+    /* L neighbor */
     if (i == 0)
         item[L] = '\0';
     else
         item[L] = map[line][i - 1];
 
-    // R neighbor
+    /* R neighbor */
     if (map[line][i + 1] == '\0')
         item[R] = '\0';
     else
         item[R] = map[line][i + 1];
 }
 
+/* Helper: neighbor is invalid if it's end-of-string or a space (outside map) */
+static int is_invalid_neighbor(char ch)
+{
+    return (ch == '\0' || ch == ' ');
+}
+
+/* Normalize tabs to spaces in the map */
+static void normalize_map(char **map, int start, int end)
+{
+    int line;
+    int i;
+
+    line = start;
+    while (line <= end)
+    {
+        i = 0;
+        while (map[line][i])
+        {
+            if (map[line][i] == '\t')
+                map[line][i] = ' ';
+            i++;
+        }
+        line++;
+    }
+}
+
 /* Validate if the current map member is correct */
 static void validate_member_map(char c, char *item, t_config *cfg)
 {
-    if (c == '1') // wall
+    /* If the current cell is a space it represents outside-of-map; ignore */
+    if (c == ' ' || c == '\t')
+        return;
+
+    if (c == '1') /* wall */
         return;
 
     else if (is_player(c))
     {
         cfg->player_count++;
-        if (item[U] == '\0' || item[Do] == '\0'
-            || item[L] == '\0' || item[R] == '\0')
+        if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
+            || is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
             exit_err("Player cannot touch space or map edge", 1, cfg);
     }
 
-    else if (c == '0') // floor
+    else if (c == '0') /* floor */
     {
-        if (item[U] == '\0' || item[Do] == '\0'
-            || item[L] == '\0' || item[R] == '\0')
+        if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
+            || is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
             exit_err("Floor cannot touch space or map edge", 1, cfg);
     }
 
-    else if (c == 'D') // door
+    else if (c == 'D') /* door */
     {
-        if (item[U] == '\0' || item[Do] == '\0'
-            || item[L] == '\0' || item[R] == '\0')
+        if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
+            || is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
             exit_err("Door cannot touch space or map edge", 1, cfg);
 
         if (!((item[U] == '1' && item[Do] == '1')
@@ -104,17 +131,24 @@ void fill_map(char **map, int start, int end, t_config *cfg)
 {
     int line;
     int i;
-    char item[5]; // U, Do, L, R, ME
+    char item[5]; /* U, Do, L, R, ME */
 
     cfg->player_count = 0;
 
-    for (line = start; line <= end; line++)
+    /* Normalize map before validation (replace tabs with spaces) */
+    normalize_map(map, start, end);
+
+    line = start;
+    while (line <= end)
     {
-        for (i = 0; map[line][i]; i++)
+        i = 0;
+        while (map[line][i])
         {
             get_item(map, line, i, cfg, item);
             validate_member_map(map[line][i], item, cfg);
+            i++;
         }
+        line++;
     }
 
     if (cfg->player_count != 1)

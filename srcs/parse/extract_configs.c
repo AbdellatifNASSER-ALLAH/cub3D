@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 03:21:37 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/09/25 17:09:09 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:46:54 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	extract_configs(t_config *cfg)
 {
 	char	*l;
 
-	while (cfg->map_start < cfg->nb_lines)
+	while (++cfg->map_start < cfg->nb_lines)
 	{
-		l = skip_ws(cfg->lines[cfg->map_start++]);
+		l = skip_ws(cfg->lines[cfg->map_start]);
 		if (*l && ( *l == '0' || *l == '1'))
 			break ;
 		else if (*l && *l == '\n')
