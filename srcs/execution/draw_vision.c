@@ -43,20 +43,20 @@ void	calc_dist_and_height(t_ray *r, t_player *player)
 void	select_color(t_ray *r, t_game *game)
 {
 	if (game->map[r->wallY][r->wallX] == 'D')
-		r->color = 0xFFFFFF;
+		r->color = NB_TEX; // Use NB_TEX or define a specific enum for DOOR if needed
 	else if (r->side == 0)
 	{
 		if (r->rayDirX > 0)
-			r->color = 0xA52A2A;
+			r->color = WEST;
 		else
-			r->color = 0x008080;
+			r->color = EAST;
 	}
 	else
 	{
 		if (r->rayDirY > 0)
-			r->color = 0xDEB887;
+			r->color = SOUTH;
 		else
-			r->color = 0x8A2BE2;
+			r->color = NORTH;
 	}
 }
 

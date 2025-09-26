@@ -31,6 +31,9 @@
 # define HEIGHT 920
 # define BLOCK 64
 
+# define TEXTURE_WIDTH 64
+# define TEXTURE_HEIGHT 64
+
 # define W 119
 # define A 97
 # define S 115
@@ -178,6 +181,7 @@ void	draw_map(t_game *game);
 void	draw_minimap(t_game *game);
 void	init_ray(t_ray *r, t_player *player, int x);
 void	perform_dda(t_ray *r, t_game *game);
+int		get_texture_color(t_ray *r, int tex_y, t_game *game);
 
 
 #endif
