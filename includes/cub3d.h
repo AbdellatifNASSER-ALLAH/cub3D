@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/25 17:22:39 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/26 16:10:59 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # define WIDTH 1280
 # define HEIGHT 920
 # define BLOCK 64
+
+# define TEXTURE_WIDTH 64
+# define TEXTURE_HEIGHT 64
 
 # define W 119
 # define A 97
@@ -174,9 +177,12 @@ void	exit_err(const char *msg, int st, t_config *cfg);
 
 // ====== execution ============
 
-void draw_full_squar(int x, int y, int size, int color, t_game *game);
-void draw_map(t_game *game);
+void	draw_full_squar(int x, int y, int size, int color, t_game *game);
+void	draw_map(t_game *game);
 void	draw_minimap(t_game *game);
+void	init_ray(t_ray *r, t_player *player, int x);
+void	perform_dda(t_ray *r, t_game *game);
+int		get_texture_color(t_ray *r, int tex_y, t_game *game);
 
 
 #endif

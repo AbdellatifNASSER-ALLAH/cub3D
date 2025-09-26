@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/21 11:04:38 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/09/26 09:27:26 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,10 @@ void    clear_img(t_game *game);
 bool    touch(int px, int py, t_game *game);
 void	draw_stripe(int x, t_ray *r, t_game *game);
 void    draw_vision(t_game *game);
-void    draw_full_squar(int x, int y, int size, int color, t_game *game);
 void    draw_map(t_game *game);
 void    draw_minimap(t_game *game);
 int     draw_loop(t_game *game);
 int     main(int ac, char **av);
-
-void	put_pixel(int x, int y, int color, t_game *game)
-{
-	int	index;
-	
-	if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
-	return ;
-	index = y * game->size_line + x * game->bpp / 8;
-	game->data[index] = color & 0xFF;
-	game->data[index + 1] = (color >> 8) & 0xFF;
-	game->data[index + 2] = (color >> 16) & 0xFF;
-}
-
-void	draw_aim(int cx, int cy, int radius, int color, t_game *game)
-{
-	// Draw a central dot
-	put_pixel(cx, cy, color, game);
-
-	// Draw small cross lines
-	for (int i = 1; i <= radius; i++)
-	{
-		put_pixel(cx + i, cy, color, game); // right
-		put_pixel(cx - i, cy, color, game); // left
-		put_pixel(cx, cy + i, color, game); // down
-		put_pixel(cx, cy - i, color, game); // up
-	}
-}
 
 
 void	get_player_cord(t_game *game)
@@ -139,23 +111,6 @@ void	init_game(t_game *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0 , 0);
 }
 
-void	clear_img(t_game *game)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			put_pixel(x, y, 0x000000, game);
-			x++;
-		}
-		y++;
-	}
-}
 bool	 touch(int px, int py, t_game *game)
 {
 	int block_x = px / BLOCK;
@@ -165,158 +120,6 @@ bool	 touch(int px, int py, t_game *game)
 		return (true);
 	return (false);
 }
-// Handles drawing a vertical stripe
-void	draw_stripe(int x, t_ray *r, t_game *game)
-{
-	int	y;
-
-	y = 0;
-	while (y < r->start_y)
-		put_pixel(x, y++, 0x87CEEB, game);
-	while (y < r->end_y && y < HEIGHT)
-		put_pixel(x, y++, r->color, game);
-	while (y < HEIGHT)
-		put_pixel(x, y++, 0x654321, game);
-}
-
-void	init_ray_dir_and_map(t_ray *r, t_player *player, int x)
-{
-	r->ray_angle = player->angle - (FOV / 2) + (x * (FOV / WIDTH));
-	r->rayDirX = cos(r->ray_angle);
-	r->rayDirY = sin(r->ray_angle);
-	r->mapX = (int)(player->x) / BLOCK;
-	r->mapY = (int)(player->y) / BLOCK;
-	r->px = player->x / BLOCK;
-	r->py = player->y / BLOCK;
-}
-
-void	init_ray_delta(t_ray *r)
-{
-	if (r->rayDirX == 0)
-		r->deltaDistX = 1e30;
-	else
-		r->deltaDistX = fabs(1.0f / r->rayDirX);
-	if (r->rayDirY == 0)
-		r->deltaDistY = 1e30;
-	else
-		r->deltaDistY = fabs(1.0f / r->rayDirY);
-}
-
-void	init_ray_steps(t_ray *r)
-{
-	if (r->rayDirX < 0)
-	{
-		r->stepX = -1;
-		r->sideDistX = (r->px - r->mapX) * r->deltaDistX;
-	}
-	else
-	{
-		r->stepX = 1;
-		r->sideDistX = (r->mapX + 1.0f - r->px) * r->deltaDistX;
-	}
-	if (r->rayDirY < 0)
-	{
-		r->stepY = -1;
-		r->sideDistY = (r->py - r->mapY) * r->deltaDistY;
-	}
-	else
-	{
-		r->stepY = 1;
-		r->sideDistY = (r->mapY + 1.0f - r->py) * r->deltaDistY;
-	}
-}
-
-void	init_ray(t_ray *r, t_player *player, int x)
-{
-	r->side = -1;
-	r->wallX = 0;
-	r->wallY = 0;
-	init_ray_dir_and_map(r, player, x);
-	init_ray_delta(r);
-	init_ray_steps(r);
-}
-
-void	perform_dda(t_ray *r, t_game *game)
-{
-	r->hit = 0;
-	while (!r->hit)
-	{
-		if (r->sideDistX < r->sideDistY)
-		{
-			r->sideDistX += r->deltaDistX;
-			r->mapX += r->stepX;
-			r->side = 0;
-		}
-		else
-		{
-			r->sideDistY += r->deltaDistY;
-			r->mapY += r->stepY;
-			r->side = 1;
-		}
-		if (game->map[r->mapY][r->mapX] == '1' || \
-			game->map[r->mapY][r->mapX] == 'D')
-		{
-			r->hit = 1;
-			r->wallX = r->mapX;
-			r->wallY = r->mapY;
-		}
-	}
-}
-
-void	calc_dist_and_height(t_ray *r, t_player *player)
-{
-	if (r->side == 0)
-		r->perpWallDist = (r->mapX - r->px + (1 - r->stepX) / 2) / r->rayDirX;
-	else
-		r->perpWallDist = (r->mapY - r->py + (1 - r->stepY) / 2) / r->rayDirY;
-	r->dist = r->perpWallDist * BLOCK * cos(r->ray_angle - player->angle);
-	if (r->dist < 0.01f)
-		r->dist = 0.01f;
-	r->wall_height = (BLOCK / r->dist) * (WIDTH / 2);
-	r->start_y = (HEIGHT - r->wall_height) * player->z_eye;
-	r->end_y = r->start_y + r->wall_height;
-}
-
-void	select_color(t_ray *r, t_game *game)
-{
-	if (game->map[r->wallY][r->wallX] == 'D')
-		r->color = 0xFFFFFF;
-	else if (r->side == 0)
-	{
-		if (r->rayDirX > 0)
-			r->color = 0xA52A2A;
-		else
-			r->color = 0x008080;
-	}
-	else
-	{
-		if (r->rayDirY > 0)
-			r->color = 0xDEB887;
-		else
-			r->color = 0x8A2BE2;
-	}
-}
-
-void	draw_vision(t_game *game)
-{
-	t_player	*player;
-	int			x;
-	t_ray		r;
-
-	x = 0;
-	player = &game->player;
-	while (x < WIDTH)
-	{
-		init_ray(&r, player, x);
-		perform_dda(&r, game);
-		calc_dist_and_height(&r, player);
-		select_color(&r, game);
-		draw_stripe(x, &r, game);
-		x++;
-	}
-}
-
-
 
 int	draw_loop(t_game *game)
 {
