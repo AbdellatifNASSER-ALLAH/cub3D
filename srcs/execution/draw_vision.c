@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:15:50 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/26 09:55:02 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/09/26 12:51:59 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,20 @@ void	calc_dist_and_height(t_ray *r, t_player *player)
 void	select_color(t_ray *r, t_game *game)
 {
 	if (game->map[r->wallY][r->wallX] == 'D')
-		r->color = NB_TEX; // Use NB_TEX or define a specific enum for DOOR if needed
+		r->color = 0xFFFFFF; // Door
 	else if (r->side == 0)
 	{
 		if (r->rayDirX > 0)
-			r->color = WEST;
+			r->color = 0xA52A2A; // East wall (right)
 		else
-			r->color = EAST;
+			r->color = 0x008080; // West wall (left)
 	}
 	else
 	{
 		if (r->rayDirY > 0)
-			r->color = SOUTH;
+			r->color = 0xDEB887; // South wall (down)
 		else
-			r->color = NORTH;
+			r->color = 0x8A2BE2; // North wall (up)
 	}
 }
 
