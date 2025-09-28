@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:50:41 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/09/26 16:47:27 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/28 15:15:20 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void normalize_map(char **map, int start, int end)
     int i;
 
     line = start;
-    while (line <= end)
+    while (line < end)
     {
         i = 0;
         while (map[line][i])
@@ -96,6 +96,8 @@ static void validate_member_map(char c, char *item, t_config *cfg)
     if (c == '1') /* wall */
         return;
 
+    else if (c == '\n' && !item[R])
+	return ;
     else if (is_player(c))
     {
         cfg->player_count++;
@@ -139,7 +141,7 @@ void fill_map(char **map, int start, int end, t_config *cfg)
     normalize_map(map, start, end);
 
     line = start;
-    while (line <= end)
+    while (line < end)
     {
         i = 0;
         while (map[line][i])
