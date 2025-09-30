@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:50:41 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/09/28 15:15:20 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/30 16:26:46 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,19 @@
 /* Enum indices for neighbor array */
 enum { U, Do, L, R, ME };
 
+void	print_item(char *item)
+{
+	printf("  %c\n", item[U]);
+	printf("%c-%c-%c\n", item[L], item[ME], item[R]);
+	printf("  %c\n", item[Do]);
+	return ;
+}
+
 /* Check if a character is a player symbol */
 static int is_player(char c)
 {
     return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
-
 /* Collect current cell and its neighbors */
 static void get_item(char **map, int line, int i, t_config *cfg, char *item)
 {
@@ -110,7 +117,10 @@ static void validate_member_map(char c, char *item, t_config *cfg)
     {
         if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
             || is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
+	{
+		print_item(item);
             exit_err("Floor cannot touch space or map edge", 1, cfg);
+	}
     }
 
     else if (c == 'D') /* door */
@@ -147,6 +157,7 @@ void fill_map(char **map, int start, int end, t_config *cfg)
         while (map[line][i])
         {
             get_item(map, line, i, cfg, item);
+	    printf("line: %d, i = %d\n%s\n", line, i, map[line]);
             validate_member_map(map[line][i], item, cfg);
             i++;
         }
