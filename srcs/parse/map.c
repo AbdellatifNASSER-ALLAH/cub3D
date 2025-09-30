@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:50:41 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/09/30 16:51:33 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/09/30 17:15:59 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,18 @@
 //	[ ] - 1 can have any neighbors
 
 #include "cub3d.h"
+#include <stdio.h>
 
 /* Enum indices for neighbor array */
 enum { U, Do, L, R, ME };
 
 void	print_item(char *item)
 {
+	printf("------------\n");
 	printf("  %c\n", item[U]);
 	printf("%c-%c-%c\n", item[L], item[ME], item[R]);
 	printf("  %c\n", item[Do]);
+	printf("------------\n");
 	return ;
 }
 
@@ -49,10 +52,12 @@ static void get_item(char **map, int line, int i, t_config *cfg, char *item)
 		item[U] = map[line - 1][i];
 
 	/* Do neighbor */
-	if (line == cfg->map_end || (int)ft_strlen(map[line + 1]) <= i)
+	if (line == cfg->map_end || (map[line + 1] && (int)ft_strlen(map[line + 1]) <= i))
 		item[Do] = '\0';
-	else
+	else if (map[line + 1])
 		item[Do] = map[line + 1][i];
+	else
+	 	item[Do] = 0;
 
 	/* L neighbor */
 	if (i == 0)
@@ -70,7 +75,7 @@ static void get_item(char **map, int line, int i, t_config *cfg, char *item)
 /* Helper: neighbor is invalid if it's end-of-string or a space (outside map) */
 static int is_invalid_neighbor(char ch)
 {
-	return (ch == '\0' || ch == ' ');
+	return (ch == '\0' || ch == ' ' || ch == '\t');
 }
 
 /* Validate if the current map member is correct */
@@ -97,10 +102,7 @@ static void validate_member_map(char c, char *item, t_config *cfg)
 	{
 		if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
 				|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
-		{
-			print_item(item);
 			exit_err("Floor cannot touch space or map edge", 1, cfg);
-		}
 	}
 
 	else if (c == 'D') /* door */
@@ -133,16 +135,14 @@ void fill_map(char **map, int start, int end, t_config *cfg)
 		i = 0;
 		while (map[line][i])
 		{
-			while(map[line][i] == '\t' || map[line][i] == ' ')
-				i++;
 			get_item(map, line, i, cfg, item);
-			printf("line: %d, i = %d\n%s\n", line, i, map[line]);
+			printf("line: %d\n", line);
+			print_item(item);
 			validate_member_map(map[line][i], item, cfg);
 			i++;
 		}
 		line++;
 	}
-
 	if (cfg->player_count != 1)
 		exit_err("Map must contain exactly one player", 1, cfg);
 }
