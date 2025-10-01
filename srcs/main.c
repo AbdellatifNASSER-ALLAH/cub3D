@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/01 15:17:49 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/10/01 15:24:09 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,9 @@ int main(int ac, char **av)
 {
 	t_game	game;
 	
-	if (ac == 2)
-		parse(&game.config, av[1]);
+	if (ac != 2)
+		exit_err("Usage: ./game [path to map.cub]", 1, NULL);
+	parse(&game.config, av[1]);
 	init_game(&game);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
