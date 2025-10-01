@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:50:41 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/09/30 17:15:59 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/10/01 15:12:29 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,6 @@ void fill_map(char **map, int start, int end, t_config *cfg)
 		while (map[line][i])
 		{
 			get_item(map, line, i, cfg, item);
-			printf("line: %d\n", line);
-			print_item(item);
 			validate_member_map(map[line][i], item, cfg);
 			i++;
 		}
@@ -145,4 +143,5 @@ void fill_map(char **map, int start, int end, t_config *cfg)
 	}
 	if (cfg->player_count != 1)
 		exit_err("Map must contain exactly one player", 1, cfg);
+	cfg->map = cfg->lines + cfg->map_start;
 }
