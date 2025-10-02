@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 07:41:45 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/26 09:31:40 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/10/02 20:22:08 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	draw_minimap_rays(t_game *game, t_player *player)
 			ray_x += cos(ray_angle);
 			ray_y += sin(ray_angle);
 		}
-		x++;
+		x += MINI_WIDTH - 1;
 	}
 }
 

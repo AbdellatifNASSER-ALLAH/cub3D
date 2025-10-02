@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/01 15:24:09 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/10/02 20:15:49 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void    put_pixel(int x, int y, int color, t_game *game);
 void    draw_aim(int cx, int cy, int radius, int color, t_game *game);
+void	draw_circule(int cx, int cy, int radius, int color, t_game *game);
 void    get_player_cord(t_game *game);
 void    get_map(t_game *game);
 void    init_game(t_game *game);
@@ -88,6 +89,8 @@ int	draw_loop(t_game *game)
 	draw_aim(WIDTH / 2, HEIGHT / 2, 7, 0x7FFF00, game);
 	draw_minimap(game);
 	draw_map(game);
+	draw_circule(MINI_WIDTH / 2, MINI_HEIGHT / 2, 2, 0xFF0000, game);
+	draw_circule(MINI_WIDTH / 2, MINI_HEIGHT / 2, 1, 0x000000, game);
 
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);
