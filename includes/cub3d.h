@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/26 16:10:59 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/10/02 19:00:47 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ bool	touch(int px, int py, t_game *game);
 void	put_pixel(int x, int y, int color, t_game *game);
 
 // ====== Parse ==========
-
+enum { U, Do, L, R, ME };
 void	valid_file(char *path, char *extension, t_config *cfg);
 void	parse(t_config *cfg, char *path);
 void	read_file(t_config *cfg);

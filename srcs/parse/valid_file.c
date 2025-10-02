@@ -6,12 +6,11 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:00:20 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/08/08 11:11:24 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:57:38 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "libft.h"
 
 // Here we are checking for a valide .cub file
 // 	The extension .cub

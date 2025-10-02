@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 11:19:21 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/09/26 16:47:04 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/10/02 18:58:00 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // [*] - validate the file
 // [*] - get all lines
 // [*] - extract textures and colors
-// [ ] - parse and fill the map
+// [*] - parse and fill the map
 
 static	void init_config(t_config *cfg, char *path);
 
