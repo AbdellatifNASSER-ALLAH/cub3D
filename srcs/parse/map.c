@@ -6,23 +6,23 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:50:41 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/10/02 19:00:02 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/10/03 15:48:49 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 static int	is_player(char c);
-static void	get_item(char **map, int line, int i, t_config *cfg, char *item);
+static void	get_item(int line, int i, t_config *cfg, char *item);
 static int	is_invalid_neighbor(char ch);
 static void	validate_member_map(char c, char *item, t_config *cfg);
 
 void	fill_map(char **map, int start, int end, t_config *cfg)
 {
-	int	line;
-	int	i;
+	char	item[5];
+	int		line;
+	int		i;
 
-	char item[5]; // U, Do, L, R, ME
 	cfg->player_count = 0;
 	line = start;
 	while (line < end)
@@ -30,7 +30,7 @@ void	fill_map(char **map, int start, int end, t_config *cfg)
 		i = 0;
 		while (map[line][i])
 		{
-			get_item(map, line, i, cfg, item);
+			get_item(line, i, cfg, item);
 			validate_member_map(map[line][i], item, cfg);
 			i++;
 		}
@@ -46,15 +46,18 @@ static int	is_player(char c)
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
-static void	get_item(char **map, int line, int i, t_config *cfg, char *item)
+static void	get_item(int line, int i, t_config *cfg, char *item)
 {
+	char	**map;
+
+	map = cfg->lines;
 	item[ME] = map[line][i];
 	if (line == cfg->map_start || (int)ft_strlen(map[line - 1]) <= i)
 		item[U] = '\0';
 	else
 		item[U] = map[line - 1][i];
-	if (line == cfg->map_end || (map[line + 1] && (int)ft_strlen(map[line
-				+ 1]) <= i))
+	if (line == cfg->map_end 
+			|| (map[line + 1] && (int)ft_strlen(map[line+ 1]) <= i))
 		item[Do] = '\0';
 	else if (map[line + 1])
 		item[Do] = map[line + 1][i];
@@ -87,24 +90,24 @@ static void	validate_member_map(char c, char *item, t_config *cfg)
 	{
 		cfg->player_count++;
 		if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
-			|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
+				|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
 			exit_err("Player cannot touch space or map edge", 1, cfg);
 	}
 	else if (c == '0')
 	{
 		if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
-			|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
+				|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
 			exit_err("Floor cannot touch space or map edge", 1, cfg);
 	}
 	else if (c == 'D')
 	{
 		if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
-			|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
+				|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
 			exit_err("Door cannot touch space or map edge", 1, cfg);
 		if (!((item[U] == '1' && item[Do] == '1') || (item[L] == '1'
-					&& item[R] == '1')))
+						&& item[R] == '1')))
 			exit_err("Door must be between two walls vertically or horizontally",
-				1, cfg);
+					1, cfg);
 	}
 	else
 		exit_err("Invalid character in map", 1, cfg);

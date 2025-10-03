@@ -18,7 +18,7 @@
 // [*] - extract textures and colors
 // [*] - parse and fill the map
 
-static	void init_config(t_config *cfg, char *path);
+static void	init_config(t_config *cfg, char *path);
 
 void	parse(t_config *cfg, char *path)
 {
@@ -30,7 +30,7 @@ void	parse(t_config *cfg, char *path)
 	return ;
 }
 
-static	void init_config(t_config *cfg, char *path)
+static void	init_config(t_config *cfg, char *path)
 {
 	int	i;
 

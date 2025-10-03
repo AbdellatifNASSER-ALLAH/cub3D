@@ -13,10 +13,10 @@
 #include "cub3d.h"
 #include <stdio.h>
 
-static	char	*skip_ws(char *s);
-static	void	do_tex(int n, char *line, t_config *cfg);
-static	int	rgb(char *s, int *rgb);
-static	void	missing_textures(t_config *cfg);
+static char	*skip_ws(char *s);
+static void	do_tex(int n, char *line, t_config *cfg);
+static int	rgb(char *s, int *rgb);
+static void	missing_textures(t_config *cfg);
 
 void	extract_configs(t_config *cfg)
 {
@@ -25,10 +25,10 @@ void	extract_configs(t_config *cfg)
 	while (++cfg->map_start < cfg->nb_lines)
 	{
 		l = skip_ws(cfg->lines[cfg->map_start]);
-		if (*l && ( *l == '0' || *l == '1'))
+		if (*l && (*l == '0' || *l == '1'))
 			break ;
 		else if (*l && *l == '\n')
-			continue;
+			continue ;
 		else if (ft_strncmp(l, "NO ", 3) == 0)
 			do_tex(0, l, cfg);
 		else if (ft_strncmp(l, "SO ", 3) == 0)
@@ -41,15 +41,15 @@ void	extract_configs(t_config *cfg)
 			do_tex(4, l, cfg);
 		else if (ft_strncmp(l, "F ", 2) == 0)
 			do_tex(5, l, cfg);
-		else 
+		else
 			exit_err("Unknow config lien", 1, cfg);
 	}
 	missing_textures(cfg);
 }
 
-static	void	missing_textures(t_config *cfg)
+static void	missing_textures(t_config *cfg)
 {
-	int	i;
+	int		i;
 	char	*l;
 
 	i = -1;
@@ -62,14 +62,14 @@ static	void	missing_textures(t_config *cfg)
 	while (cfg->map_end < cfg->nb_lines)
 	{
 		l = skip_ws(cfg->lines[cfg->map_end]);
-		if (l && *l && ( *l == '0' || *l == '1'))
+		if (l && *l && (*l == '0' || *l == '1'))
 			cfg->map_end++;
 		else
-			break;
+			break ;
 	}
 }
 
-static	int	rgb(char *s, int *rgb)
+static int	rgb(char *s, int *rgb)
 {
 	int	i;
 
@@ -78,23 +78,23 @@ static	int	rgb(char *s, int *rgb)
 	{
 		s = skip_ws(s);
 		rgb[i++] = ft_atoi(s);
-		while(ft_isdigit(*s))
+		while (ft_isdigit(*s))
 			s++;
 		s = skip_ws(s);
 		if (i < 2 && *s && *s != ',')
-			return 0;
+			return (0);
 		s++;
 	}
 	s = skip_ws(s);
 	if (*s && *s != '\n')
-		return 0;
-	if (rgb[0] < 0 || rgb[0] > 255 || rgb[1] < 0 
-			|| rgb[1] > 255 || rgb[2] < 0 || rgb[2] > 255)
-		return 0;
+		return (0);
+	if (rgb[0] < 0 || rgb[0] > 255 || rgb[1] < 0 || rgb[1] > 255 || rgb[2] < 0
+		|| rgb[2] > 255)
+		return (0);
 	return (1);
 }
 
-static	void	do_tex(int n, char *line, t_config *cfg)
+static void	do_tex(int n, char *line, t_config *cfg)
 {
 	if (n < 4)
 	{
@@ -119,7 +119,7 @@ static	void	do_tex(int n, char *line, t_config *cfg)
 	}
 }
 
-static	char	*skip_ws(char *s)
+static char	*skip_ws(char *s)
 {
 	while (s && (*s == 32 || *s == '\t'))
 		s++;

@@ -18,7 +18,7 @@
 // 	The existence of the file
 // 	Shouldn't be empty file
 
-static	char	*find_last_dot(char *p);
+static char	*find_last_dot(char *p);
 
 void	valid_file(char *path, char *extension, t_config *cfg)
 {
@@ -31,7 +31,7 @@ void	valid_file(char *path, char *extension, t_config *cfg)
 		exit_err("Invalid extension", 1, cfg);
 	if (*(tmp + 4) && *(tmp + 4) == '\n')
 		*(tmp + 4) = 0;
-	if(*(tmp + 4))
+	if (*(tmp + 4))
 		exit_err("Invalid path", 1, cfg);
 	fd = open(path, O_DIRECTORY);
 	if (fd >= 0)
@@ -49,16 +49,16 @@ void	valid_file(char *path, char *extension, t_config *cfg)
 		exit_err("close: failed ", 1, cfg);
 }
 
-static	char	*find_last_dot(char *p)
+static char	*find_last_dot(char *p)
 {
 	char	*tmp;
 
 	tmp = ft_strchr(p, '/');
-	while(tmp)
+	while (tmp)
 	{
 		tmp = ft_strchr(p, '/');
 		if (!tmp)
-			break;
+			break ;
 		p = tmp + 1;
 	}
 	return (ft_strchr(p, '.'));

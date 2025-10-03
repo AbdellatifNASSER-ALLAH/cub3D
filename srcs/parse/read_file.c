@@ -17,8 +17,8 @@ static int	count_lines(t_config *cfg);
 void	read_file(t_config *cfg)
 {
 	char	**lines;
-	int	fd;
-	int	i;
+	int		fd;
+	int		i;
 
 	lines = ft_calloc(sizeof(char *), count_lines(cfg));
 	if (!lines)
@@ -37,7 +37,7 @@ void	read_file(t_config *cfg)
 static int	count_lines(t_config *cfg)
 {
 	char	*line;
-	int	fd;
+	int		fd;
 
 	fd = open(cfg->path, O_RDONLY);
 	if (fd < 0)
