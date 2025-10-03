@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:24:00 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/26 09:25:22 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/10/02 20:15:15 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,21 @@ void	draw_aim(int cx, int cy, int radius, int color, t_game *game)
         i++;
     }
 }
+void	draw_circule(int cx, int cy, int radius, int color, t_game *game)
+{
+    int x, y;
+    int r2 = radius * radius;
+
+    for (y = -radius; y <= radius; y++)
+    {
+        for (x = -radius; x <= radius; x++)
+        {
+            if (x * x + y * y <= r2)
+                put_pixel(cx + x, cy + y, color, game);
+        }
+    }
+}
+
 
 void	draw_square_pixel(int px, int py, int color, t_game *game)
 {
