@@ -14,15 +14,35 @@
 
 void	draw_stripe(int x, t_ray *r, t_game *game)
 {
-	int	y;
+	int		y;
+	int		tex_y;
+	float	step;
+	int		color;
+	int		ceiling_color;
+	int		floor_color;
+	int		wall_center;
 
+	ceiling_color = (game->config.c_rgb[0] << 16) 
+		| (game->config.c_rgb[1] << 8) | game->config.c_rgb[2];
+	floor_color = (game->config.f_rgb[0] << 16) 
+		| (game->config.f_rgb[1] << 8) | game->config.f_rgb[2];
 	y = 0;
 	while (y < r->start_y)
-		put_pixel(x, y++, 0x87CEEB, game);
+		put_pixel(x, y++, ceiling_color, game);
+	step = (float)TEXTURE_HEIGHT / r->wall_height;
+	wall_center = HEIGHT / 2;
 	while (y < r->end_y && y < HEIGHT)
-		put_pixel(x, y++, r->color, game);
+	{
+		tex_y = (int)((y - wall_center + r->wall_height / 2) * step);
+		if (tex_y < 0)
+			tex_y = 0;
+		if (tex_y >= TEXTURE_HEIGHT)
+			tex_y = TEXTURE_HEIGHT - 1;
+		color = get_texture_color(r, tex_y, game);
+		put_pixel(x, y++, color, game);
+	}
 	while (y < HEIGHT)
-		put_pixel(x, y++, 0x654321, game);
+		put_pixel(x, y++, floor_color, game);
 }
 
 
@@ -73,7 +93,6 @@ void	draw_vision(t_game *game)
 		init_ray(&r, player, x);
 		perform_dda(&r, game);
 		calc_dist_and_height(&r, player);
-		select_color(&r, game);
 		draw_stripe(x, &r, game);
 		x++;
 	}

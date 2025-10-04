@@ -183,6 +183,7 @@ void	draw_minimap(t_game *game);
 void	init_ray(t_ray *r, t_player *player, int x);
 void	perform_dda(t_ray *r, t_game *game);
 int		get_texture_color(t_ray *r, int tex_y, t_game *game);
+void	load_textures(t_game *game);
 
 
 #endif
