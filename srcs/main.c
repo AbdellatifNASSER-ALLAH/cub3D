@@ -64,6 +64,7 @@ void	init_game(t_game *game)
 {
 	game->mlx = mlx_init();
 	game->map = game->config.map;
+	load_textures(game);
 	get_player_cord(game);
 	init_player(game);
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
