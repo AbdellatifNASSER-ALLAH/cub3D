@@ -53,26 +53,6 @@ void	calc_dist_and_height(t_ray *r, t_player *player)
 	r->end_y = r->start_y + r->wall_height;
 }
 
-void	select_color(t_ray *r, t_game *game)
-{
-	if (game->map[r->wallY][r->wallX] == 'D')
-		r->color = 0xFFFFFF; // Door
-	else if (r->side == 0)
-	{
-		if (r->rayDirX > 0)
-			r->color = 0xA52A2A; // East wall (right)
-		else
-			r->color = 0x008080; // West wall (left)
-	}
-	else
-	{
-		if (r->rayDirY > 0)
-			r->color = 0xDEB887; // South wall (down)
-		else
-			r->color = 0x8A2BE2; // North wall (up)
-	}
-}
-
 void	draw_vision(t_game *game)
 {
 	t_player	*player;
