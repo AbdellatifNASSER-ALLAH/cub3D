@@ -20,7 +20,6 @@ void	draw_stripe(int x, t_ray *r, t_game *game)
 	int		color;
 	int		ceiling_color;
 	int		floor_color;
-	int		wall_center;
 
 	ceiling_color = (game->config.c_rgb[0] << 16) 
 		| (game->config.c_rgb[1] << 8) | game->config.c_rgb[2];
@@ -30,10 +29,9 @@ void	draw_stripe(int x, t_ray *r, t_game *game)
 	while (y < r->start_y)
 		put_pixel(x, y++, ceiling_color, game);
 	step = (float)TEXTURE_HEIGHT / r->wall_height;
-	wall_center = HEIGHT / 2;
 	while (y < r->end_y && y < HEIGHT)
 	{
-		tex_y = (int)((y - wall_center + r->wall_height / 2) * step);
+		tex_y = (int)((y - r->start_y) * step);
 		if (tex_y < 0)
 			tex_y = 0;
 		if (tex_y >= TEXTURE_HEIGHT)
