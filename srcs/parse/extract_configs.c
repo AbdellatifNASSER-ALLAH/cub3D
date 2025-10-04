@@ -96,12 +96,17 @@ static int	rgb(char *s, int *rgb)
 
 static void	do_tex(int n, char *line, t_config *cfg)
 {
+	char	*trimmed;
+
 	if (n < 4)
 	{
 		valid_file(line + 3, ".xpm", cfg);
 		if (cfg->tex_found[n]++)
 			exit_err("Dubplicated config", 1, cfg);
-		cfg->tex[n] = ft_strdup(line + 3);
+		trimmed = ft_strtrim(line + 3, " \t\n\r");
+		if (!trimmed)
+			exit_err("Memory allocation failed", 1, cfg);
+		cfg->tex[n] = trimmed;
 	}
 	if (n == 4)
 	{
