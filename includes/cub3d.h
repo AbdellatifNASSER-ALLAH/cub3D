@@ -135,6 +135,7 @@ typedef struct s_ray
 	float	sideDistX;
 	float	sideDistY;
 	int		hit;
+	float	wallHitX;
 }	t_ray;
 
 typedef struct s_game
@@ -183,6 +184,7 @@ void	draw_minimap(t_game *game);
 void	init_ray(t_ray *r, t_player *player, int x);
 void	perform_dda(t_ray *r, t_game *game);
 int		get_texture_color(t_ray *r, int tex_y, t_game *game);
+void	prepare_texture_rendering(t_ray *r, t_player *player);
 
 
 #endif

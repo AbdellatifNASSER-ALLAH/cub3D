@@ -60,12 +60,34 @@ void	get_player_cord(t_game *game)
 	}
 }
 
+void	load_textures(t_game *game)
+{
+	int	i;
+	int	bpp;
+	int	size_line;
+	int	endian;
+
+	i = 0;
+	while (i < 4)
+	{
+		game->textures[i].img = mlx_xpm_file_to_image(game->mlx,
+			game->config.tex[i], &game->textures[i].width,
+			&game->textures[i].height);
+		if (!game->textures[i].img)
+			exit_err("Failed to load texture", 1, &game->config);
+		game->textures[i].data = (int *)mlx_get_data_addr(
+			game->textures[i].img, &bpp, &size_line, &endian);
+		i++;
+	}
+}
+
 void	init_game(t_game *game)
 {
 	game->mlx = mlx_init();
 	game->map = game->config.map;
 	get_player_cord(game);
 	init_player(game);
+	load_textures(game);
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
 	game->img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line, &game->endian);
