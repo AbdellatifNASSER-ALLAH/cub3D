@@ -30,15 +30,6 @@ static int	get_texture_index(t_ray *r)
 	}
 }
 
-static void	calculate_wall_hit_x(t_ray *r, t_player *player)
-{
-	if (r->side == 0)
-		r->wallHitX = player->y + r->perpWallDist * r->rayDirY;
-	else
-		r->wallHitX = player->x + r->perpWallDist * r->rayDirX;
-	r->wallHitX -= floor(r->wallHitX);
-}
-
 int	get_texture_color(t_ray *r, int tex_y, t_game *game)
 {
 	int			tex_index;
@@ -65,5 +56,10 @@ int	get_texture_color(t_ray *r, int tex_y, t_game *game)
 
 void	prepare_texture_rendering(t_ray *r, t_player *player)
 {
-	calculate_wall_hit_x(r, player);
+	(void)player;
+	if (r->side == 0)
+		r->wallHitX = r->py + r->perpWallDist * r->rayDirY;
+	else
+		r->wallHitX = r->px + r->perpWallDist * r->rayDirX;
+	r->wallHitX -= floor(r->wallHitX);
 }
