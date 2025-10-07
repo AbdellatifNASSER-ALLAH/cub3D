@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/09/26 09:17:13 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/10/07 23:51:36 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static void	apply_rotation(t_player *player)
 		player->angle -= angle_speed;
 	if (player->right_rotate)
 		player->angle += angle_speed;
-	if (player->up_rotate && player->z_eye < 0.7)
+	if (player->up_rotate && player->z_eye < 0.95)
 		player->z_eye += z_eye_speed;
-	if (player->down_rotate && player->z_eye > 0.3)
+	if (player->down_rotate && player->z_eye > 0.05)
 		player->z_eye -= z_eye_speed;
 	normalize_angle(player);
 }
