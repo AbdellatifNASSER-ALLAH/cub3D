@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 03:21:37 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/09/28 15:09:01 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/10/09 13:49:10 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ static void	do_tex(int n, char *line, t_config *cfg);
 static int	rgb(char *s, int *rgb);
 static void	missing_textures(t_config *cfg);
 
-void	extract_configs(t_config *cfg)
+void	extract_configs(t_config *cfg, char *l)
 {
-	char	*l;
-
 	while (++cfg->map_start < cfg->nb_lines)
 	{
 		l = skip_ws(cfg->lines[cfg->map_start]);
@@ -41,6 +39,8 @@ void	extract_configs(t_config *cfg)
 			do_tex(4, l, cfg);
 		else if (ft_strncmp(l, "F ", 2) == 0)
 			do_tex(5, l, cfg);
+	//	else if (ft_strncmp(l, "D ", 2) == 0)
+	//		do_tex(5, l, cfg);
 		else
 			exit_err("Unknow config lien", 1, cfg);
 	}

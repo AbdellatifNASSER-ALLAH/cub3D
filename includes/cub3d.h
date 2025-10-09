@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/02 19:00:47 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/10/09 13:46:38 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ enum { U, Do, L, R, ME };
 void	valid_file(char *path, char *extension, t_config *cfg);
 void	parse(t_config *cfg, char *path);
 void	read_file(t_config *cfg);
-void	extract_configs(t_config *cfg);
+void	extract_configs(t_config *cfg, char *l);
 void	fill_map(char **map, int start, int end, t_config *cfg);
 
 // ====== Utils ==========
