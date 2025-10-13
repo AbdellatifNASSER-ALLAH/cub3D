@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 07:41:45 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/02 20:22:08 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/10/13 23:55:37 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	draw_map_block(int x, int y, int dx, int dy, t_game *game)
 	{
 		if (game->map[y][x] == '1')
 			draw_full_squar((x * MINI_BLOCK) - dx,
-				(y * MINI_BLOCK) - dy, MINI_BLOCK, 0x0000FF, game);
+				(y * MINI_BLOCK) - dy, MINI_BLOCK, game);
 	}
 }
 

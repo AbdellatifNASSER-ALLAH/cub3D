@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:24:00 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/02 20:15:15 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/10/13 23:58:06 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	draw_square_pixel(int px, int py, int color, t_game *game)
 		put_pixel(px, py, color, game);
 }
 
-void	draw_full_squar(int x, int y, int size, int color, t_game *game)
+void	draw_full_squar(int x, int y, int size, t_game *game)
 {
 	int	i;
 	int	j;
@@ -79,7 +79,7 @@ void	draw_full_squar(int x, int y, int size, int color, t_game *game)
 		j = 0;
 		while (j < size)
 		{
-			draw_square_pixel(x + j, y + i, color, game);
+			draw_square_pixel(x + j, y + i, 0x0000FF, game);
 			j++;
 		}
 		i++;
