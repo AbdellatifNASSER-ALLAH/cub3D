@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:15:50 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/02 20:13:57 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/10/13 23:53:16 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	draw_stripe(int x, t_ray *r, t_game *game)
 void	calc_dist_and_height(t_ray *r, t_player *player)
 {
 	if (r->side == 0)
-		r->perpWallDist = (r->mapX - r->px + (1 - r->stepX) / 2) / r->rayDirX;
+		r->perp_wall_dist = (r->mapx - r->px + (1 - r->stepx) / 2) / r->ray_dirx;
 	else
-		r->perpWallDist = (r->mapY - r->py + (1 - r->stepY) / 2) / r->rayDirY;
-	r->dist = r->perpWallDist * BLOCK * cos(r->ray_angle - player->angle);
+		r->perp_wall_dist = (r->mapy - r->py + (1 - r->stepy) / 2) / r->ray_diry;
+	r->dist = r->perp_wall_dist * BLOCK * cos(r->ray_angle - player->angle);
 	if (r->dist < 0.01f)
 		r->dist = 0.01f;
 	r->wall_height = (BLOCK / r->dist) * (WIDTH / 2);
@@ -60,18 +60,18 @@ void	calc_dist_and_height(t_ray *r, t_player *player)
 
 void	select_color(t_ray *r, t_game *game)
 {
-	if (game->map[r->wallY][r->wallX] == 'D')
+	if (game->map[r->wally][r->wallx] == 'D')
 		r->color = 0xFFFFFF; // Door
 	else if (r->side == 0)
 	{
-		if (r->rayDirX > 0)
+		if (r->ray_dirx > 0)
 			r->color = 0xA52A2A; // East wall (right)
 		else
 			r->color = 0x008080; // West wall (left)
 	}
 	else
 	{
-		if (r->rayDirY > 0)
+		if (r->ray_diry > 0)
 			r->color = 0xDEB887; // South wall (down)
 		else
 			r->color = 0x8A2BE2; // North wall (up)

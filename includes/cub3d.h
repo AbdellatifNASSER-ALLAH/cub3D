@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/09 13:46:38 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/10/13 23:55:42 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,27 +113,27 @@ typedef struct s_player
 typedef struct s_ray
 {
 	float	ray_angle;
-	float	rayDirX;
-	float	rayDirY;
-	int		mapX;
-	int		mapY;
+	float	ray_dirx;
+	float	ray_diry;
+	int		mapx;
+	int		mapy;
 	int		side;
-	int		wallX;
-	int		wallY;
-	int		stepX;
-	int		stepY;
-	float	perpWallDist;
+	int		wallx;
+	int		wally;
+	int		stepx;
+	int		stepy;
+	float	perp_wall_dist;
 	float	dist;
 	float	wall_height;
 	int		start_y;
 	int		end_y;
 	int		color;
-	float	deltaDistX;
-	float	deltaDistY;
+	float	delta_distx;
+	float	delta_disty;
 	float	px;
 	float	py;
-	float	sideDistX;
-	float	sideDistY;
+	float	side_distx;
+	float	side_disty;
 	int		hit;
 }	t_ray;
 
@@ -177,7 +177,7 @@ void	exit_err(const char *msg, int st, t_config *cfg);
 
 // ====== execution ============
 
-void	draw_full_squar(int x, int y, int size, int color, t_game *game);
+void	draw_full_squar(int x, int y, int size, t_game *game);
 void	draw_map(t_game *game);
 void	draw_minimap(t_game *game);
 void	init_ray(t_ray *r, t_player *player, int x);
