@@ -44,6 +44,8 @@ void	load_textures(t_game *game)
 	load_texture(game, SOUTH, game->config.tex[SOUTH]);
 	load_texture(game, EAST, game->config.tex[EAST]);
 	load_texture(game, WEST, game->config.tex[WEST]);
+	if (game->config.door_found)
+		load_texture(game, DOOR, game->config.tex[DOOR]);
 }
 
 int	get_texture_color(t_ray *r, int tex_y, t_game *game)
@@ -53,13 +55,14 @@ int	get_texture_color(t_ray *r, int tex_y, t_game *game)
 	int			tex_x;
 	float		wall_x;
 
-	if (r->side == 0)
+	if (game->map[r->wally][r->wallx] == 'D' && game->config.door_found)
+		tex_index = DOOR;
+	else if (r->side == 0)
 	{
 		if (r->ray_dirx > 0)
 			tex_index = EAST;
 		else
 			tex_index = WEST;
-		wall_x = r->py + r->perp_wall_dist * r->ray_diry;
 	}
 	else
 	{
@@ -67,8 +70,11 @@ int	get_texture_color(t_ray *r, int tex_y, t_game *game)
 			tex_index = SOUTH;
 		else
 			tex_index = NORTH;
-		wall_x = r->px + r->perp_wall_dist * r->ray_dirx;
 	}
+	if (r->side == 0)
+		wall_x = r->py + r->perp_wall_dist * r->ray_diry;
+	else
+		wall_x = r->px + r->perp_wall_dist * r->ray_dirx;
 	wall_x -= (int)wall_x;
 	tex = &game->textures[tex_index];
 	tex_x = (int)(wall_x * (float)tex->width);

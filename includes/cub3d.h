@@ -55,6 +55,7 @@ typedef enum s_tex
 	SOUTH,
 	EAST,
 	WEST,
+	DOOR,
 	NB_TEX
 }	t_tex;
 
@@ -70,6 +71,7 @@ typedef struct s_config
 	int		nb_lines;
 	char	*tex[NB_TEX];
 	int		tex_found[4];
+	int		door_found;
 	int		f_rgb[3];
 	int		c_rgb[3];
 	int		c_found;
@@ -78,6 +80,7 @@ typedef struct s_config
 	int		map_end;
 	int		player_count;
 	char	**map;
+	int		has_door_in_map;
 }	t_config;
 
 typedef struct s_texture
@@ -148,7 +151,7 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	char		**map;
-	t_texture	textures[4];
+	t_texture	textures[5];
 	t_player	player;
 	t_config	config;
 }	t_game;
