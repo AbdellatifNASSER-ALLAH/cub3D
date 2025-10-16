@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: copilot <copilot@github.com>                +#+  +:+       +#+        */
+/*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/04 00:00:00 by copilot           #+#    #+#             */
-/*   Updated: 2025/10/04 00:00:00 by copilot          ###   ########.fr       */
+/*   Created: 2025/10/16 09:28:31 by abdnasse          #+#    #+#             */
+/*   Updated: 2025/10/16 09:28:53 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
 static void	load_texture(t_game *game, int index, char *path)
 {
