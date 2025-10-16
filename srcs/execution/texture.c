@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 09:28:31 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/10/16 09:28:53 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/10/16 09:40:29 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,24 @@ int	get_texture_color(t_ray *r, int tex_y, t_game *game)
 
 	if (r->side == 0)
 	{
-		if (r->rayDirX > 0)
+		if (r->ray_dirx > 0)
 			tex_index = EAST;
 		else
 			tex_index = WEST;
-		wall_x = r->py + r->perpWallDist * r->rayDirY;
+		wall_x = r->py + r->perp_wall_dist * r->ray_diry;
 	}
 	else
 	{
-		if (r->rayDirY > 0)
+		if (r->ray_diry > 0)
 			tex_index = SOUTH;
 		else
 			tex_index = NORTH;
-		wall_x = r->px + r->perpWallDist * r->rayDirX;
+		wall_x = r->px + r->perp_wall_dist * r->ray_dirx;
 	}
 	wall_x -= (int)wall_x;
 	tex = &game->textures[tex_index];
 	tex_x = (int)(wall_x * (float)tex->width);
-	if ((r->side == 0 && r->rayDirX < 0) || (r->side == 1 && r->rayDirY > 0))
+	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
 		tex_x = tex->width - tex_x - 1;
 	return (tex->data[tex_y * tex->width + tex_x]);
 }
