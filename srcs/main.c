@@ -65,6 +65,8 @@ void	init_game(t_game *game)
 	game->mlx = mlx_init();
 	game->map = game->config.map;
 	load_textures(game);
+	init_door_list(game);
+	find_and_init_doors(game);
 	get_player_cord(game);
 	init_player(game);
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "CUB3D");
@@ -78,14 +80,22 @@ bool	 touch(int px, int py, t_game *game)
 	int block_x = px / BLOCK;
 	int block_y = py / BLOCK;
 
-	if (game->map[block_y][block_x] == '1' || game->map[block_y][block_x] == 'D')
+	if (game->map[block_y][block_x] == '1')
 		return (true);
+	if (game->map[block_y][block_x] == 'D')
+	{
+		if (!is_door_passable(game, block_x, block_y))
+			return (true);
+	}
 	return (false);
 }
 
 int	draw_loop(t_game *game)
 {
 	move_player(game);
+	update_door_animations(game);
+	if (game->player.key_interact)
+		interact_with_door(game);
 	draw_vision(game);
 	draw_aim(WIDTH / 2, HEIGHT / 2, 7, 0x7FFF00, game);
 	draw_minimap(game);

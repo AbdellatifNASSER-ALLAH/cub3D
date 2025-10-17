@@ -33,6 +33,8 @@ int key_press(int key, t_game *game)
 		player->up_rotate = true;
 	if (key == DOWN)
 		player->down_rotate = true;
+	if (key == 'e' || key == 'E')
+		player->key_interact = true;
 	if (key == 65307)
 		exit(0);
 	if (key == 'i')
@@ -89,5 +91,7 @@ int key_release(int key, t_game *game)
 		player->up_rotate = false;
 	if (key == DOWN)
 		player->down_rotate = false;
+	if (key == 'e' || key == 'E')
+		player->key_interact = false;
 	return (0);
 }
