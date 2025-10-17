@@ -49,6 +49,9 @@
 
 # define PLAYER_SIZE 0
 
+# define MAX_DOOR_FRAMES 10
+# define DOOR_ANIM_SPEED 0.1
+
 typedef enum s_tex
 {
 	NORTH,
@@ -58,6 +61,13 @@ typedef enum s_tex
 	DOOR,
 	NB_TEX
 }	t_tex;
+
+typedef enum e_door_state
+{
+	DOOR_CLOSED,
+	DOOR_OPENING,
+	DOOR_OPEN
+}	t_door_state;
 
 # define MINI_WIDTH 200
 # define MINI_HEIGHT 200
@@ -72,6 +82,8 @@ typedef struct s_config
 	char	*tex[NB_TEX];
 	int		tex_found[4];
 	int		door_found;
+	int		door_frame_count;
+	float	door_anim_speed;
 	int		f_rgb[3];
 	int		c_rgb[3];
 	int		c_found;
@@ -89,6 +101,9 @@ typedef struct s_texture
 	int		width;
 	int		height;
 	int		*data;
+	int		frame_count;
+	void	*frames[MAX_DOOR_FRAMES];
+	int		*frame_data[MAX_DOOR_FRAMES];
 }	t_texture;
 
 typedef struct s_player
@@ -109,6 +124,8 @@ typedef struct s_player
 	bool	up_rotate;
 	bool	down_rotate;
 	bool	right_rotate;
+
+	bool	key_interact;
 
 	int		prev_mouse_x;
 }	t_player;
@@ -140,6 +157,22 @@ typedef struct s_ray
 	int		hit;
 }	t_ray;
 
+typedef struct s_door
+{
+	int				x;
+	int				y;
+	t_door_state	state;
+	float			anim_progress;
+	int				current_frame;
+}	t_door;
+
+typedef struct s_door_list
+{
+	t_door			*doors;
+	int				count;
+	int				capacity;
+}	t_door_list;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -154,6 +187,7 @@ typedef struct s_game
 	t_texture	textures[5];
 	t_player	player;
 	t_config	config;
+	t_door_list	door_list;
 }	t_game;
 
 void	init_player(t_game *game);
@@ -187,6 +221,15 @@ void	init_ray(t_ray *r, t_player *player, int x);
 void	perform_dda(t_ray *r, t_game *game);
 int		get_texture_color(t_ray *r, int tex_y, t_game *game);
 void	load_textures(t_game *game);
+void	load_door_textures(t_game *game);
+
+// ====== doors ============
+void	init_door_list(t_game *game);
+void	find_and_init_doors(t_game *game);
+void	update_door_animations(t_game *game);
+void	interact_with_door(t_game *game);
+t_door	*get_door_at(t_game *game, int x, int y);
+bool	is_door_passable(t_game *game, int x, int y);
 
 
 #endif

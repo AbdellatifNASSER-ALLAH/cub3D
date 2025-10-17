@@ -17,6 +17,7 @@ static char	*skip_ws(char *s);
 static void	do_tex(int n, char *line, t_config *cfg);
 static int	rgb(char *s, int *rgb);
 static void	missing_textures(t_config *cfg);
+static float	parse_float(char *s);
 
 void	extract_configs(t_config *cfg, char *l)
 {
@@ -37,6 +38,8 @@ void	extract_configs(t_config *cfg, char *l)
 			do_tex(3, l, cfg);
 		else if (ft_strncmp(l, "DO ", 3) == 0)
 			do_tex(4, l, cfg);
+		else if (ft_strncmp(l, "DA ", 3) == 0)
+			do_tex(7, l, cfg);
 		else if (ft_strncmp(l, "C ", 2) == 0)
 			do_tex(5, l, cfg);
 		else if (ft_strncmp(l, "F ", 2) == 0)
@@ -124,6 +127,12 @@ static void	do_tex(int n, char *line, t_config *cfg)
 		if (!rgb(skip_ws(line + 2), cfg->f_rgb))
 			exit_err("Parsing rgb colors", 1, cfg);
 	}
+	if (n == 7)
+	{
+		cfg->door_anim_speed = parse_float(skip_ws(line + 3));
+		if (cfg->door_anim_speed <= 0.0f || cfg->door_anim_speed > 1.0f)
+			cfg->door_anim_speed = DOOR_ANIM_SPEED;
+	}
 }
 
 static char	*skip_ws(char *s)
@@ -131,4 +140,33 @@ static char	*skip_ws(char *s)
 	while (s && (*s == 32 || *s == '\t'))
 		s++;
 	return (s);
+}
+
+static float	parse_float(char *s)
+{
+	float	result;
+	float	fraction;
+	int		sign;
+
+	result = 0.0f;
+	fraction = 0.0f;
+	sign = 1;
+	if (*s == '-')
+	{
+		sign = -1;
+		s++;
+	}
+	while (*s >= '0' && *s <= '9')
+		result = result * 10.0f + (*s++ - '0');
+	if (*s == '.')
+	{
+		s++;
+		fraction = 0.1f;
+		while (*s >= '0' && *s <= '9')
+		{
+			result += (*s++ - '0') * fraction;
+			fraction *= 0.1f;
+		}
+	}
+	return (result * sign);
 }

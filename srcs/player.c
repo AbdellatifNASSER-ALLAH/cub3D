@@ -25,6 +25,7 @@ void	init_player(t_game *game)
 	player->right_rotate = false;
 	player->up_rotate = false;
 	player->down_rotate = false;
+	player->key_interact = false;
 	player->speed = 5;
 	player->z_eye = 0.5;
 }
