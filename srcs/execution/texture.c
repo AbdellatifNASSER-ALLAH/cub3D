@@ -17,24 +17,14 @@ static char	*get_frame_path(char *base_path, int frame_num)
 	char	*frame_path;
 	char	*num_str;
 	char	*temp;
-	int		i;
 
-	i = ft_strlen(base_path) - 1;
-	while (i >= 0 && base_path[i] != '.')
-		i--;
-	if (i < 0)
-		return (NULL);
-	frame_path = ft_substr(base_path, 0, i);
-	if (!frame_path)
-		return (NULL);
 	num_str = ft_itoa(frame_num);
 	if (!num_str)
-		return (free(frame_path), NULL);
+		return (NULL);
 	if (frame_num < 10)
-		temp = ft_strjoin(frame_path, "_0");
+		temp = ft_strjoin(base_path, "_0");
 	else
-		temp = ft_strjoin(frame_path, "_");
-	free(frame_path);
+		temp = ft_strjoin(base_path, "_");
 	if (!temp)
 		return (free(num_str), NULL);
 	frame_path = ft_strjoin(temp, num_str);
@@ -75,18 +65,29 @@ void	load_door_textures(t_game *game)
 {
 	t_texture	*tex;
 	char		*frame_path;
+	char		*trimmed_base;
 	int			i;
 	int			bpp;
+	int			j;
 
 	tex = &game->textures[DOOR];
-	game->config.door_frame_count = count_door_frames(
-		game->config.tex[DOOR], game->mlx);
+	i = 0;
+	while (game->config.tex[DOOR][i] && (game->config.tex[DOOR][i] == ' ' 
+		|| game->config.tex[DOOR][i] == '\t'))
+		i++;
+	trimmed_base = &game->config.tex[DOOR][i];
+	j = 0;
+	while (trimmed_base[j] && trimmed_base[j] != '\n' 
+		&& trimmed_base[j] != ' ' && trimmed_base[j] != '\t')
+		j++;
+	trimmed_base[j] = '\0';
+	game->config.door_frame_count = count_door_frames(trimmed_base, game->mlx);
 	i = 0;
 	while (i < game->config.door_frame_count)
 	{
-		frame_path = get_frame_path(game->config.tex[DOOR], i);
+		frame_path = get_frame_path(trimmed_base, i);
 		if (!frame_path && i == 0)
-			frame_path = ft_strdup(game->config.tex[DOOR]);
+			frame_path = ft_strdup(trimmed_base);
 		if (!frame_path)
 			break ;
 		tex->frames[i] = mlx_xpm_file_to_image(game->mlx, frame_path,
@@ -150,6 +151,7 @@ int	get_texture_color(t_ray *r, int tex_y, t_game *game)
 	float		wall_x;
 	t_door		*door;
 
+	tex_index = -1;
 	if (game->map[r->wally][r->wallx] == 'D' && game->config.door_found)
 	{
 		tex_index = DOOR;
@@ -169,20 +171,37 @@ int	get_texture_color(t_ray *r, int tex_y, t_game *game)
 			return (tex->frame_data[door->current_frame]
 				[tex_y * tex->width + tex_x]);
 		}
+		else if (game->textures[DOOR].frame_count > 0)
+		{
+			tex = &game->textures[tex_index];
+			if (r->side == 0)
+				wall_x = r->py + r->perp_wall_dist * r->ray_diry;
+			else
+				wall_x = r->px + r->perp_wall_dist * r->ray_dirx;
+			wall_x -= (int)wall_x;
+			tex_x = (int)(wall_x * (float)tex->width);
+			if ((r->side == 0 && r->ray_dirx < 0) || 
+				(r->side == 1 && r->ray_diry > 0))
+				tex_x = tex->width - tex_x - 1;
+			return (tex->frame_data[0][tex_y * tex->width + tex_x]);
+		}
 	}
-	else if (r->side == 0)
+	if (tex_index == -1)
 	{
-		if (r->ray_dirx > 0)
-			tex_index = EAST;
+		if (r->side == 0)
+		{
+			if (r->ray_dirx > 0)
+				tex_index = EAST;
+			else
+				tex_index = WEST;
+		}
 		else
-			tex_index = WEST;
-	}
-	else
-	{
-		if (r->ray_diry > 0)
-			tex_index = SOUTH;
-		else
-			tex_index = NORTH;
+		{
+			if (r->ray_diry > 0)
+				tex_index = SOUTH;
+			else
+				tex_index = NORTH;
+		}
 	}
 	if (r->side == 0)
 		wall_x = r->py + r->perp_wall_dist * r->ray_diry;

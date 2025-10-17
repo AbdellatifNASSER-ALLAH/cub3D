@@ -139,12 +139,22 @@ void	interact_with_door(t_game *game)
 	float	dx;
 	float	dy;
 	t_door	*door;
+	int		map_height;
+	int		map_width;
 
 	check_dist = BLOCK * 1.5f;
 	dx = cos(game->player.angle) * check_dist;
 	dy = sin(game->player.angle) * check_dist;
 	door_x = (int)((game->player.x + dx) / BLOCK);
 	door_y = (int)((game->player.y + dy) / BLOCK);
+	map_height = 0;
+	while (game->map[map_height])
+		map_height++;
+	if (door_y < 0 || door_y >= map_height)
+		return ;
+	map_width = ft_strlen(game->map[door_y]);
+	if (door_x < 0 || door_x >= map_width)
+		return ;
 	if (game->map[door_y][door_x] == 'D')
 	{
 		door = get_door_at(game, door_x, door_y);
