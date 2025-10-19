@@ -101,6 +101,7 @@ static void	validate_member_map(char c, char *item, t_config *cfg)
 	}
 	else if (c == 'D')
 	{
+		cfg->has_door_in_map = 1;
 		if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
 				|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
 			exit_err("Door cannot touch space or map edge", 1, cfg);

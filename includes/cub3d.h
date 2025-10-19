@@ -55,6 +55,7 @@ typedef enum s_tex
 	SOUTH,
 	EAST,
 	WEST,
+	DOOR,
 	NB_TEX
 }	t_tex;
 
@@ -70,6 +71,7 @@ typedef struct s_config
 	int		nb_lines;
 	char	*tex[NB_TEX];
 	int		tex_found[4];
+	int		door_found;
 	int		f_rgb[3];
 	int		c_rgb[3];
 	int		c_found;
@@ -78,6 +80,7 @@ typedef struct s_config
 	int		map_end;
 	int		player_count;
 	char	**map;
+	int		has_door_in_map;
 }	t_config;
 
 typedef struct s_texture
@@ -148,7 +151,7 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	char		**map;
-	t_texture	textures[4];
+	t_texture	textures[5];
 	t_player	player;
 	t_config	config;
 }	t_game;
@@ -169,7 +172,7 @@ enum { U, Do, L, R, ME };
 void	valid_file(char *path, char *extension, t_config *cfg);
 void	parse(t_config *cfg, char *path);
 void	read_file(t_config *cfg);
-void	extract_configs(t_config *cfg);
+void	extract_configs(t_config *cfg, char *l);
 void	fill_map(char **map, int start, int end, t_config *cfg);
 
 // ====== Utils ==========
@@ -183,6 +186,7 @@ void	draw_minimap(t_game *game);
 void	init_ray(t_ray *r, t_player *player, int x);
 void	perform_dda(t_ray *r, t_game *game);
 int		get_texture_color(t_ray *r, int tex_y, t_game *game);
+void	load_textures(t_game *game);
 
 
 #endif
