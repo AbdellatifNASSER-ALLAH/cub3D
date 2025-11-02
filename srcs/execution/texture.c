@@ -12,10 +12,25 @@
 
 #include "cub3d.h"
 
+static int	is_transparent(int color)
+{
+	int	red;
+	int	green;
+	int	blue;
+
+	red = color & 0xFF;
+	green = (color >> 8) & 0xFF;
+	blue = (color >> 16) & 0xFF;
+	return (red < TRANSPARENCY_THRESHOLD && green < TRANSPARENCY_THRESHOLD 
+		&& blue < TRANSPARENCY_THRESHOLD);
+}
+
 static void	load_texture_direct(t_game *game, int index, const char *path)
 {
 	t_texture	*tex;
-	int			i;
+	int			bpp;
+	int			size_line;
+	int			endian;
 
 	tex = &game->textures[index];
 	tex->img = mlx_xpm_file_to_image(game->mlx, (char *)path,
@@ -25,7 +40,7 @@ static void	load_texture_direct(t_game *game, int index, const char *path)
 		printf("Error: Could not load torch texture file: %s\n", path);
 		exit(1);
 	}
-	tex->data = (int *)mlx_get_data_addr(tex->img, &i, &i, &i);
+	tex->data = (int *)mlx_get_data_addr(tex->img, &bpp, &size_line, &endian);
 }
 
 static void	load_texture(t_game *game, int index, char *path)
@@ -124,9 +139,13 @@ void	draw_torch(t_game *game)
 	while (screen_y < sprite_height && (start_y + screen_y) < HEIGHT)
 	{
 		screen_x = 0;
-		while (screen_x < sprite_width && (start_x + screen_x) < WIDTH 
-			&& (start_x + screen_x) >= 0)
+		while (screen_x < sprite_width)
 		{
+			if ((start_x + screen_x) >= WIDTH || (start_x + screen_x) < 0)
+			{
+				screen_x++;
+				continue ;
+			}
 			tex_x = screen_x * torch->width / sprite_width;
 			tex_y = screen_y * torch->height / sprite_height;
 			if (tex_x >= torch->width)
@@ -134,9 +153,7 @@ void	draw_torch(t_game *game)
 			if (tex_y >= torch->height)
 				tex_y = torch->height - 1;
 			color = torch->data[tex_y * torch->width + tex_x];
-			if (!((color & 0xFF) < TRANSPARENCY_THRESHOLD 
-				&& ((color >> 8) & 0xFF) < TRANSPARENCY_THRESHOLD 
-				&& ((color >> 16) & 0xFF) < TRANSPARENCY_THRESHOLD))
+			if (!is_transparent(color))
 				put_pixel(start_x + screen_x, start_y + screen_y, 
 					color, game);
 			screen_x++;
