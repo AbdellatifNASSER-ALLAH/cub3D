@@ -73,7 +73,7 @@ int	mouse_button(int button, int x, int y, t_game *game)
 {
 	(void)x;
 	(void)y;
-	if (button == 3)
+	if (button == RIGHT_MOUSE_BUTTON)
 	{
 		game->player.is_attacking = true;
 		game->player.attack_frame = 0;

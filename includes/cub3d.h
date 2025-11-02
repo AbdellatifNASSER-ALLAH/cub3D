@@ -66,6 +66,13 @@ typedef enum s_tex
 # define MINI_BLOCK 10
 # define RADIUS 95
 
+# define TORCH_SIZE 256
+# define TORCH_OFFSET_X 50
+# define TORCH_OFFSET_Y 50
+# define ATTACK_ANIMATION_FRAMES 15
+# define TRANSPARENT_COLOR 0x000000
+# define RIGHT_MOUSE_BUTTON 3
+
 typedef struct s_config
 {
 	char	*path;
