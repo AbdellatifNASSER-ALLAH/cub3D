@@ -87,6 +87,7 @@ int	draw_loop(t_game *game)
 {
 	move_player(game);
 	draw_vision(game);
+	draw_torch(game);
 	draw_aim(WIDTH / 2, HEIGHT / 2, 7, 0x7FFF00, game);
 	draw_minimap(game);
 	draw_map(game);

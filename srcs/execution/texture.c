@@ -12,6 +12,22 @@
 
 #include "cub3d.h"
 
+static void	load_texture_direct(t_game *game, int index, const char *path)
+{
+	t_texture	*tex;
+	int			i;
+
+	tex = &game->textures[index];
+	tex->img = mlx_xpm_file_to_image(game->mlx, (char *)path,
+			&tex->width, &tex->height);
+	if (!tex->img)
+	{
+		printf("Error loading texture: %s\n", path);
+		exit(1);
+	}
+	tex->data = (int *)mlx_get_data_addr(tex->img, &i, &i, &i);
+}
+
 static void	load_texture(t_game *game, int index, char *path)
 {
 	t_texture	*tex;
@@ -46,6 +62,7 @@ void	load_textures(t_game *game)
 	load_texture(game, WEST, game->config.tex[WEST]);
 	if (game->config.door_found)
 		load_texture(game, DOOR, game->config.tex[DOOR]);
+	load_texture_direct(game, TORCH, "./textures/torch/torch1_wall.xpm");
 }
 
 int	get_texture_color(t_ray *r, int tex_y, t_game *game)
@@ -81,4 +98,43 @@ int	get_texture_color(t_ray *r, int tex_y, t_game *game)
 	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
 		tex_x = tex->width - tex_x - 1;
 	return (tex->data[tex_y * tex->width + tex_x]);
+}
+
+void	draw_torch(t_game *game)
+{
+	t_texture	*torch;
+	int			screen_x;
+	int			screen_y;
+	int			tex_x;
+	int			tex_y;
+	int			color;
+	int			sprite_width;
+	int			sprite_height;
+	int			start_x;
+	int			start_y;
+
+	torch = &game->textures[TORCH];
+	sprite_width = torch->width * 2;
+	sprite_height = torch->height * 2;
+	start_x = (WIDTH - sprite_width) / 2;
+	start_y = HEIGHT - sprite_height;
+	screen_y = 0;
+	while (screen_y < sprite_height && (start_y + screen_y) < HEIGHT)
+	{
+		screen_x = 0;
+		while (screen_x < sprite_width && (start_x + screen_x) < WIDTH)
+		{
+			tex_x = screen_x * torch->width / sprite_width;
+			tex_y = screen_y * torch->height / sprite_height;
+			if (tex_x >= 0 && tex_x < torch->width 
+				&& tex_y >= 0 && tex_y < torch->height)
+			{
+				color = torch->data[tex_y * torch->width + tex_x];
+				put_pixel(start_x + screen_x, start_y + screen_y, 
+					color, game);
+			}
+			screen_x++;
+		}
+		screen_y++;
+	}
 }

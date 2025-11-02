@@ -56,6 +56,7 @@ typedef enum s_tex
 	EAST,
 	WEST,
 	DOOR,
+	TORCH,
 	NB_TEX
 }	t_tex;
 
@@ -151,7 +152,7 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	char		**map;
-	t_texture	textures[5];
+	t_texture	textures[NB_TEX];
 	t_player	player;
 	t_config	config;
 }	t_game;
@@ -187,6 +188,7 @@ void	init_ray(t_ray *r, t_player *player, int x);
 void	perform_dda(t_ray *r, t_game *game);
 int		get_texture_color(t_ray *r, int tex_y, t_game *game);
 void	load_textures(t_game *game);
+void	draw_torch(t_game *game);
 
 
 #endif

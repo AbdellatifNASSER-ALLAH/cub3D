@@ -9,3 +9,4 @@
 **/a.out
 libft/libft.a
 libft/objdir/*
+*.png
