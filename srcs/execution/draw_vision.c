@@ -101,36 +101,32 @@ void	draw_torch(t_game *game)
 	t_texture	*torch_tex;
 	int			screen_x;
 	int			screen_y;
+	int			draw_x;
+	int			draw_y;
 	int			tex_x;
 	int			tex_y;
 	int			color;
-	int			torch_width;
-	int			torch_height;
 
 	if (game->player.is_attacking)
 		torch_tex = &game->textures[TORCH_ATTACK];
 	else
 		torch_tex = &game->textures[TORCH];
-	torch_width = 256;
-	torch_height = 256;
-	screen_x = WIDTH - torch_width - 50;
-	screen_y = HEIGHT - torch_height + 50;
-	tex_y = 0;
-	while (tex_y < torch_tex->height)
+	screen_x = WIDTH - 256 - 50;
+	screen_y = HEIGHT - 256 + 50;
+	draw_y = 0;
+	while (draw_y < 256 && screen_y + draw_y < HEIGHT)
 	{
-		tex_x = 0;
-		while (tex_x < torch_tex->width)
+		draw_x = 0;
+		while (draw_x < 256 && screen_x + draw_x < WIDTH)
 		{
+			tex_x = (draw_x * torch_tex->width) / 256;
+			tex_y = (draw_y * torch_tex->height) / 256;
 			color = torch_tex->data[tex_y * torch_tex->width + tex_x];
 			if (color != 0x000000)
-			{
-				put_pixel(screen_x + (tex_x * torch_width / torch_tex->width),
-					screen_y + (tex_y * torch_height / torch_tex->height),
-					color, game);
-			}
-			tex_x++;
+				put_pixel(screen_x + draw_x, screen_y + draw_y, color, game);
+			draw_x++;
 		}
-		tex_y++;
+		draw_y++;
 	}
 	if (game->player.is_attacking)
 	{
