@@ -23,7 +23,8 @@ bool	touch2(int px, int py, t_game *game)
 	block_y = (py + (game->player.y / BLOCK * MINI_BLOCK)
 			- MINI_HEIGHT / 2) / MINI_BLOCK;
 	if (game->map[block_y][block_x] == '1' || \
-		game->map[block_y][block_x] == 'D')
+		game->map[block_y][block_x] == 'D' || \
+		game->map[block_y][block_x] == 'T')
 		return (true);
 	return (false);
 }

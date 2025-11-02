@@ -110,6 +110,17 @@ static void	validate_member_map(char c, char *item, t_config *cfg)
 			exit_err("Door must be between two walls vertically or horizontally",
 					1, cfg);
 	}
+	else if (c == 'T')
+	{
+		cfg->has_torch_in_map = 1;
+		if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
+				|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
+			exit_err("Torch cannot touch space or map edge", 1, cfg);
+		if (!((item[U] == '1' && item[Do] == '1') || (item[L] == '1'
+						&& item[R] == '1')))
+			exit_err("Torch must be between two walls vertically or horizontally",
+					1, cfg);
+	}
 	else
 		exit_err("Invalid character in map", 1, cfg);
 }

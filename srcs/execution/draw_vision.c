@@ -62,6 +62,8 @@ void	select_color(t_ray *r, t_game *game)
 {
 	if (game->map[r->wally][r->wallx] == 'D')
 		r->color = 0xFFFFFF; // Door
+	else if (game->map[r->wally][r->wallx] == 'T')
+		r->color = 0xFFA500; // Torch (orange)
 	else if (r->side == 0)
 	{
 		if (r->ray_dirx > 0)

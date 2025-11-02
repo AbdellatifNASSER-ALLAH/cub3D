@@ -87,7 +87,8 @@ void	perform_dda(t_ray *r, t_game *game)
 			r->side = 1;
 		}
 		if (game->map[r->mapy][r->mapx] == '1' || \
-			game->map[r->mapy][r->mapx] == 'D')
+			game->map[r->mapy][r->mapx] == 'D' || \
+			game->map[r->mapy][r->mapx] == 'T')
 		{
 			r->hit = 1;
 			r->wallx = r->mapx;

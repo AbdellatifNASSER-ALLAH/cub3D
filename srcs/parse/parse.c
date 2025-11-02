@@ -29,6 +29,8 @@ void	parse(t_config *cfg, char *path)
 	fill_map(cfg->lines, cfg->map_start, cfg->map_end, cfg);
 	if (cfg->has_door_in_map && !cfg->door_found)
 		exit_err("Map contains door but no door texture defined", 1, cfg);
+	if (cfg->has_torch_in_map && !cfg->torch_found)
+		exit_err("Map contains torch but no torch texture defined", 1, cfg);
 	return ;
 }
 
@@ -43,9 +45,11 @@ static void	init_config(t_config *cfg, char *path)
 	while (i < 4)
 		cfg->tex_found[i++] = 0;
 	cfg->door_found = 0;
+	cfg->torch_found = 0;
 	cfg->c_found = 0;
 	cfg->f_found = 0;
 	cfg->map_start = -1;
 	cfg->has_door_in_map = 0;
+	cfg->has_torch_in_map = 0;
 	return ;
 }

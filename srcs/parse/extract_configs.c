@@ -37,10 +37,12 @@ void	extract_configs(t_config *cfg, char *l)
 			do_tex(3, l, cfg);
 		else if (ft_strncmp(l, "DO ", 3) == 0)
 			do_tex(4, l, cfg);
-		else if (ft_strncmp(l, "C ", 2) == 0)
+		else if (ft_strncmp(l, "TO ", 3) == 0)
 			do_tex(5, l, cfg);
-		else if (ft_strncmp(l, "F ", 2) == 0)
+		else if (ft_strncmp(l, "C ", 2) == 0)
 			do_tex(6, l, cfg);
+		else if (ft_strncmp(l, "F ", 2) == 0)
+			do_tex(7, l, cfg);
 		else
 			exit_err("Unknow config lien", 1, cfg);
 	}
@@ -112,12 +114,19 @@ static void	do_tex(int n, char *line, t_config *cfg)
 	}
 	if (n == 5)
 	{
+		valid_file(line + 3, ".xpm", cfg);
+		if (cfg->torch_found++)
+			exit_err("Dubplicated config", 1, cfg);
+		cfg->tex[TORCH] = ft_strdup(line + 3);
+	}
+	if (n == 6)
+	{
 		if (cfg->c_found++)
 			exit_err("Dubplicated Color C", 1, cfg);
 		if (!rgb(skip_ws(line + 2), cfg->c_rgb))
 			exit_err("Parsing rgb colors", 1, cfg);
 	}
-	if (n == 6)
+	if (n == 7)
 	{
 		if (cfg->f_found++)
 			exit_err("Dubplicated Color F", 1, cfg);

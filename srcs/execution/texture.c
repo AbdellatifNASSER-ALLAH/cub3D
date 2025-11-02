@@ -46,6 +46,8 @@ void	load_textures(t_game *game)
 	load_texture(game, WEST, game->config.tex[WEST]);
 	if (game->config.door_found)
 		load_texture(game, DOOR, game->config.tex[DOOR]);
+	if (game->config.torch_found)
+		load_texture(game, TORCH, game->config.tex[TORCH]);
 }
 
 int	get_texture_color(t_ray *r, int tex_y, t_game *game)
@@ -57,6 +59,8 @@ int	get_texture_color(t_ray *r, int tex_y, t_game *game)
 
 	if (game->map[r->wally][r->wallx] == 'D' && game->config.door_found)
 		tex_index = DOOR;
+	else if (game->map[r->wally][r->wallx] == 'T' && game->config.torch_found)
+		tex_index = TORCH;
 	else if (r->side == 0)
 	{
 		if (r->ray_dirx > 0)

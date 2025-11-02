@@ -78,7 +78,7 @@ bool	 touch(int px, int py, t_game *game)
 	int block_x = px / BLOCK;
 	int block_y = py / BLOCK;
 
-	if (game->map[block_y][block_x] == '1' || game->map[block_y][block_x] == 'D')
+	if (game->map[block_y][block_x] == '1' || game->map[block_y][block_x] == 'D' || game->map[block_y][block_x] == 'T')
 		return (true);
 	return (false);
 }
