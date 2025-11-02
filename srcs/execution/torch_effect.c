@@ -13,9 +13,10 @@
 #include "../includes/cub3d.h"
 
 /* Torch configuration */
-#define TORCH_ENABLED 1              /* Set to 0 to disable torch effect */
+#define TORCH_ENABLED 1                 /* Set to 0 to disable torch effect */
 #define TORCH_RADIUS_PIXELS 200
 #define TORCH_MIN_BRIGHTNESS 0.15f
+#define TORCH_FALLOFF_START_RATIO 0.7f  /* Start dimming at 70% of radius */
 
 /**
  * apply_torch_effect - Applies a centered torch/flashlight effect to the frame
@@ -48,14 +49,17 @@ void	apply_torch_effect(t_game *game, int width, int height)
 	float	center_y;
 	float	radius_sq;
 	float	falloff_start_sq;
+	int		bytes_per_pixel;
 
-	#if TORCH_ENABLED == 0
+	#if !TORCH_ENABLED
 		return ;
 	#endif
 	center_x = width / 2.0f;
 	center_y = height / 2.0f;
 	radius_sq = TORCH_RADIUS_PIXELS * TORCH_RADIUS_PIXELS;
-	falloff_start_sq = (TORCH_RADIUS_PIXELS * 0.7f) * (TORCH_RADIUS_PIXELS * 0.7f);
+	falloff_start_sq = (TORCH_RADIUS_PIXELS * TORCH_FALLOFF_START_RATIO) 
+		* (TORCH_RADIUS_PIXELS * TORCH_FALLOFF_START_RATIO);
+	bytes_per_pixel = game->bpp / 8;
 	y = 0;
 	while (y < height)
 	{
@@ -72,13 +76,17 @@ void	apply_torch_effect(t_game *game, int width, int height)
 			else
 			{
 				/* Smooth cosine falloff */
-				float t = (dist - falloff_start_sq) / (radius_sq - falloff_start_sq);
-				multiplier = TORCH_MIN_BRIGHTNESS + (1.0f - TORCH_MIN_BRIGHTNESS) * 
-					(0.5f * (1.0f + cosf(t * PI)));
+				float t;
+				float brightness_range;
+				
+				t = (dist - falloff_start_sq) / (radius_sq - falloff_start_sq);
+				brightness_range = 1.0f - TORCH_MIN_BRIGHTNESS;
+				multiplier = TORCH_MIN_BRIGHTNESS + brightness_range 
+					* (0.5f * (1.0f + cosf(t * PI)));
 			}
 			if (multiplier < 1.0f)
 			{
-				index = y * game->size_line + x * game->bpp / 8;
+				index = y * game->size_line + x * bytes_per_pixel;
 				r = (unsigned char)game->data[index + 2];
 				g = (unsigned char)game->data[index + 1];
 				b = (unsigned char)game->data[index];
