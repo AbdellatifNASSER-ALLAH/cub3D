@@ -33,6 +33,7 @@
 
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
+# define TORCH_TEXTURE_PATH "./textures/torch/torch1_wall.xpm"
 
 # define W 119
 # define A 97

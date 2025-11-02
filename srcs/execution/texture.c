@@ -22,7 +22,7 @@ static void	load_texture_direct(t_game *game, int index, const char *path)
 			&tex->width, &tex->height);
 	if (!tex->img)
 	{
-		printf("Error loading texture: %s\n", path);
+		printf("Failed to load torch texture from %s\n", path);
 		exit(1);
 	}
 	tex->data = (int *)mlx_get_data_addr(tex->img, &i, &i, &i);
@@ -62,7 +62,7 @@ void	load_textures(t_game *game)
 	load_texture(game, WEST, game->config.tex[WEST]);
 	if (game->config.door_found)
 		load_texture(game, DOOR, game->config.tex[DOOR]);
-	load_texture_direct(game, TORCH, "./textures/torch/torch1_wall.xpm");
+	load_texture_direct(game, TORCH, TORCH_TEXTURE_PATH);
 }
 
 int	get_texture_color(t_ray *r, int tex_y, t_game *game)
@@ -126,13 +126,11 @@ void	draw_torch(t_game *game)
 		{
 			tex_x = screen_x * torch->width / sprite_width;
 			tex_y = screen_y * torch->height / sprite_height;
-			if (tex_x >= 0 && tex_x < torch->width 
-				&& tex_y >= 0 && tex_y < torch->height)
-			{
-				color = torch->data[tex_y * torch->width + tex_x];
+			color = torch->data[tex_y * torch->width + tex_x];
+			if ((color & 0xFF) >= 50 || ((color >> 8) & 0xFF) >= 50 
+				|| ((color >> 16) & 0xFF) >= 50)
 				put_pixel(start_x + screen_x, start_y + screen_y, 
 					color, game);
-			}
 			screen_x++;
 		}
 		screen_y++;
