@@ -118,18 +118,25 @@ void	draw_torch(t_game *game)
 	sprite_height = torch->height * TORCH_SCALE_FACTOR;
 	start_x = (WIDTH - sprite_width) / 2;
 	start_y = HEIGHT - sprite_height;
+	if (start_y < 0)
+		start_y = 0;
 	screen_y = 0;
 	while (screen_y < sprite_height && (start_y + screen_y) < HEIGHT)
 	{
 		screen_x = 0;
-		while (screen_x < sprite_width && (start_x + screen_x) < WIDTH)
+		while (screen_x < sprite_width && (start_x + screen_x) < WIDTH 
+			&& (start_x + screen_x) >= 0)
 		{
 			tex_x = screen_x * torch->width / sprite_width;
 			tex_y = screen_y * torch->height / sprite_height;
+			if (tex_x >= torch->width)
+				tex_x = torch->width - 1;
+			if (tex_y >= torch->height)
+				tex_y = torch->height - 1;
 			color = torch->data[tex_y * torch->width + tex_x];
-			if ((color & 0xFF) >= TRANSPARENCY_THRESHOLD 
-				|| ((color >> 8) & 0xFF) >= TRANSPARENCY_THRESHOLD 
-				|| ((color >> 16) & 0xFF) >= TRANSPARENCY_THRESHOLD)
+			if (!((color & 0xFF) < TRANSPARENCY_THRESHOLD 
+				&& ((color >> 8) & 0xFF) < TRANSPARENCY_THRESHOLD 
+				&& ((color >> 16) & 0xFF) < TRANSPARENCY_THRESHOLD))
 				put_pixel(start_x + screen_x, start_y + screen_y, 
 					color, game);
 			screen_x++;
