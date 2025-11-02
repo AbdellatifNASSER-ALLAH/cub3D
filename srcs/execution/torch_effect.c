@@ -13,6 +13,7 @@
 #include "../includes/cub3d.h"
 
 /* Torch configuration */
+#define TORCH_ENABLED 1              /* Set to 0 to disable torch effect */
 #define TORCH_RADIUS_PIXELS 200
 #define TORCH_MIN_BRIGHTNESS 0.15f
 
@@ -48,6 +49,9 @@ void	apply_torch_effect(t_game *game, int width, int height)
 	float	radius_sq;
 	float	falloff_start_sq;
 
+	#if TORCH_ENABLED == 0
+		return ;
+	#endif
 	center_x = width / 2.0f;
 	center_y = height / 2.0f;
 	radius_sq = TORCH_RADIUS_PIXELS * TORCH_RADIUS_PIXELS;

@@ -41,8 +41,9 @@ The game features a centered torch (flashlight) effect that creates a circular b
 
 ### Customizing the Torch Effect
 
-The torch effect can be easily customized by modifying two constants in `srcs/execution/torch_effect.c`:
+The torch effect can be easily customized by modifying constants in `srcs/execution/torch_effect.c`:
 
+- **TORCH_ENABLED** (default: 1) - Set to 0 to completely disable the torch effect, or 1 to enable it.
 - **TORCH_RADIUS_PIXELS** (default: 200) - Controls the size of the bright circle in pixels. Larger values create a wider lit area.
 - **TORCH_MIN_BRIGHTNESS** (default: 0.15) - Controls how dark the edges become, ranging from 0.0 (completely black) to 1.0 (no darkening). Lower values create more dramatic contrast.
 
