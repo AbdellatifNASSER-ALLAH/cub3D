@@ -64,6 +64,7 @@ void	init_game(t_game *game)
 {
 	game->mlx = mlx_init();
 	game->map = game->config.map;
+	game->torch_anim_frame = 0;
 	load_textures(game);
 	get_player_cord(game);
 	init_player(game);
@@ -85,6 +86,7 @@ bool	 touch(int px, int py, t_game *game)
 
 int	draw_loop(t_game *game)
 {
+	game->torch_anim_frame++;
 	move_player(game);
 	draw_vision(game);
 	draw_aim(WIDTH / 2, HEIGHT / 2, 7, 0x7FFF00, game);

@@ -48,6 +48,8 @@ void	load_textures(t_game *game)
 		load_texture(game, DOOR, game->config.tex[DOOR]);
 	if (game->config.torch_found)
 		load_texture(game, TORCH, game->config.tex[TORCH]);
+	if (game->config.torch_attack_found)
+		load_texture(game, TORCH_ATTACK, game->config.tex[TORCH_ATTACK]);
 }
 
 int	get_texture_color(t_ray *r, int tex_y, t_game *game)
@@ -60,7 +62,12 @@ int	get_texture_color(t_ray *r, int tex_y, t_game *game)
 	if (game->map[r->wally][r->wallx] == 'D' && game->config.door_found)
 		tex_index = DOOR;
 	else if (game->map[r->wally][r->wallx] == 'T' && game->config.torch_found)
-		tex_index = TORCH;
+	{
+		if (game->config.torch_attack_found && (game->torch_anim_frame / 30) % 2)
+			tex_index = TORCH_ATTACK;
+		else
+			tex_index = TORCH;
+	}
 	else if (r->side == 0)
 	{
 		if (r->ray_dirx > 0)

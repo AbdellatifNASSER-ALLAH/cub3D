@@ -57,6 +57,7 @@ typedef enum s_tex
 	WEST,
 	DOOR,
 	TORCH,
+	TORCH_ATTACK,
 	NB_TEX
 }	t_tex;
 
@@ -74,6 +75,7 @@ typedef struct s_config
 	int		tex_found[4];
 	int		door_found;
 	int		torch_found;
+	int		torch_attack_found;
 	int		f_rgb[3];
 	int		c_rgb[3];
 	int		c_found;
@@ -154,9 +156,10 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	char		**map;
-	t_texture	textures[6];
+	t_texture	textures[7];
 	t_player	player;
 	t_config	config;
+	int			torch_anim_frame;
 }	t_game;
 
 void	init_player(t_game *game);

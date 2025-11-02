@@ -46,6 +46,7 @@ static void	init_config(t_config *cfg, char *path)
 		cfg->tex_found[i++] = 0;
 	cfg->door_found = 0;
 	cfg->torch_found = 0;
+	cfg->torch_attack_found = 0;
 	cfg->c_found = 0;
 	cfg->f_found = 0;
 	cfg->map_start = -1;

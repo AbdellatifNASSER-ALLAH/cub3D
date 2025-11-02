@@ -4,6 +4,7 @@ WE ./textures/TECH_0A.xpm
 EA ./textures/SUPPORT_6A.xpm
 DO ./textures/door.xpm
 TO ./textures/torch.xpm
+TA ./textures/attack_torch.xpm
 
 F 220,100,0
 C 225,30,0
