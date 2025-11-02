@@ -38,7 +38,15 @@ A simple, modular raycasting 3D engine using MiniLibX, inspired by Wolfenstein 3
 ## Textures
 
 Place your wall textures in the `textures/` directory as XPM files.  
-Textures are mapped to North, South, East, and West walls.  
+Textures are mapped to North, South, East, and West walls.
+
+### Supported Features:
+- **Doors (D)**: Configurable with `DO` identifier
+- **Torches (T)**: Configurable with `TO` identifier for normal texture
+- **Animated Torches**: Add `TA` identifier for attack/animated texture
+  - When both TO and TA are defined, torches will flicker between the two textures
+  - Creates a dynamic fire effect in the game
+
 To add new wall types, update the map parser and texture loading logic.
 
 ## Build & Run
