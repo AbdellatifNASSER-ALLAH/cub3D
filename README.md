@@ -35,6 +35,19 @@ A simple, modular raycasting 3D engine using MiniLibX, inspired by Wolfenstein 3
 - **Mouse**: Look around
 - **ESC**: Exit
 
+## Torch/Flashlight Effect
+
+The game features a centered torch (flashlight) effect that creates a circular bright area at the center of the screen while darkening the edges. This enhances immersion and creates a more atmospheric viewing experience.
+
+### Customizing the Torch Effect
+
+The torch effect can be easily customized by modifying two constants in `srcs/execution/torch_effect.c`:
+
+- **TORCH_RADIUS_PIXELS** (default: 200) - Controls the size of the bright circle in pixels. Larger values create a wider lit area.
+- **TORCH_MIN_BRIGHTNESS** (default: 0.15) - Controls how dark the edges become, ranging from 0.0 (completely black) to 1.0 (no darkening). Lower values create more dramatic contrast.
+
+To adjust these settings, edit the values at the top of `srcs/execution/torch_effect.c` and recompile with `make`.
+
 ## Textures
 
 Place your wall textures in the `textures/` directory as XPM files.  

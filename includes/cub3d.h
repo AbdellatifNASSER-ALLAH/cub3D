@@ -187,6 +187,7 @@ void	init_ray(t_ray *r, t_player *player, int x);
 void	perform_dda(t_ray *r, t_game *game);
 int		get_texture_color(t_ray *r, int tex_y, t_game *game);
 void	load_textures(t_game *game);
+void	apply_torch_effect(t_game *game, int width, int height);
 
 
 #endif

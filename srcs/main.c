@@ -92,7 +92,7 @@ int	draw_loop(t_game *game)
 	draw_map(game);
 	draw_circule(MINI_WIDTH / 2, MINI_HEIGHT / 2, 2, 0xFF0000, game);
 	draw_circule(MINI_WIDTH / 2, MINI_HEIGHT / 2, 1, 0x000000, game);
-
+	apply_torch_effect(game, WIDTH, HEIGHT);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);
 }
