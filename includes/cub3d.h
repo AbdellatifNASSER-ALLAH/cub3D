@@ -34,6 +34,8 @@
 # define TEXTURE_WIDTH 64
 # define TEXTURE_HEIGHT 64
 # define TORCH_TEXTURE_PATH "./textures/torch/torch1_wall.xpm"
+# define TORCH_SCALE_FACTOR 2
+# define TRANSPARENCY_THRESHOLD 50
 
 # define W 119
 # define A 97

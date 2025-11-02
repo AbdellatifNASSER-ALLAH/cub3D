@@ -22,7 +22,7 @@ static void	load_texture_direct(t_game *game, int index, const char *path)
 			&tex->width, &tex->height);
 	if (!tex->img)
 	{
-		printf("Failed to load torch texture from %s\n", path);
+		printf("Error: Could not load torch texture file: %s\n", path);
 		exit(1);
 	}
 	tex->data = (int *)mlx_get_data_addr(tex->img, &i, &i, &i);
@@ -114,8 +114,8 @@ void	draw_torch(t_game *game)
 	int			start_y;
 
 	torch = &game->textures[TORCH];
-	sprite_width = torch->width * 2;
-	sprite_height = torch->height * 2;
+	sprite_width = torch->width * TORCH_SCALE_FACTOR;
+	sprite_height = torch->height * TORCH_SCALE_FACTOR;
 	start_x = (WIDTH - sprite_width) / 2;
 	start_y = HEIGHT - sprite_height;
 	screen_y = 0;
@@ -127,8 +127,9 @@ void	draw_torch(t_game *game)
 			tex_x = screen_x * torch->width / sprite_width;
 			tex_y = screen_y * torch->height / sprite_height;
 			color = torch->data[tex_y * torch->width + tex_x];
-			if ((color & 0xFF) >= 50 || ((color >> 8) & 0xFF) >= 50 
-				|| ((color >> 16) & 0xFF) >= 50)
+			if ((color & 0xFF) >= TRANSPARENCY_THRESHOLD 
+				|| ((color >> 8) & 0xFF) >= TRANSPARENCY_THRESHOLD 
+				|| ((color >> 16) & 0xFF) >= TRANSPARENCY_THRESHOLD)
 				put_pixel(start_x + screen_x, start_y + screen_y, 
 					color, game);
 			screen_x++;
