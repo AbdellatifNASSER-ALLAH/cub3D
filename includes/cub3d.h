@@ -56,6 +56,8 @@ typedef enum s_tex
 	EAST,
 	WEST,
 	DOOR,
+	TORCH,
+	TORCH_ATTACK,
 	NB_TEX
 }	t_tex;
 
@@ -111,6 +113,8 @@ typedef struct s_player
 	bool	right_rotate;
 
 	int		prev_mouse_x;
+	bool	is_attacking;
+	int		attack_frame;
 }	t_player;
 
 typedef struct s_ray
@@ -151,7 +155,7 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	char		**map;
-	t_texture	textures[5];
+	t_texture	textures[7];
 	t_player	player;
 	t_config	config;
 }	t_game;
@@ -161,8 +165,10 @@ int		key_press(int key, t_game *game);
 int		key_release(int key, t_game *game);
 int		move_player(t_game *game);
 int		mouse_move(int x, int y, t_game *game);
+int		mouse_button(int button, int x, int y, t_game *game);
 void	mouse_move_handler(int x, int y, t_game *game);
 void	update(t_game *game);
+void	draw_torch(t_game *game);
 
 bool	touch(int px, int py, t_game *game);
 void	put_pixel(int x, int y, int color, t_game *game);

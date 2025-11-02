@@ -46,6 +46,8 @@ void	load_textures(t_game *game)
 	load_texture(game, WEST, game->config.tex[WEST]);
 	if (game->config.door_found)
 		load_texture(game, DOOR, game->config.tex[DOOR]);
+	load_texture(game, TORCH, "textures/torch.xpm");
+	load_texture(game, TORCH_ATTACK, "textures/attack_torch.xpm");
 }
 
 int	get_texture_color(t_ray *r, int tex_y, t_game *game)

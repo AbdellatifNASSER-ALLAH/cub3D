@@ -27,6 +27,8 @@ void	init_player(t_game *game)
 	player->down_rotate = false;
 	player->speed = 5;
 	player->z_eye = 0.5;
+	player->is_attacking = false;
+	player->attack_frame = 0;
 }
 
 int	is_blocked(float x, float y, t_game *game)

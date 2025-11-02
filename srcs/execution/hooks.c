@@ -68,6 +68,18 @@ int	mouse_move(int x, int y, t_game *game)
 	mlx_mouse_move(game->mlx, game->win, center_x, HEIGHT / 2);
 	return (0);
 }
+
+int	mouse_button(int button, int x, int y, t_game *game)
+{
+	(void)x;
+	(void)y;
+	if (button == 3)
+	{
+		game->player.is_attacking = true;
+		game->player.attack_frame = 0;
+	}
+	return (0);
+}
 int key_release(int key, t_game *game)
 {
 	t_player *player;
