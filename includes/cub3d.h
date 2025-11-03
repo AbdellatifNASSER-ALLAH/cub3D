@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/13 23:55:42 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/03 16:22:43 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ typedef enum s_tex
 # define RADIUS 95
 
 # define TORCH_SIZE 256
-# define TORCH_OFFSET_X 50
-# define TORCH_OFFSET_Y 50
+# define TORCH_OFFSET_X 400
+# define TORCH_OFFSET_Y 0
 # define ATTACK_ANIMATION_FRAMES 15
 # define TRANSPARENT_COLOR 0x000000
 # define RIGHT_MOUSE_BUTTON 3
