@@ -6,11 +6,25 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 09:28:31 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/11/03 16:13:53 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/04 11:46:19 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static	void	load_texture(t_game *game, int index, char *path);
+
+void	load_textures(t_game *game)
+{
+	load_texture(game, NORTH, game->config.tex[NORTH]);
+	load_texture(game, SOUTH, game->config.tex[SOUTH]);
+	load_texture(game, EAST, game->config.tex[EAST]);
+	load_texture(game, WEST, game->config.tex[WEST]);
+	if (game->config.door_found)
+		load_texture(game, DOOR, game->config.tex[DOOR]);
+	load_texture(game, TORCH, "./textures/torch.xpm");
+	load_texture(game, TORCH_ATTACK, "./textures/attack_torch.xpm");
+}
 
 static void	load_texture(t_game *game, int index, char *path)
 {
@@ -37,18 +51,6 @@ static void	load_texture(t_game *game, int index, char *path)
 		exit(1);
 	}
 	tex->data = (int *)mlx_get_data_addr(tex->img, &i, &i, &i);
-}
-
-void	load_textures(t_game *game)
-{
-	load_texture(game, NORTH, game->config.tex[NORTH]);
-	load_texture(game, SOUTH, game->config.tex[SOUTH]);
-	load_texture(game, EAST, game->config.tex[EAST]);
-	load_texture(game, WEST, game->config.tex[WEST]);
-	if (game->config.door_found)
-		load_texture(game, DOOR, game->config.tex[DOOR]);
-	load_texture(game, TORCH, "./textures/torch.xpm");
-	load_texture(game, TORCH_ATTACK, "./textures/attack_torch.xpm");
 }
 
 int	get_texture_color(t_ray *r, int tex_y, t_game *game)
