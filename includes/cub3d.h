@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/03 16:22:43 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/04 12:01:27 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,6 +190,9 @@ void	fill_map(char **map, int start, int end, t_config *cfg);
 
 // ====== Utils ==========
 void	exit_err(const char *msg, int st, t_config *cfg);
+void	free_configs(t_config *cfg);
+void	free_game(t_game *game);
+void	handle_exit(t_game *game);
 
 // ====== execution ============
 
