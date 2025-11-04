@@ -87,6 +87,7 @@ int	draw_loop(t_game *game)
 {
 	move_player(game);
 	draw_vision(game);
+	draw_torch(game);
 	draw_aim(WIDTH / 2, HEIGHT / 2, 7, 0x7FFF00, game);
 	draw_minimap(game);
 	draw_map(game);
@@ -109,6 +110,7 @@ int main(int ac, char **av)
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
 	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
+	mlx_hook(game.win, 4, 1L << 2, mouse_button, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
 	mlx_mouse_hide(game.mlx, game.win);
 

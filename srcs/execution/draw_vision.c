@@ -95,3 +95,46 @@ void	draw_vision(t_game *game)
 		x++;
 	}
 }
+
+void	draw_torch(t_game *game)
+{
+	t_texture	*torch_tex;
+	int			screen_x;
+	int			screen_y;
+	int			draw_x;
+	int			draw_y;
+	int			tex_x;
+	int			tex_y;
+	int			color;
+
+	if (game->player.is_attacking)
+		torch_tex = &game->textures[TORCH_ATTACK];
+	else
+		torch_tex = &game->textures[TORCH];
+	screen_x = WIDTH - TORCH_SIZE - TORCH_OFFSET_X;
+	screen_y = HEIGHT - TORCH_SIZE + TORCH_OFFSET_Y;
+	draw_y = 0;
+	while (draw_y < TORCH_SIZE && screen_y + draw_y < HEIGHT)
+	{
+		draw_x = 0;
+		while (draw_x < TORCH_SIZE && screen_x + draw_x < WIDTH)
+		{
+			tex_x = (draw_x * torch_tex->width) / TORCH_SIZE;
+			tex_y = (draw_y * torch_tex->height) / TORCH_SIZE;
+			color = torch_tex->data[tex_y * torch_tex->width + tex_x];
+			if (color != TRANSPARENT_COLOR)
+				put_pixel(screen_x + draw_x, screen_y + draw_y, color, game);
+			draw_x++;
+		}
+		draw_y++;
+	}
+	if (game->player.is_attacking)
+	{
+		game->player.attack_frame++;
+		if (game->player.attack_frame > ATTACK_ANIMATION_FRAMES)
+		{
+			game->player.is_attacking = false;
+			game->player.attack_frame = 0;
+		}
+	}
+}

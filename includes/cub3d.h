@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/13 23:55:42 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/04 12:44:16 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef enum s_tex
 	EAST,
 	WEST,
 	DOOR,
+	TORCH,
+	TORCH_ATTACK,
 	NB_TEX
 }	t_tex;
 
@@ -63,6 +65,13 @@ typedef enum s_tex
 # define MINI_HEIGHT 200
 # define MINI_BLOCK 10
 # define RADIUS 95
+
+# define TORCH_SIZE 256
+# define TORCH_OFFSET_X 400
+# define TORCH_OFFSET_Y 0
+# define ATTACK_ANIMATION_FRAMES 15
+# define TRANSPARENT_COLOR 0x000000
+# define RIGHT_MOUSE_BUTTON 3
 
 typedef struct s_config
 {
@@ -111,6 +120,8 @@ typedef struct s_player
 	bool	right_rotate;
 
 	int		prev_mouse_x;
+	bool	is_attacking;
+	int		attack_frame;
 }	t_player;
 
 typedef struct s_ray
@@ -151,7 +162,7 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	char		**map;
-	t_texture	textures[5];
+	t_texture	textures[NB_TEX];
 	t_player	player;
 	t_config	config;
 }	t_game;
@@ -161,8 +172,10 @@ int		key_press(int key, t_game *game);
 int		key_release(int key, t_game *game);
 int		move_player(t_game *game);
 int		mouse_move(int x, int y, t_game *game);
+int		mouse_button(int button, int x, int y, t_game *game);
 void	mouse_move_handler(int x, int y, t_game *game);
 void	update(t_game *game);
+void	draw_torch(t_game *game);
 
 bool	touch(int px, int py, t_game *game);
 void	put_pixel(int x, int y, int color, t_game *game);
@@ -177,6 +190,9 @@ void	fill_map(char **map, int start, int end, t_config *cfg);
 
 // ====== Utils ==========
 void	exit_err(const char *msg, int st, t_config *cfg);
+void	free_configs(t_config *cfg);
+void	free_game(t_game *game);
+void	handle_exit(t_game *game);
 
 // ====== execution ============
 
