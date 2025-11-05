@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:31:09 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/11/05 16:49:28 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/05 17:47:22 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	free_game(t_game *game)
 	int	i;
 
 	i = -1;
-//	while(++i < NB_TEX)
-//		if (game->textures[i].img)
-//			mlx_destroy_image(game->mlx, game->textures[i].img);
+	while(++i < NB_TEX + (game->config.door_found - 1))
+		if (game->textures[i].img)
+			mlx_destroy_image(game->mlx, game->textures[i].img);
 	if (game->img)
 		mlx_destroy_image(game->mlx, game->img);
 	if (game->win)

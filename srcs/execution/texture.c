@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 09:28:31 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/11/04 11:46:19 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/05 17:41:14 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	load_textures(t_game *game)
 	load_texture(game, SOUTH, game->config.tex[SOUTH]);
 	load_texture(game, EAST, game->config.tex[EAST]);
 	load_texture(game, WEST, game->config.tex[WEST]);
-	if (game->config.door_found)
-		load_texture(game, DOOR, game->config.tex[DOOR]);
 	load_texture(game, TORCH, "./textures/torch.xpm");
 	load_texture(game, TORCH_ATTACK, "./textures/attack_torch.xpm");
+	if (game->config.door_found)
+		load_texture(game, DOOR, game->config.tex[DOOR]);
 }
 
 static void	load_texture(t_game *game, int index, char *path)

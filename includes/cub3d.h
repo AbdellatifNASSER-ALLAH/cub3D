@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/04 12:44:16 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/05 17:41:29 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ typedef enum s_tex
 	SOUTH,
 	EAST,
 	WEST,
-	DOOR,
 	TORCH,
 	TORCH_ATTACK,
+	DOOR,
 	NB_TEX
 }	t_tex;
 
