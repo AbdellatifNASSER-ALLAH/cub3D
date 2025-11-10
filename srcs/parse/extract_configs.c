@@ -17,6 +17,8 @@ static char	*skip_ws(char *s);
 static void	do_tex(int n, char *line, t_config *cfg);
 static int	rgb(char *s, int *rgb);
 static void	missing_textures(t_config *cfg);
+static void	handle_texture(int n, char *line, t_config *cfg);
+static void	handle_color(int n, char *line, t_config *cfg);
 
 void	extract_configs(t_config *cfg, char *l)
 {
@@ -94,7 +96,7 @@ static int	rgb(char *s, int *rgb)
 	return (1);
 }
 
-static void	do_tex(int n, char *line, t_config *cfg)
+static void	handle_texture(int n, char *line, t_config *cfg)
 {
 	if (n < 4)
 	{
@@ -103,13 +105,17 @@ static void	do_tex(int n, char *line, t_config *cfg)
 			exit_err("Dubplicated config", 1, cfg);
 		cfg->tex[n] = ft_strdup(line + 3);
 	}
-	if (n == 4)
+	else if (n == 4)
 	{
 		valid_file(line + 3, ".xpm", cfg);
 		if (cfg->door_found++)
 			exit_err("Dubplicated config", 1, cfg);
 		cfg->tex[DOOR] = ft_strdup(line + 3);
 	}
+}
+
+static void	handle_color(int n, char *line, t_config *cfg)
+{
 	if (n == 5)
 	{
 		if (cfg->c_found++)
@@ -117,13 +123,21 @@ static void	do_tex(int n, char *line, t_config *cfg)
 		if (!rgb(skip_ws(line + 2), cfg->c_rgb))
 			exit_err("Parsing rgb colors", 1, cfg);
 	}
-	if (n == 6)
+	else if (n == 6)
 	{
 		if (cfg->f_found++)
 			exit_err("Dubplicated Color F", 1, cfg);
 		if (!rgb(skip_ws(line + 2), cfg->f_rgb))
 			exit_err("Parsing rgb colors", 1, cfg);
 	}
+}
+
+static void	do_tex(int n, char *line, t_config *cfg)
+{
+	if (n < 5)
+		handle_texture(n, line, cfg);
+	else
+		handle_color(n, line, cfg);
 }
 
 static char	*skip_ws(char *s)

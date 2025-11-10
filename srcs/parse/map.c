@@ -16,6 +16,8 @@ static int	is_player(char c);
 static void	get_item(int line, int i, t_config *cfg, char *item);
 static int	is_invalid_neighbor(char ch);
 static void	validate_member_map(char c, char *item, t_config *cfg);
+static void	validate_player(char *item, t_config *cfg);
+static void	validate_door(char *item, t_config *cfg);
 
 void	fill_map(char **map, int start, int end, t_config *cfg)
 {
@@ -57,7 +59,7 @@ static void	get_item(int line, int i, t_config *cfg, char *item)
 	else
 		item[U] = map[line - 1][i];
 	if (line == cfg->map_end || (map[line + 1] && (int)ft_strlen(map[line
-				+ 1]) <= i))
+			+ 1]) <= i))
 		item[Do] = '\0';
 	else if (map[line + 1])
 		item[Do] = map[line + 1][i];
@@ -78,6 +80,24 @@ static int	is_invalid_neighbor(char ch)
 	return (ch == '\0' || ch == ' ' || ch == '\t');
 }
 
+static void	validate_player(char *item, t_config *cfg)
+{
+	if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
+		|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
+		exit_err("Player cannot touch space or map edge", 1, cfg);
+}
+
+static void	validate_door(char *item, t_config *cfg)
+{
+	cfg->has_door_in_map = 1;
+	if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
+		|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
+		exit_err("Door cannot touch space or map edge", 1, cfg);
+	if (!((item[U] == '1' && item[Do] == '1') || (item[L] == '1'
+				&& item[R] == '1')))
+		exit_err("Door must be between two walls", 1, cfg);
+}
+
 static void	validate_member_map(char c, char *item, t_config *cfg)
 {
 	if (c == ' ' || c == '\t')
@@ -89,9 +109,7 @@ static void	validate_member_map(char c, char *item, t_config *cfg)
 	else if (is_player(c))
 	{
 		cfg->player_count++;
-		if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
-			|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
-			exit_err("Player cannot touch space or map edge", 1, cfg);
+		validate_player(item, cfg);
 	}
 	else if (c == '0')
 	{
@@ -100,16 +118,7 @@ static void	validate_member_map(char c, char *item, t_config *cfg)
 			exit_err("Floor cannot touch space or map edge", 1, cfg);
 	}
 	else if (c == 'D')
-	{
-		cfg->has_door_in_map = 1;
-		if (is_invalid_neighbor(item[U]) || is_invalid_neighbor(item[Do])
-			|| is_invalid_neighbor(item[L]) || is_invalid_neighbor(item[R]))
-			exit_err("Door cannot touch space or map edge", 1, cfg);
-		if (!((item[U] == '1' && item[Do] == '1') || (item[L] == '1'
-					&& item[R] == '1')))
-			exit_err("Door must be between two walls vertically or horizontally",
-				1, cfg);
-	}
+		validate_door(item, cfg);
 	else
 		exit_err("Invalid character in map", 1, cfg);
 }
