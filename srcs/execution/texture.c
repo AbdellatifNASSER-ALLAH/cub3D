@@ -53,12 +53,9 @@ static void	load_texture(t_game *game, int index, char *path)
 	tex->data = (int *)mlx_get_data_addr(tex->img, &i, &i, &i);
 }
 
-int	get_texture_color(t_ray *r, int tex_y, t_game *game)
+static int	get_texture_index(t_ray *r, t_game *game)
 {
-	t_texture	*tex;
-	int			tex_index;
-	int			tex_x;
-	float		wall_x;
+	int	tex_index;
 
 	if (game->map[r->wally][r->wallx] == 'D' && game->config.door_found)
 		tex_index = DOOR;
@@ -74,14 +71,33 @@ int	get_texture_color(t_ray *r, int tex_y, t_game *game)
 		if (r->ray_diry > 0)
 			tex_index = SOUTH;
 	}
+	return (tex_index);
+}
+
+static int	calculate_tex_x(t_ray *r, t_texture *tex)
+{
+	float	wall_x;
+	int		tex_x;
+
 	if (r->side == 0)
 		wall_x = r->py + r->perp_wall_dist * r->ray_diry;
 	else
 		wall_x = r->px + r->perp_wall_dist * r->ray_dirx;
 	wall_x -= (int)wall_x;
-	tex = &game->textures[tex_index];
 	tex_x = (int)(wall_x * (float)tex->width);
 	if ((r->side == 0 && r->ray_dirx < 0) || (r->side == 1 && r->ray_diry > 0))
 		tex_x = tex->width - tex_x - 1;
+	return (tex_x);
+}
+
+int	get_texture_color(t_ray *r, int tex_y, t_game *game)
+{
+	t_texture	*tex;
+	int			tex_index;
+	int			tex_x;
+
+	tex_index = get_texture_index(r, game);
+	tex = &game->textures[tex_index];
+	tex_x = calculate_tex_x(r, tex);
 	return (tex->data[tex_y * tex->width + tex_x]);
 }
