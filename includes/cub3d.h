@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/05 17:41:29 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/11 11:27:01 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,10 @@ void	parse(t_config *cfg, char *path);
 void	read_file(t_config *cfg);
 void	extract_configs(t_config *cfg, char *l);
 void	fill_map(char **map, int start, int end, t_config *cfg);
+char	*skip_ws(char *s);
+int	rgb(char *s, int *rgb);
+int	is_player(char c);
+int	is_invalid_neighbor(char ch);
 
 // ====== Utils ==========
 void	exit_err(const char *msg, int st, t_config *cfg);

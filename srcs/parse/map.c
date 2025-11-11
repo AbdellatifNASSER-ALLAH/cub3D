@@ -6,15 +6,13 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 16:50:41 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/10/03 15:48:49 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/11 11:29:36 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	is_player(char c);
 static void	get_item(int line, int i, t_config *cfg, char *item);
-static int	is_invalid_neighbor(char ch);
 static void	validate_member_map(char c, char *item, t_config *cfg);
 static void	validate_player(char *item, t_config *cfg);
 static void	validate_door(char *item, t_config *cfg);
@@ -43,11 +41,6 @@ void	fill_map(char **map, int start, int end, t_config *cfg)
 	cfg->map = cfg->lines + cfg->map_start;
 }
 
-static int	is_player(char c)
-{
-	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
-
 static void	get_item(int line, int i, t_config *cfg, char *item)
 {
 	char	**map;
@@ -58,8 +51,8 @@ static void	get_item(int line, int i, t_config *cfg, char *item)
 		item[U] = '\0';
 	else
 		item[U] = map[line - 1][i];
-	if (line == cfg->map_end || (map[line + 1] && (int)ft_strlen(map[line
-			+ 1]) <= i))
+	if (line == cfg->map_end || (map[line + 1]
+			&& (int)ft_strlen(map[line + 1]) <= i))
 		item[Do] = '\0';
 	else if (map[line + 1])
 		item[Do] = map[line + 1][i];
@@ -73,11 +66,6 @@ static void	get_item(int line, int i, t_config *cfg, char *item)
 		item[R] = '\0';
 	else
 		item[R] = map[line][i + 1];
-}
-
-static int	is_invalid_neighbor(char ch)
-{
-	return (ch == '\0' || ch == ' ' || ch == '\t');
 }
 
 static void	validate_player(char *item, t_config *cfg)

@@ -6,16 +6,13 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 03:21:37 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/10/09 13:49:10 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/11 11:27:40 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
-static char	*skip_ws(char *s);
 static void	do_tex(int n, char *line, t_config *cfg);
-static int	rgb(char *s, int *rgb);
 static void	missing_textures(t_config *cfg);
 static void	handle_texture(int n, char *line, t_config *cfg);
 static void	handle_color(int n, char *line, t_config *cfg);
@@ -71,31 +68,6 @@ static void	missing_textures(t_config *cfg)
 	}
 }
 
-static int	rgb(char *s, int *rgb)
-{
-	int	i;
-
-	i = 0;
-	while (i < 3)
-	{
-		s = skip_ws(s);
-		rgb[i++] = ft_atoi(s);
-		while (ft_isdigit(*s))
-			s++;
-		s = skip_ws(s);
-		if (i < 2 && *s && *s != ',')
-			return (0);
-		s++;
-	}
-	s = skip_ws(s);
-	if (*s && *s != '\n')
-		return (0);
-	if (rgb[0] < 0 || rgb[0] > 255 || rgb[1] < 0 || rgb[1] > 255 || rgb[2] < 0
-		|| rgb[2] > 255)
-		return (0);
-	return (1);
-}
-
 static void	handle_texture(int n, char *line, t_config *cfg)
 {
 	if (n < 4)
@@ -138,11 +110,4 @@ static void	do_tex(int n, char *line, t_config *cfg)
 		handle_texture(n, line, cfg);
 	else
 		handle_color(n, line, cfg);
-}
-
-static char	*skip_ws(char *s)
-{
-	while (s && (*s == 32 || *s == '\t'))
-		s++;
-	return (s);
 }
