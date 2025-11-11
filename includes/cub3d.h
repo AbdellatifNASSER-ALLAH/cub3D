@@ -200,7 +200,7 @@ void	handle_exit(t_game *game);
 
 // ====== execution ============
 
-void	draw_full_squar(int x, int y, int size, t_game *game);
+void	draw_full_square(int x, int y, int size, t_game *game);
 void	draw_map(t_game *game);
 void	draw_minimap(t_game *game);
 void	init_ray(t_ray *r, t_player *player, int x);

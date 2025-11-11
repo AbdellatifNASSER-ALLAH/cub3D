@@ -22,6 +22,10 @@ bool	touch2(int px, int py, t_game *game)
 			- MINI_WIDTH / 2) / MINI_BLOCK;
 	block_y = (py + (game->player.y / BLOCK * MINI_BLOCK)
 			- MINI_HEIGHT / 2) / MINI_BLOCK;
+	if (block_y < 0 || block_x < 0 || !game->map[block_y])
+		return (false);
+	if ((int)ft_strlen(game->map[block_y]) <= block_x)
+		return (false);
 	if (game->map[block_y][block_x] == '1' || \
 		game->map[block_y][block_x] == 'D')
 		return (true);
@@ -43,7 +47,7 @@ void	draw_map_block(int x, int y, int dx, int dy, t_game *game)
 	if (dist_x * dist_x + dist_y * dist_y <= RADIUS * RADIUS)
 	{
 		if (game->map[y][x] == '1')
-			draw_full_squar((x * MINI_BLOCK) - dx,
+			draw_full_square((x * MINI_BLOCK) - dx,
 				(y * MINI_BLOCK) - dy, MINI_BLOCK, game);
 	}
 }

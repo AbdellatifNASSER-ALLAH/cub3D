@@ -37,7 +37,7 @@ void	draw_aim(int cx, int cy, int radius, int color, t_game *game)
         i++;
     }
 }
-void	draw_circule(int cx, int cy, int radius, int color, t_game *game)
+void	draw_circle(int cx, int cy, int radius, int color, t_game *game)
 {
     int x, y;
     int r2 = radius * radius;
@@ -68,7 +68,7 @@ void	draw_square_pixel(int px, int py, int color, t_game *game)
 		put_pixel(px, py, color, game);
 }
 
-void	draw_full_squar(int x, int y, int size, t_game *game)
+void	draw_full_square(int x, int y, int size, t_game *game)
 {
 	int	i;
 	int	j;

@@ -30,26 +30,31 @@ static void	load_texture(t_game *game, int index, char *path)
 {
 	t_texture	*tex;
 	char		*trimmed_path;
+	char		*clean_path;
 	int			i;
+	int			start;
 
 	tex = &game->textures[index];
-	i = 0;
-	while (path[i] && (path[i] == ' ' || path[i] == '\t'))
-		i++;
-	trimmed_path = &path[i];
+	start = 0;
+	while (path[start] && (path[start] == ' ' || path[start] == '\t'))
+		start++;
+	trimmed_path = &path[start];
 	i = 0;
 	while (trimmed_path[i] && trimmed_path[i] != '\n' && trimmed_path[i] != ' '
 		&& trimmed_path[i] != '\t')
 		i++;
-	if (trimmed_path[i] != '\0')
-		trimmed_path[i] = '\0';
-	tex->img = mlx_xpm_file_to_image(game->mlx, trimmed_path, &tex->width,
+	clean_path = ft_substr(trimmed_path, 0, i);
+	if (!clean_path)
+		exit_err("Failed to allocate memory for texture path", 1, &game->config);
+	tex->img = mlx_xpm_file_to_image(game->mlx, clean_path, &tex->width,
 			&tex->height);
 	if (!tex->img)
 	{
-		printf("Error loading texture: %s\n", trimmed_path);
+		printf("Error loading texture: %s\n", clean_path);
+		free(clean_path);
 		exit(1);
 	}
+	free(clean_path);
 	tex->data = (int *)mlx_get_data_addr(tex->img, &i, &i, &i);
 }
 

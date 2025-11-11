@@ -17,7 +17,7 @@ void	free_game(t_game *game)
 	int	i;
 
 	i = -1;
-	while(++i < NB_TEX + (game->config.door_found - 1))
+	while (++i < NB_TEX)
 		if (game->textures[i].img)
 			mlx_destroy_image(game->mlx, game->textures[i].img);
 	if (game->img)

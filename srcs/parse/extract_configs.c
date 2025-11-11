@@ -41,7 +41,7 @@ void	extract_configs(t_config *cfg, char *l)
 		else if (ft_strncmp(l, "F ", 2) == 0)
 			do_tex(6, l, cfg);
 		else
-			exit_err("Unknow config lien", 1, cfg);
+			exit_err("Unknown config line", 1, cfg);
 	}
 	missing_textures(cfg);
 }
@@ -74,14 +74,14 @@ static void	handle_texture(int n, char *line, t_config *cfg)
 	{
 		valid_file(line + 3, ".xpm", cfg);
 		if (cfg->tex_found[n]++)
-			exit_err("Dubplicated config", 1, cfg);
+			exit_err("Duplicated config", 1, cfg);
 		cfg->tex[n] = ft_strdup(line + 3);
 	}
 	else if (n == 4)
 	{
 		valid_file(line + 3, ".xpm", cfg);
 		if (cfg->door_found++)
-			exit_err("Dubplicated config", 1, cfg);
+			exit_err("Duplicated config", 1, cfg);
 		cfg->tex[DOOR] = ft_strdup(line + 3);
 	}
 }
@@ -91,14 +91,14 @@ static void	handle_color(int n, char *line, t_config *cfg)
 	if (n == 5)
 	{
 		if (cfg->c_found++)
-			exit_err("Dubplicated Color C", 1, cfg);
+			exit_err("Duplicated Color C", 1, cfg);
 		if (!rgb(skip_ws(line + 2), cfg->c_rgb))
 			exit_err("Parsing rgb colors", 1, cfg);
 	}
 	else if (n == 6)
 	{
 		if (cfg->f_found++)
-			exit_err("Dubplicated Color F", 1, cfg);
+			exit_err("Duplicated Color F", 1, cfg);
 		if (!rgb(skip_ws(line + 2), cfg->f_rgb))
 			exit_err("Parsing rgb colors", 1, cfg);
 	}

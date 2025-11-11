@@ -14,7 +14,7 @@
 
 void    put_pixel(int x, int y, int color, t_game *game);
 void    draw_aim(int cx, int cy, int radius, int color, t_game *game);
-void	draw_circule(int cx, int cy, int radius, int color, t_game *game);
+void	draw_circle(int cx, int cy, int radius, int color, t_game *game);
 void    get_player_cord(t_game *game);
 void    get_map(t_game *game);
 void    init_game(t_game *game);
@@ -91,8 +91,8 @@ int	draw_loop(t_game *game)
 	draw_aim(WIDTH / 2, HEIGHT / 2, 7, 0x7FFF00, game);
 	draw_minimap(game);
 	draw_map(game);
-	draw_circule(MINI_WIDTH / 2, MINI_HEIGHT / 2, 2, 0xFF0000, game);
-	draw_circule(MINI_WIDTH / 2, MINI_HEIGHT / 2, 1, 0x000000, game);
+	draw_circle(MINI_WIDTH / 2, MINI_HEIGHT / 2, 2, 0xFF0000, game);
+	draw_circle(MINI_WIDTH / 2, MINI_HEIGHT / 2, 1, 0x000000, game);
 
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);
@@ -112,7 +112,6 @@ int main(int ac, char **av)
 	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
 	mlx_hook(game.win, 4, 1L << 2, mouse_button, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
-	// mlx_mouse_hide(game.mlx, game.win);
-
 	mlx_loop(game.mlx);
+	return (0);
 }
