@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:31:09 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/11/05 17:47:22 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/11 11:51:00 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	free_configs(t_config *cfg)
 	while (++i < 4)
 		if (cfg->tex_found[i])
 			free(cfg->tex[i]);
+	if (cfg->has_door_in_map)
+			free(cfg->tex[DOOR]);
 }
 
 void	exit_err(const char *msg, int st, t_config *cfg)
