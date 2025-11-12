@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:50:24 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/13 23:54:22 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/12 15:50:12 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	perform_dda(t_ray *r, t_game *game)
 			r->side = 1;
 		}
 		if (game->map[r->mapy][r->mapx] == '1' || \
-			game->map[r->mapy][r->mapx] == 'D')
+game->map[r->mapy][r->mapx] == 'D')
 		{
 			r->hit = 1;
 			r->wallx = r->mapx;

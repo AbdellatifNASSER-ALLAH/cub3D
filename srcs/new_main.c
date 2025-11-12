@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 07:40:48 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/02 20:05:13 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/12 15:31:05 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	draw_loop(t_game *game)
 {
 	move_player(game);
 	draw_vision(game);
-	draw_aim(WIDTH / 2, HEIGHT / 2, 7, 0x7FFF00, game);
+	draw_aim(7, 0x7FFF00, game);
 	draw_minimap(game);
 	draw_map(game);
 

@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/07 23:51:36 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/12 15:41:07 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ void	init_player(t_game *game)
 	player->z_eye = 0.5;
 	player->is_attacking = false;
 	player->attack_frame = 0;
+}
+bool	touch(int px, int py, t_game *game)
+{
+	int	block_x;
+	int	block_y;
+
+	block_x = px / BLOCK;
+	block_y = py / BLOCK;
+	if (game->map[block_y][block_x] == '1' || \
+game->map[block_y][block_x] == 'D')
+		return (true);
+	return (false);
 }
 
 int	is_blocked(float x, float y, t_game *game)

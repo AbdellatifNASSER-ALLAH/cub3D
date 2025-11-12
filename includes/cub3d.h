@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/11 11:27:01 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/12 15:32:27 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,9 +188,9 @@ void	read_file(t_config *cfg);
 void	extract_configs(t_config *cfg, char *l);
 void	fill_map(char **map, int start, int end, t_config *cfg);
 char	*skip_ws(char *s);
-int	rgb(char *s, int *rgb);
-int	is_player(char c);
-int	is_invalid_neighbor(char ch);
+int		rgb(char *s, int *rgb);
+int		is_player(char c);
+int		is_invalid_neighbor(char ch);
 
 // ====== Utils ==========
 void	exit_err(const char *msg, int st, t_config *cfg);
@@ -200,6 +200,9 @@ void	handle_exit(t_game *game);
 
 // ====== execution ============
 
+void    draw_vision(t_game *game);
+void	draw_aim(int radius, int color, t_game *game);
+void	draw_circule(int radius, int color, t_game *game);
 void	draw_full_squar(int x, int y, int size, t_game *game);
 void	draw_map(t_game *game);
 void	draw_minimap(t_game *game);

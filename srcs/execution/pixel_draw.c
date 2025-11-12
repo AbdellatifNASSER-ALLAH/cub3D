@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:24:00 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/13 23:58:06 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/12 15:48:19 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,34 +24,19 @@ void	put_pixel(int x, int y, int color, t_game *game)
 	game->data[index + 2] = (color >> 16) & 0xFF;
 }
 
-void	draw_aim(int cx, int cy, int radius, int color, t_game *game)
+void	draw_aim(int radius, int color, t_game *game)
 {
-    put_pixel(cx, cy, color, game);
+    put_pixel(MINI_WIDTH / 2, MINI_HEIGHT / 2, color, game);
     int i = 1;
     while (i <= radius)
     {
-        put_pixel(cx + i, cy, color, game); // right
-        put_pixel(cx - i, cy, color, game); // left
-        put_pixel(cx, cy + i, color, game); // down
-        put_pixel(cx, cy - i, color, game); // up
+        put_pixel(MINI_WIDTH / 2 + i, MINI_HEIGHT / 2, color, game);
+        put_pixel(MINI_WIDTH / 2 - i, MINI_HEIGHT / 2, color, game);
+        put_pixel(MINI_WIDTH / 2, MINI_HEIGHT / 2 + i, color, game);
+        put_pixel(MINI_WIDTH / 2, MINI_HEIGHT / 2 - i, color, game);
         i++;
     }
 }
-void	draw_circule(int cx, int cy, int radius, int color, t_game *game)
-{
-    int x, y;
-    int r2 = radius * radius;
-
-    for (y = -radius; y <= radius; y++)
-    {
-        for (x = -radius; x <= radius; x++)
-        {
-            if (x * x + y * y <= r2)
-                put_pixel(cx + x, cy + y, color, game);
-        }
-    }
-}
-
 
 void	draw_square_pixel(int px, int py, int color, t_game *game)
 {
