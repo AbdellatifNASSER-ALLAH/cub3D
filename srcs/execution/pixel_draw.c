@@ -15,9 +15,9 @@
 void	put_pixel(int x, int y, int color, t_game *game)
 {
 	int	index;
-	
+
 	if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
-	return ;
+		return ;
 	index = y * game->size_line + x * game->bpp / 8;
 	game->data[index] = color & 0xFF;
 	game->data[index + 1] = (color >> 8) & 0xFF;
@@ -26,16 +26,18 @@ void	put_pixel(int x, int y, int color, t_game *game)
 
 void	draw_aim(int radius, int color, t_game *game)
 {
-    put_pixel(MINI_WIDTH / 2, MINI_HEIGHT / 2, color, game);
-    int i = 1;
-    while (i <= radius)
-    {
-        put_pixel(MINI_WIDTH / 2 + i, MINI_HEIGHT / 2, color, game);
-        put_pixel(MINI_WIDTH / 2 - i, MINI_HEIGHT / 2, color, game);
-        put_pixel(MINI_WIDTH / 2, MINI_HEIGHT / 2 + i, color, game);
-        put_pixel(MINI_WIDTH / 2, MINI_HEIGHT / 2 - i, color, game);
-        i++;
-    }
+	int	i;
+
+	put_pixel(MINI_WIDTH / 2, MINI_HEIGHT / 2, color, game);
+	i = 1;
+	while (i <= radius)
+	{
+		put_pixel(MINI_WIDTH / 2 + i, MINI_HEIGHT / 2, color, game);
+		put_pixel(MINI_WIDTH / 2 - i, MINI_HEIGHT / 2, color, game);
+		put_pixel(MINI_WIDTH / 2, MINI_HEIGHT / 2 + i, color, game);
+		put_pixel(MINI_WIDTH / 2, MINI_HEIGHT / 2 - i, color, game);
+		i++;
+	}
 }
 
 void	draw_square_pixel(int px, int py, int color, t_game *game)

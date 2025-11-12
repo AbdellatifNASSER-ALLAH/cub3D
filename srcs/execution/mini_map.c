@@ -12,7 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-
 bool	touch2(int px, int py, t_game *game)
 {
 	int	block_x;
@@ -22,20 +21,23 @@ bool	touch2(int px, int py, t_game *game)
 			- MINI_WIDTH / 2) / MINI_BLOCK;
 	block_y = (py + (game->player.y / BLOCK * MINI_BLOCK)
 			- MINI_HEIGHT / 2) / MINI_BLOCK;
-	if (game->map[block_y][block_x] == '1' || \
-		game->map[block_y][block_x] == 'D')
+	if (game->map[block_y][block_x] == '1'
+		|| game->map[block_y][block_x] == 'D')
 		return (true);
 	return (false);
 }
 
-
-void	draw_map_block(int x, int y, int dx, int dy, t_game *game)
+static void	draw_block_in_radius(int x, int y, t_game *game)
 {
 	int	block_x;
 	int	block_y;
 	int	dist_x;
 	int	dist_y;
+	int	dx;
+	int	dy;
 
+	dx = (game->player.x / BLOCK * MINI_BLOCK) - MINI_WIDTH / 2;
+	dy = (game->player.y / BLOCK * MINI_BLOCK) - MINI_HEIGHT / 2;
 	block_x = x * MINI_BLOCK + MINI_BLOCK / 2;
 	block_y = y * MINI_BLOCK + MINI_BLOCK / 2;
 	dist_x = block_x - dx - MINI_WIDTH / 2;
@@ -52,8 +54,6 @@ void	draw_map(t_game *game)
 {
 	int	y;
 	int	x;
-	int	dx;
-	int	dy;
 
 	y = 0;
 	while (game->map[y])
@@ -61,9 +61,7 @@ void	draw_map(t_game *game)
 		x = 0;
 		while (game->map[y][x])
 		{
-			dx = (game->player.x / BLOCK * MINI_BLOCK) - MINI_WIDTH / 2;
-			dy = (game->player.y / BLOCK * MINI_BLOCK) - MINI_HEIGHT / 2;
-			draw_map_block(x, y, dx, dy, game);
+			draw_block_in_radius(x, y, game);
 			x++;
 		}
 		y++;
@@ -101,11 +99,10 @@ void	draw_minimap_rays(t_game *game, t_player *player)
 void	draw_minimap(t_game *game)
 {
 	t_player	*player;
-	int	x;
-	int	y;
+	int			x;
+	int			y;
 
 	player = &game->player;
-
 	x = 0;
 	while (x < MINI_HEIGHT)
 	{

@@ -12,9 +12,9 @@
 
 #include "../includes/cub3d.h"
 
-int key_press(int key, t_game *game)
+int	key_press(int key, t_game *game)
 {
-	t_player *player;
+	t_player	*player;
 
 	player = &game->player;
 	if (key == W)
@@ -50,21 +50,32 @@ int key_press(int key, t_game *game)
 	return (0);
 }
 
-int	mouse_move(int x, int y, t_game *game)
+static void	update_player_angle(t_game *game, int delta_x, int delta_y)
 {
-	t_player *player = &game->player;
-	float r;
+	t_player	*player;
+	float		r;
+	float		sensitivity;
 
-	int center_x = WIDTH / 2;
-	int center_y = HEIGHT / 2;
-	int delta_x = x - center_x;
-	int delta_y = y - center_y;
-
-	float sensitivity = 0.0015;
+	player = &game->player;
+	sensitivity = 0.0015;
 	player->angle += delta_x * sensitivity;
 	r = player->z_eye - delta_y * sensitivity;
 	if (r >= 0 && r <= 1)
 		player->z_eye -= delta_y * sensitivity;
+}
+
+int	mouse_move(int x, int y, t_game *game)
+{
+	int	center_x;
+	int	center_y;
+	int	delta_x;
+	int	delta_y;
+
+	center_x = WIDTH / 2;
+	center_y = HEIGHT / 2;
+	delta_x = x - center_x;
+	delta_y = y - center_y;
+	update_player_angle(game, delta_x, delta_y);
 	mlx_mouse_move(game->mlx, game->win, center_x, HEIGHT / 2);
 	return (0);
 }
@@ -80,9 +91,10 @@ int	mouse_button(int button, int x, int y, t_game *game)
 	}
 	return (0);
 }
-int key_release(int key, t_game *game)
+
+int	key_release(int key, t_game *game)
 {
-	t_player *player;
+	t_player	*player;
 
 	player = &game->player;
 	if (key == W)
