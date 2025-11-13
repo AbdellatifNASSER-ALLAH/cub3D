@@ -17,7 +17,7 @@ void	free_game(t_game *game)
 	int	i;
 
 	i = -1;
-	while(++i < NB_TEX + (game->config.door_found - 1))
+	while (++i < NB_TEX + (game->config.door_found - 1))
 		if (game->textures[i].img)
 			mlx_destroy_image(game->mlx, game->textures[i].img);
 	if (game->img)
@@ -34,6 +34,7 @@ void	free_game(t_game *game)
 void	free_configs(t_config *cfg)
 {
 	int	i;
+
 	i = 0;
 	while (cfg->lines && cfg->lines[i])
 		free(cfg->lines[i++]);
@@ -44,14 +45,14 @@ void	free_configs(t_config *cfg)
 		if (cfg->tex_found[i])
 			free(cfg->tex[i]);
 	if (cfg->has_door_in_map)
-			free(cfg->tex[DOOR]);
+		free(cfg->tex[DOOR]);
 }
 
 void	exit_err(const char *msg, int st, t_config *cfg)
 {
 	if (cfg)
 		free_configs(cfg);
-	printf(RED"%s\n"RESET, msg);
+	printf(RED "%s\n" RESET, msg);
 	exit(st);
 }
 
