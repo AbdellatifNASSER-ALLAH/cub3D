@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 07:41:45 by ahakki            #+#    #+#             */
-/*   Updated: 2025/10/13 23:55:37 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/13 19:17:14 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ static void	draw_block_in_radius(int x, int y, t_game *game)
 	{
 		if (game->map[y][x] == '1')
 			draw_full_squar((x * MINI_BLOCK) - dx,
+				(y * MINI_BLOCK) - dy, MINI_BLOCK, game);
+		if (game->map[y][x] == 'D')
+			draw_door((x * MINI_BLOCK) - dx,
 				(y * MINI_BLOCK) - dy, MINI_BLOCK, game);
 	}
 }

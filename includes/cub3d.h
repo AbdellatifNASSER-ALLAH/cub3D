@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/13 19:11:50 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/13 19:17:59 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,7 @@ void			draw_vision(t_game *game);
 void			draw_aim(int radius, int color, t_game *game);
 void			draw_circule(int radius, int color, t_game *game);
 void			draw_full_squar(int x, int y, int size, t_game *game);
+void			draw_door(int x, int y, int size, t_game *game);
 void			draw_map(t_game *game);
 void			draw_minimap(t_game *game);
 void			init_ray(t_ray *r, t_player *player, int x);
