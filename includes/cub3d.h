@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/13 19:06:32 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/13 19:07:17 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,15 +167,14 @@ typedef struct s_game
 	t_config	config;
 }				t_game;
 
-void			init_player(t_game *game);
-int				key_press(int key, t_game *game);
-int				key_release(int key, t_game *game);
-int				move_player(t_game *game);
-int				mouse_move(int x, int y, t_game *game);
-int				mouse_button(int button, int x, int y, t_game *game);
-void			mouse_move_handler(int x, int y, t_game *game);
-void			update(t_game *game);
-void			draw_torch(t_game *game);
+void	init_player(t_game *game);
+int		key_press(int key, t_game *game);
+int		key_release(int key, t_game *game);
+int		move_player(t_game *game);
+int		mouse_move(int x, int y, t_game *game);
+int		mouse_button(int button, int x, int y, t_game *game);
+void	draw_torch(t_game *game);
+void	key_press2(int key, t_game *game);
 
 bool			touch(int px, int py, t_game *game);
 void			put_pixel(int x, int y, int color, t_game *game);
