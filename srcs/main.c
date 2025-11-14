@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/13 18:58:51 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/14 11:16:13 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,15 @@ int	draw_loop(t_game *game)
 int	main(int ac, char **av)
 {
 	t_game	game;
-	int		(*funct)();
-
 	if (ac != 2)
 		exit_err("Usage: ./game [path to map.cub]", 1, NULL);
-	funct = (int (*)())handle_exit;
 	parse(&game.config, av[1]);
 	init_game(&game);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
 	mlx_hook(game.win, 6, 1L << 6, mouse_move, &game);
 	mlx_hook(game.win, 4, 1L << 2, mouse_button, &game);
-	mlx_hook(game.win, 17, 0L, funct, &game);
+	mlx_hook(game.win, 17, 0L, handle_exit, &game);
 	mlx_loop_hook(game.mlx, draw_loop, &game);
 	mlx_loop(game.mlx);
 }
