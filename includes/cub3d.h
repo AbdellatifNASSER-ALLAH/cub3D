@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/14 13:53:35 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/14 14:21:12 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ typedef struct s_game
 }				t_game;
 
 void	init_player(t_game *game);
-int	is_blocked(float x, float y, t_game *game);
+int		is_blocked(float x, float y, t_game *game);
 int		key_press(int key, t_game *game);
 void	key_press2(int key, t_game *game);
 int		key_release(int key, t_game *game);
@@ -203,7 +203,7 @@ int				is_invalid_neighbor(char ch);
 void			exit_err(const char *msg, int st, t_config *cfg);
 void			free_configs(t_config *cfg);
 void			free_game(t_game *game);
-void			handle_exit(t_game *game);
+int			handle_exit(t_game *game);
 
 // ====== execution ============
 
