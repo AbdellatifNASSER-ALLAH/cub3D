@@ -2,10 +2,11 @@
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
-2. [Program Flow: From Main to End](#program-flow-from-main-to-end)
-3. [The DDA Algorithm Explained](#the-dda-algorithm-explained)
-4. [Texture Implementation Based on DDA](#texture-implementation-based-on-dda)
-5. [Key Data Structures](#key-data-structures)
+2. [Architecture Overview](#architecture-overview)
+3. [Program Flow: From Main to End](#program-flow-from-main-to-end)
+4. [The DDA Algorithm Explained](#the-dda-algorithm-explained)
+5. [Texture Implementation Based on DDA](#texture-implementation-based-on-dda)
+6. [Key Data Structures](#key-data-structures)
 
 ---
 
@@ -18,6 +19,72 @@ cub3D is a raycasting 3D engine inspired by Wolfenstein 3D, built using the Mini
 - **DDA Algorithm**: Digital Differential Analyzer for efficient ray-grid intersection
 - **Texture Mapping**: Applying 2D textures to walls based on ray collision points
 - **MiniLibX**: X11-based graphics library for rendering
+
+---
+
+## Architecture Overview
+
+The cub3D engine follows a modular architecture with clear separation of concerns:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        MAIN PROGRAM                              │
+│                     (srcs/main.c)                                │
+└────────────────┬────────────────────────────────────────────────┘
+                 │
+        ┌────────┴──────────┐
+        │                   │
+        ▼                   ▼
+┌──────────────┐    ┌──────────────────┐
+│   PARSING    │    │  INITIALIZATION  │
+│   MODULE     │    │     MODULE       │
+├──────────────┤    ├──────────────────┤
+│ • parse.c    │───▶│ • init_game()    │
+│ • read_file  │    │ • load_textures()│
+│ • valid_file │    │ • init_player()  │
+│ • map.c      │    └────────┬─────────┘
+└──────────────┘             │
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │   GAME LOOP     │
+                    │  (draw_loop)    │
+                    └────────┬────────┘
+                             │
+            ┌────────────────┼────────────────┐
+            │                │                │
+            ▼                ▼                ▼
+    ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+    │    INPUT     │  │   RAYCASTING │  │   RENDERING  │
+    │   HANDLING   │  │     ENGINE   │  │    ENGINE    │
+    ├──────────────┤  ├──────────────┤  ├──────────────┤
+    │• hooks.c     │  │• draw_vision │  │• pixel_draw  │
+    │• player.c    │  │• dda.c       │  │• texture.c   │
+    │• move_player │  │• init_ray    │  │• draw_stripe │
+    └──────────────┘  │• perform_dda │  │• minimap.c   │
+                      └──────────────┘  └──────────────┘
+```
+
+**Key Components:**
+
+1. **Parsing Module** (`srcs/parse/`): Validates and loads `.cub` configuration files
+2. **Execution Module** (`srcs/execution/`): Core rendering and raycasting logic
+3. **Input Module** (`srcs/hooks.c`, `srcs/player.c`): Handles keyboard and mouse input
+4. **Utilities** (`utils/`): Helper functions for memory management and error handling
+
+**Data Flow:**
+
+```
+.cub file → Parser → Config → Game Init → Textures Loaded
+                                    ↓
+                            ┌──────────────┐
+                            │  Game Loop   │
+                            └──────┬───────┘
+                                   │
+    Input Events →  Player State → │ → Raycasting (DDA) → Texture Sampling → Screen
+                                   │
+                            Render Buffer → Display
+```
 
 ---
 
@@ -572,6 +639,82 @@ typedef struct s_texture {
 
 ---
 
+## Quick Reference Guide
+
+### Most Important Functions
+
+| Function | Location | Purpose |
+|----------|----------|---------|
+| `main()` | `srcs/main.c` | Entry point, orchestrates initialization and game loop |
+| `parse()` | `srcs/parse/parse.c` | Loads and validates .cub configuration file |
+| `init_game()` | `srcs/main.c` | Initializes MiniLibX, loads textures, sets up window |
+| `draw_loop()` | `srcs/main.c` | Main game loop, called every frame |
+| `draw_vision()` | `srcs/execution/draw_vision.c` | Raycasting engine, renders 3D view |
+| `init_ray()` | `srcs/execution/dda.c` | Initializes ray for DDA algorithm |
+| `perform_dda()` | `srcs/execution/dda.c` | DDA algorithm, finds wall intersections |
+| `get_texture_color()` | `srcs/execution/texture.c` | Samples texture pixel for rendering |
+| `move_player()` | `srcs/player.c` | Updates player position with collision detection |
+| `key_press()` / `key_release()` | `srcs/execution/hooks.c` | Handles keyboard input |
+| `mouse_move()` | `srcs/execution/hooks.c` | Handles mouse movement for camera control |
+
+### Key Constants
+
+| Constant | Value | Purpose |
+|----------|-------|---------|
+| `WIDTH` | 1280 | Screen width in pixels |
+| `HEIGHT` | 920 | Screen height in pixels |
+| `BLOCK` | 64 | Size of one map grid square |
+| `TEXTURE_WIDTH` | 64 | Width of texture images |
+| `TEXTURE_HEIGHT` | 64 | Height of texture images |
+| `FOV` | 1.047 (~60°) | Field of view in radians |
+| `PI` | 3.14159... | Pi constant |
+
+### Texture Indices
+
+| Index | Name | Wall Face |
+|-------|------|-----------|
+| 0 | `NORTH` | Top-facing wall |
+| 1 | `SOUTH` | Bottom-facing wall |
+| 2 | `EAST` | Right-facing wall |
+| 3 | `WEST` | Left-facing wall |
+| 4 | `TORCH` | Weapon sprite (idle) |
+| 5 | `TORCH_ATTACK` | Weapon sprite (attacking) |
+| 6 | `DOOR` | Door texture (optional) |
+
+### File Organization
+
+```
+cub3D/
+├── srcs/
+│   ├── main.c                 # Entry point, game loop
+│   ├── player.c               # Player movement and collision
+│   ├── parse/                 # Configuration parsing
+│   │   ├── parse.c
+│   │   ├── read_file.c
+│   │   ├── valid_file.c
+│   │   ├── extract_configs.c
+│   │   ├── map.c
+│   │   └── utils.c
+│   └── execution/             # Core rendering engine
+│       ├── draw_vision.c      # Main raycasting loop
+│       ├── dda.c              # DDA algorithm
+│       ├── texture.c          # Texture sampling
+│       ├── pixel_draw.c       # Pixel manipulation
+│       ├── mini_map.c         # Minimap rendering
+│       ├── hooks.c            # Input handling
+│       └── hooks2.c           # Additional input handlers
+├── includes/
+│   └── cub3d.h               # All data structures and prototypes
+├── textures/                  # XPM texture files
+├── maps/                      # .cub map files
+├── libft/                     # Custom C library (submodule)
+└── utils/
+    └── handle_exit.c         # Cleanup and exit
+
+```
+
+---
+
 ## Summary
 
 The cub3D engine demonstrates classic raycasting:
@@ -591,3 +734,16 @@ The cub3D engine demonstrates classic raycasting:
    - Sample and draw textured pixels
 
 This architecture is modular, efficient, and serves as an excellent foundation for learning 3D graphics programming and game engine development.
+
+### Learning Path
+
+For developers new to raycasting, we recommend studying the code in this order:
+
+1. **Start with data structures** (`includes/cub3d.h`) - Understand how data is organized
+2. **Study the DDA algorithm** (`srcs/execution/dda.c`) - Core of raycasting
+3. **Examine texture mapping** (`srcs/execution/texture.c`) - How walls get textured
+4. **Review the rendering pipeline** (`srcs/execution/draw_vision.c`) - How it all comes together
+5. **Explore input handling** (`srcs/execution/hooks.c`, `srcs/player.c`) - User interaction
+6. **Experiment with modifications** - Add features, change textures, modify FOV
+
+This project provides a solid foundation for understanding game engines, 3D graphics, and real-time rendering techniques.
