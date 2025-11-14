@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:19:02 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/12 15:41:07 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/14 13:57:15 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_player(t_game *game)
 {
-	t_player *player;
+	t_player	*player;
 
 	player = &game->player;
 	player->key_down = false;
@@ -30,26 +30,6 @@ void	init_player(t_game *game)
 	player->is_attacking = false;
 	player->attack_frame = 0;
 }
-bool	touch(int px, int py, t_game *game)
-{
-	int	block_x;
-	int	block_y;
-
-	block_x = px / BLOCK;
-	block_y = py / BLOCK;
-	if (game->map[block_y][block_x] == '1' || \
-game->map[block_y][block_x] == 'D')
-		return (true);
-	return (false);
-}
-
-int	is_blocked(float x, float y, t_game *game)
-{
-	return touch(x - BLOCK / 20, y - BLOCK / 20, game) ||
-			touch(x + BLOCK / 20, y - BLOCK / 20, game) ||
-			touch(x - BLOCK / 20, y + BLOCK / 20, game) ||
-			touch(x + BLOCK / 20, y + BLOCK / 20, game);
-}
 
 static void	normalize_angle(t_player *player)
 {
@@ -61,9 +41,11 @@ static void	normalize_angle(t_player *player)
 
 static void	apply_rotation(t_player *player)
 {
-	float angle_speed = 0.05;
-	float z_eye_speed = 0.05;
+	float	angle_speed;
+	float	z_eye_speed;
 
+	angle_speed = 0.05;
+	z_eye_speed = 0.05;
 	if (player->left_rotate)
 		player->angle -= angle_speed;
 	if (player->right_rotate)
@@ -101,14 +83,17 @@ static void	calc_move(t_player *player, float *new_x, float *new_y)
 
 int	move_player(t_game *game)
 {
-	t_player	*player = &game->player;
-	float		new_x = player->x;
-	float		new_y = player->y;
+	t_player	*player;
+	float		new_x;
+	float		new_y;
 
+	player = &game->player;
+	new_x = player->x;
+	new_y = player->y;
 	apply_rotation(player);
 	calc_move(player, &new_x, &new_y);
-
-	if (!is_blocked(new_x, player->y, game) && !is_blocked(player->x, new_y, game))
+	if (!is_blocked(new_x, player->y, game) && \
+!is_blocked(player->x, new_y, game))
 	{
 		player->x = new_x;
 		player->y = new_y;

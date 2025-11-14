@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:31:09 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/11/14 11:13:49 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/11 11:51:00 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	exit_err(const char *msg, int st, t_config *cfg)
 	exit(st);
 }
 
-int	handle_exit(t_game *game)
+void	handle_exit(t_game *game)
 {
 	free_configs(&game->config);
 	free_game(game);
