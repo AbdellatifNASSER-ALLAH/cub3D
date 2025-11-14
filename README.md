@@ -32,7 +32,10 @@ A simple, modular raycasting 3D engine using MiniLibX, inspired by Wolfenstein 3
 
 - **W/A/S/D**: Move player
 - **Arrow keys**: Rotate view
-- **Mouse**: Look around
+- **Mouse**: Look around (when captured)
+- **X**: Toggle mouse capture (enable/disable mouse control)
+- **I/J/K/L**: Quick view angles (North/West/South/East)
+- **+/-**: Adjust movement speed
 - **ESC**: Exit
 
 ## Textures
