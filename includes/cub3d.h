@@ -122,6 +122,7 @@ typedef struct s_player
 	int			prev_mouse_x;
 	bool		is_attacking;
 	int			attack_frame;
+	bool		mouse_captured;
 }				t_player;
 
 typedef struct s_ray

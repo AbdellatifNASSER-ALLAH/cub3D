@@ -31,6 +31,8 @@ void	key_press2(int key, t_game *game)
 		player->speed++;
 	if (key == '-' && player->speed > 1)
 		player->speed--;
+	if (key == 'x')
+		player->mouse_captured = !player->mouse_captured;
 }
 
 
