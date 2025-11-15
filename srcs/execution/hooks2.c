@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 18:43:15 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/14 13:48:18 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/15 12:01:46 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	door_interaction(t_game *game)
 	player = &game->player;
 	block_x = (player->x + cos(player->angle) * BLOCK) / BLOCK;
 	block_y = (player->y + sin(player->angle) * BLOCK) / BLOCK;
+	if (game->map[block_y][(int)(player->x / BLOCK)] == '1' && \
+game->map[(int)(player->y / BLOCK)][block_x] == '1')
+		return ;
 	if (game->map[block_y][block_x] == 'D')
 		game->map[block_y][block_x] = 'O';
 	else if (game->map[block_y][block_x] == 'O')
