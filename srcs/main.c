@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/14 14:20:30 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/16 19:03:07 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	get_player_cord(t_game *game)
 	int		x;
 	char	dir;
 
-	y = 0;
-	while (game->map[y])
+	y = -1;
+	while (game->map[++y])
 	{
 		x = 0;
 		while (game->map[y][x])
@@ -42,11 +42,11 @@ void	get_player_cord(t_game *game)
 				game->player.x = x * BLOCK + BLOCK / 2;
 				game->player.y = y * BLOCK + BLOCK / 2;
 				game->player.angle = player_angle(dir);
+				game->map[y][x] = '0';
 				return ;
 			}
 			x++;
 		}
-		y++;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 18:43:15 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/15 12:01:46 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/16 19:30:56 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void	door_interaction(t_game *game)
 {
 	t_player	*player;
-	int			block_x;
-	int			block_y;
+	int			x;
+	int			y;
+	char		b;
 
 	player = &game->player;
-	block_x = (player->x + cos(player->angle) * BLOCK) / BLOCK;
-	block_y = (player->y + sin(player->angle) * BLOCK) / BLOCK;
-	if (game->map[block_y][(int)(player->x / BLOCK)] == '1' && \
-game->map[(int)(player->y / BLOCK)][block_x] == '1')
+	x = (player->x + cos(player->angle) * BLOCK) / BLOCK;
+	y = (player->y + sin(player->angle) * BLOCK) / BLOCK;
+	if (game->map[y][(int)(player->x / BLOCK)] == '1' && \
+game->map[(int)(player->y / BLOCK)][x] == '1')
 		return ;
-	if (game->map[block_y][block_x] == 'D')
-		game->map[block_y][block_x] = 'O';
-	else if (game->map[block_y][block_x] == 'O')
-		game->map[block_y][block_x] = 'D';
+	b = game->map[y][x];
+	if (b == 'D' || b == 'O')
+		game->map[y][x] = 'O' * (b == 'D') + 'D' * (b == 'O');
 }
 
 void	key_press2(int key, t_game *game)
