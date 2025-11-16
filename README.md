@@ -1253,6 +1253,7 @@ Contributions, issues, and feature requests are welcome!
 
 **Project Authors**:
 - GitHub: [@AbdellatifNASSER-ALLAH](https://github.com/AbdellatifNASSER-ALLAH)
+- GitHub: [@a-hakki](https://github.com/a-hakki)
 
 **Project Link**: [https://github.com/AbdellatifNASSER-ALLAH/cub3D](https://github.com/AbdellatifNASSER-ALLAH/cub3D)
 
