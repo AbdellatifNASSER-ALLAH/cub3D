@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/14 14:21:12 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/14 14:09:31 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ typedef struct s_player
 	int			prev_mouse_x;
 	bool		is_attacking;
 	int			attack_frame;
+	bool		mouse_captured;
 }				t_player;
 
 typedef struct s_ray
@@ -189,6 +190,7 @@ enum
 	R,
 	ME
 };
+
 void			valid_file(char *path, char *extension, t_config *cfg);
 void			parse(t_config *cfg, char *path);
 void			read_file(t_config *cfg);

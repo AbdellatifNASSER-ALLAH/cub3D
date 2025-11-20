@@ -29,6 +29,7 @@ void	init_player(t_game *game)
 	player->z_eye = 0.5;
 	player->is_attacking = false;
 	player->attack_frame = 0;
+	player->mouse_captured = true;
 }
 
 static void	normalize_angle(t_player *player)

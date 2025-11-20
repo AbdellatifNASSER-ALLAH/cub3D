@@ -58,6 +58,8 @@ int	mouse_move(int x, int y, t_game *game)
 	int	delta_x;
 	int	delta_y;
 
+	if (!game->player.mouse_captured)
+		return (0);
 	center_x = WIDTH / 2;
 	center_y = HEIGHT / 2;
 	delta_x = x - center_x;

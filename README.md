@@ -186,6 +186,13 @@ typedef struct s_config {
 
 ### Prerequisites
 
+- **W/A/S/D**: Move player
+- **Arrow keys**: Rotate view
+- **Mouse**: Look around (when captured)
+- **X**: Toggle mouse capture (enable/disable mouse control)
+- **I/J/K/L**: Quick view angles (North/West/South/East)
+- **+/-**: Adjust movement speed
+- **ESC**: Exit
 The project requires:
 - **GCC** or compatible C compiler
 - **Make** build system
