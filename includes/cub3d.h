@@ -169,6 +169,7 @@ typedef struct s_game
 }				t_game;
 
 void	init_player(t_game *game);
+int		is_blocked(float x, float y, t_game *game);
 int		key_press(int key, t_game *game);
 void	key_press2(int key, t_game *game);
 int		key_release(int key, t_game *game);
@@ -210,9 +211,7 @@ int			handle_exit(t_game *game);
 
 void			draw_vision(t_game *game);
 void			draw_aim(int radius, int color, t_game *game);
-void			draw_circule(int radius, int color, t_game *game);
-void			draw_full_squar(int x, int y, int size, t_game *game);
-void			draw_door(int x, int y, int size, t_game *game);
+void			draw_full_squar(int x, int y, int color, t_game *game);
 void			draw_map(t_game *game);
 void			draw_minimap(t_game *game);
 void			init_ray(t_ray *r, t_player *player, int x);

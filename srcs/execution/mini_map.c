@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/11 07:41:45 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/13 19:17:14 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/14 13:48:57 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ bool	touch2(int px, int py, t_game *game)
 
 static void	draw_block_in_radius(int x, int y, t_game *game)
 {
-	int	block_x;
-	int	block_y;
 	int	dist_x;
 	int	dist_y;
 	int	dx;
@@ -38,18 +36,21 @@ static void	draw_block_in_radius(int x, int y, t_game *game)
 
 	dx = (game->player.x / BLOCK * MINI_BLOCK) - MINI_WIDTH / 2;
 	dy = (game->player.y / BLOCK * MINI_BLOCK) - MINI_HEIGHT / 2;
-	block_x = x * MINI_BLOCK + MINI_BLOCK / 2;
-	block_y = y * MINI_BLOCK + MINI_BLOCK / 2;
-	dist_x = block_x - dx - MINI_WIDTH / 2;
-	dist_y = block_y - dy - MINI_WIDTH / 2;
+	dist_x = x * MINI_BLOCK + MINI_BLOCK / 2;
+	dist_y = y * MINI_BLOCK + MINI_BLOCK / 2;
+	dist_x = dist_x - dx - MINI_WIDTH / 2;
+	dist_y = dist_y - dy - MINI_WIDTH / 2;
 	if (dist_x * dist_x + dist_y * dist_y <= RADIUS * RADIUS)
 	{
 		if (game->map[y][x] == '1')
-			draw_full_squar((x * MINI_BLOCK) - dx,
-				(y * MINI_BLOCK) - dy, MINI_BLOCK, game);
+			draw_full_squar((x * MINI_BLOCK) - dx, \
+(y * MINI_BLOCK) - dy, 0x0000FF, game);
 		if (game->map[y][x] == 'D')
-			draw_door((x * MINI_BLOCK) - dx,
-				(y * MINI_BLOCK) - dy, MINI_BLOCK, game);
+			draw_full_squar((x * MINI_BLOCK) - dx, \
+(y * MINI_BLOCK) - dy, 0xFF0000, game);
+		if (game->map[y][x] == 'O')
+			draw_full_squar((x * MINI_BLOCK) - dx, \
+(y * MINI_BLOCK) - dy, 0x00FF00, game);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:15:50 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/12 15:51:27 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/17 06:29:12 by ahakki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	calc_dist_and_height(t_ray *r, t_player *player)
 	r->dist = r->perp_wall_dist * BLOCK * cos(r->ray_angle - player->angle);
 	if (r->dist < 0.01f)
 		r->dist = 0.01f;
-	r->wall_height = (BLOCK / r->dist) * (WIDTH / 2);
+	r->wall_height = (BLOCK / r->dist) * (3 * HEIGHT / 4);
 	r->start_y = (HEIGHT - r->wall_height) * player->z_eye;
 	r->end_y = r->start_y + r->wall_height;
 }
