@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:15:50 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/21 08:19:24 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/21 09:28:23 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void	draw_stripe(int x, t_ray *r, t_game *game)
 	int		ceiling_color;
 	int		floor_color;
 
-	ceiling_color = (game->config.c_rgb[0] << 16)
-		| (game->config.c_rgb[1] << 8) | game->config.c_rgb[2];
-	floor_color = (game->config.f_rgb[0] << 16)
-		| (game->config.f_rgb[1] << 8) | game->config.f_rgb[2];
+	ceiling_color = (game->config.c_rgb[0] << 16) | (game->config.c_rgb[1] << 8)
+		| game->config.c_rgb[2];
+	floor_color = (game->config.f_rgb[0] << 16) | (game->config.f_rgb[1] << 8)
+		| game->config.f_rgb[2];
 	y = 0;
 	while (y < r->start_y)
 		put_pixel(x, y++, ceiling_color, game);
@@ -44,11 +44,11 @@ void	draw_stripe(int x, t_ray *r, t_game *game)
 void	calc_dist_and_height(t_ray *r, t_player *player)
 {
 	if (r->side == 0)
-		r->perp_wall_dist = (r->mapx - r->px
-				+ (1 - r->stepx) / 2) / r->ray_dirx;
+		r->perp_wall_dist = (r->mapx - r->px + (1 - r->stepx) / 2)
+			/ r->ray_dirx;
 	else
-		r->perp_wall_dist = (r->mapy - r->py
-				+ (1 - r->stepy) / 2) / r->ray_diry;
+		r->perp_wall_dist = (r->mapy - r->py + (1 - r->stepy) / 2)
+			/ r->ray_diry;
 	r->dist = r->perp_wall_dist * BLOCK * cos(r->ray_angle - player->angle);
 	if (r->dist < 0.01f)
 		r->dist = 0.01f;
@@ -93,56 +93,4 @@ void	draw_vision(t_game *game)
 		draw_stripe(x, &r, game);
 		x++;
 	}
-}
-
-static void	draw_torch_line(t_texture *tex, int screen_x, int screen_y,
-				int draw_y, t_game *game)
-{
-	int	draw_x;
-	int	tex_x;
-	int	tex_y;
-	int	color;
-
-	draw_x = 0;
-	while (draw_x < TORCH_SIZE && screen_x + draw_x < WIDTH)
-	{
-		tex_x = (draw_x * tex->width) / TORCH_SIZE;
-		tex_y = (draw_y * tex->height) / TORCH_SIZE;
-		color = tex->data[tex_y * tex->width + tex_x];
-		if (color != TRANSPARENT_COLOR)
-			put_pixel(screen_x + draw_x, screen_y + draw_y, color, game);
-		draw_x++;
-	}
-}
-
-static void	update_attack_animation(t_game *game)
-{
-	if (game->player.is_attacking)
-	{
-		game->player.attack_frame++;
-		if (game->player.attack_frame > ATTACK_ANIMATION_FRAMES)
-		{
-			game->player.is_attacking = false;
-			game->player.attack_frame = 0;
-		}
-	}
-}
-
-void	draw_torch(t_game *game)
-{
-	t_texture	*torch_tex;
-	int			screen_x;
-	int			screen_y;
-	int			draw_y;
-
-	if (game->player.is_attacking)
-		torch_tex = &game->textures[TORCH_ATTACK];
-	else
-		torch_tex = &game->textures[TORCH];
-	screen_x = WIDTH - TORCH_SIZE - TORCH_OFFSET_X;
-	screen_y = HEIGHT - TORCH_SIZE + TORCH_OFFSET_Y;
-	draw_y = -1;
-	while (++draw_y < TORCH_SIZE && screen_y + draw_y < HEIGHT)
-		draw_torch_line(torch_tex, screen_x, screen_y, draw_y, game);
-	update_attack_animation(game);
 }

@@ -168,15 +168,15 @@ typedef struct s_game
 	t_config	config;
 }				t_game;
 
-void	init_player(t_game *game);
-int		is_blocked(float x, float y, t_game *game);
-int		key_press(int key, t_game *game);
-void	key_press2(int key, t_game *game);
-int		key_release(int key, t_game *game);
-int		move_player(t_game *game);
-int		mouse_move(int x, int y, t_game *game);
-int		mouse_button(int button, int x, int y, t_game *game);
-void	draw_torch(t_game *game);
+void			init_player(t_game *game);
+int				is_blocked(float x, float y, t_game *game);
+int				key_press(int key, t_game *game);
+void			key_press2(int key, t_game *game);
+int				key_release(int key, t_game *game);
+int				move_player(t_game *game);
+int				mouse_move(int x, int y, t_game *game);
+int				mouse_button(int button, int x, int y, t_game *game);
+void			draw_torch(t_game *game);
 
 bool			touch(int px, int py, t_game *game);
 void			put_pixel(int x, int y, int color, t_game *game);
@@ -205,7 +205,7 @@ int				is_invalid_neighbor(char ch);
 void			exit_err(const char *msg, int st, t_config *cfg);
 void			free_configs(t_config *cfg);
 void			free_game(t_game *game);
-int			handle_exit(t_game *game);
+int				handle_exit(t_game *game);
 
 // ====== execution ============
 
