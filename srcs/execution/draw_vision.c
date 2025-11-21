@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:15:50 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/17 06:29:12 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/21 08:19:24 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,11 +141,8 @@ void	draw_torch(t_game *game)
 		torch_tex = &game->textures[TORCH];
 	screen_x = WIDTH - TORCH_SIZE - TORCH_OFFSET_X;
 	screen_y = HEIGHT - TORCH_SIZE + TORCH_OFFSET_Y;
-	draw_y = 0;
-	while (draw_y < TORCH_SIZE && screen_y + draw_y < HEIGHT)
-	{
+	draw_y = -1;
+	while (++draw_y < TORCH_SIZE && screen_y + draw_y < HEIGHT)
 		draw_torch_line(torch_tex, screen_x, screen_y, draw_y, game);
-		draw_y++;
-	}
 	update_attack_animation(game);
 }
