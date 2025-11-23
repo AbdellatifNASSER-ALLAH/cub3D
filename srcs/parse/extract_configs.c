@@ -24,7 +24,7 @@ void	extract_configs(t_config *cfg, char *l)
 		l = skip_ws(cfg->lines[cfg->map_start]);
 		if (*l && (*l == '0' || *l == '1'))
 			break ;
-		else if (*l && *l == '\n')
+		else if (!*l || *l == '\n')
 			continue ;
 		else if (ft_strncmp(l, "NO ", 3) == 0)
 			do_tex(0, l, cfg);
@@ -57,6 +57,8 @@ static void	missing_textures(t_config *cfg)
 			exit_err("Missing texture config", 1, cfg);
 	if (!cfg->f_found || !cfg->c_found)
 		exit_err("Missing F or C config", 1, cfg);
+	if (cfg->map_start >= cfg->nb_lines)
+		exit_err("No map found in config file", 1, cfg);
 	cfg->map_end = cfg->map_start;
 	while (cfg->map_end < cfg->nb_lines)
 	{

@@ -42,6 +42,8 @@ static void	init_config(t_config *cfg, char *path)
 	i = 0;
 	while (i < 4)
 		cfg->tex_found[i++] = 0;
+	while (i < NB_TEX)
+		cfg->tex[i++] = NULL;
 	cfg->door_found = 0;
 	cfg->c_found = 0;
 	cfg->f_found = 0;

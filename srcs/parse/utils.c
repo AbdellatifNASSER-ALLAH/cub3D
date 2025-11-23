@@ -19,7 +19,7 @@ int	is_player(char c)
 
 int	is_invalid_neighbor(char ch)
 {
-	return (ch == '\0' || ch == ' ' || ch == '\t');
+	return (ch == '\0' || ch == ' ' || ch == '\t' || ch == '\n');
 }
 
 char	*skip_ws(char *s)
@@ -37,13 +37,18 @@ int	rgb(char *s, int *rgb)
 	while (i < 3)
 	{
 		s = skip_ws(s);
+		if (!ft_isdigit(*s))
+			return (0);
 		rgb[i++] = ft_atoi(s);
 		while (ft_isdigit(*s))
 			s++;
 		s = skip_ws(s);
-		if (i < 2 && *s && *s != ',')
-			return (0);
-		s++;
+		if (i < 3)
+		{
+			if (*s != ',')
+				return (0);
+			s++;
+		}
 	}
 	s = skip_ws(s);
 	if (*s && *s != '\n')
