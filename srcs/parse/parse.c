@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/03 11:19:21 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/10/09 13:47:03 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/23 23:53:47 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ static void	init_config(t_config *cfg, char *path)
 	i = 0;
 	while (i < 4)
 		cfg->tex_found[i++] = 0;
+	i = 0;
+	while (i < NB_TEX)
+		cfg->tex[i++] = NULL;
 	cfg->door_found = 0;
 	cfg->c_found = 0;
 	cfg->f_found = 0;

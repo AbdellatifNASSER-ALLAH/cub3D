@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:19:17 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/11/11 11:27:11 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/23 23:56:48 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_player(char c)
 
 int	is_invalid_neighbor(char ch)
 {
-	return (ch == '\0' || ch == ' ' || ch == '\t');
+	return (ch == '\n' || ch == '\0' || ch == ' ' || ch == '\t');
 }
 
 char	*skip_ws(char *s)
