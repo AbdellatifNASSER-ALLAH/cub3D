@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:19:17 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/11/24 17:54:56 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/24 18:36:11 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ int	rgb(char *s, int *rgb)
 		while (ft_isdigit(*s))
 			s++;
 		s = skip_ws(s);
-		if (i < 2 && *s && *s != ',')
-			return (0);
-		s++;
+		if ((i < 2 && *s && *s == ',') || i == 2)
+			s++;
 	}
 	s = skip_ws(s);
 	if (*s && *s != '\n')
