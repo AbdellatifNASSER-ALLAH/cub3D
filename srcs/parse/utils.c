@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 11:19:17 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/11/23 23:56:48 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:54:56 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	rgb(char *s, int *rgb)
 	while (i < 3)
 	{
 		s = skip_ws(s);
+		if (!ft_isdigit(*s))
+			return (0);
 		rgb[i++] = ft_atoi(s);
 		while (ft_isdigit(*s))
 			s++;

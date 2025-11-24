@@ -4,8 +4,9 @@ WE ./textures/TECH_0A.xpm
 EA ./textures/SUPPORT_6A.xpm
 DO         ./textures/door.xpm
 
-F 220,100,0
-C 225,30,0
+C 0,255,0
+F 255,0,0
+
 
 1111111111111111111111111
 1000000000010000000000001
