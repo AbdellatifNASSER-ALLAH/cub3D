@@ -2,7 +2,7 @@ NO ./textures/LAB_1A.xpm
 SO ./textures/LAB_4A.xpm
 WE ./textures/TECH_0A.xpm
 EA ./textures/SUPPORT_6A.xpm
-DO ./textures/door.xpm
+DO         ./textures/door.xpm
 
 F 220,100,0
 C 225,30,0
