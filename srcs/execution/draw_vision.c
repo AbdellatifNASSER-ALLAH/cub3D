@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:15:50 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/21 09:28:23 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/24 23:09:58 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	draw_stripe(int x, t_ray *r, t_game *game)
 	y = 0;
 	while (y < r->start_y)
 		put_pixel(x, y++, ceiling_color, game);
+	// TODO: step = (float)TEXTURE_HEIGHT / r->wall_height; // game->textures[hshshsh].height/
 	step = (float)TEXTURE_HEIGHT / r->wall_height;
 	while (y < r->end_y && y < HEIGHT)
 	{
