@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:50:24 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/12 15:50:12 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/24 23:43:35 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	init_ray(t_ray *r, t_player *player, int x)
 	r->side = -1;
 	r->wallx = 0;
 	r->wally = 0;
+	r->tex_type = DOOR;
 	init_ray_dir_and_map(r, player, x);
 	init_ray_delta(r);
 	init_ray_steps(r);

@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:15:50 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/24 23:09:58 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/24 23:45:48 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@ void	draw_stripe(int x, t_ray *r, t_game *game)
 	y = 0;
 	while (y < r->start_y)
 		put_pixel(x, y++, ceiling_color, game);
-	// TODO: step = (float)TEXTURE_HEIGHT / r->wall_height; // game->textures[hshshsh].height/
-	step = (float)TEXTURE_HEIGHT / r->wall_height;
+	step = (float)game->textures[r->tex_type].height / r->wall_height;
 	while (y < r->end_y && y < HEIGHT)
 	{
 		tex_y = (int)((y - r->start_y) * step);
 		if (tex_y < 0)
 			tex_y = 0;
-		if (tex_y >= TEXTURE_HEIGHT)
-			tex_y = TEXTURE_HEIGHT - 1;
+		if (tex_y >= game->textures[r->tex_type].height)
+			tex_y = game->textures[r->tex_type].height - 1;
 		put_pixel(x, y++, get_texture_color(r, tex_y, game), game);
 	}
 	while (y < HEIGHT)
@@ -56,6 +55,18 @@ void	calc_dist_and_height(t_ray *r, t_player *player)
 	r->wall_height = (BLOCK / r->dist) * (3 * HEIGHT / 4);
 	r->start_y = (HEIGHT - r->wall_height) * player->z_eye;
 	r->end_y = r->start_y + r->wall_height;
+	if (r->side == 0)
+	{
+		r->tex_type = WEST;
+		if (r->ray_dirx > 0)
+			r->tex_type = EAST;
+	}
+	else
+	{
+		r->tex_type = NORTH;
+		if (r->ray_diry > 0)
+			r->tex_type = SOUTH;
+	}
 }
 
 void	select_color(t_ray *r, t_game *game)

@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/14 14:09:31 by ahakki           ###   ########.fr       */
+/*   Updated: 2025/11/24 23:48:04 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ typedef struct s_ray
 	float		side_distx;
 	float		side_disty;
 	int			hit;
+	t_tex		tex_type;
 }				t_ray;
 
 typedef struct s_game
