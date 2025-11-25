@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:47:58 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/25 14:52:42 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/25 16:38:28 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ int	draw_loop(t_game *game)
 int	main(int ac, char **av)
 {
 	t_game	game;
-	
-	// TODO: this is segfautl : ./game maps/big_tex.cub
+
 	if (ac != 2)
 		exit_err("Usage: ./game [path to map.cub]", 1, NULL);
 	parse(&game.config, av[1]);

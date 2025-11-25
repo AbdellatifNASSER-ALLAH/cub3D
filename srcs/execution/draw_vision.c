@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:15:50 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/24 23:45:48 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/25 16:35:36 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	calc_dist_and_height(t_ray *r, t_player *player)
 	r->wall_height = (BLOCK / r->dist) * (3 * HEIGHT / 4);
 	r->start_y = (HEIGHT - r->wall_height) * player->z_eye;
 	r->end_y = r->start_y + r->wall_height;
+	if (r->tex_type == DOOR)
+		return ;
 	if (r->side == 0)
 	{
 		r->tex_type = WEST;
