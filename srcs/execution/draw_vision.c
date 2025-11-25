@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 09:15:50 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/25 16:35:36 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/25 16:46:14 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,7 @@ void	calc_dist_and_height(t_ray *r, t_player *player)
 			r->tex_type = EAST;
 	}
 	else
-	{
-		r->tex_type = NORTH;
-		if (r->ray_diry > 0)
-			r->tex_type = SOUTH;
-	}
+		r->tex_type = NORTH * !(r->ray_diry > 0) + (r->ray_diry > 0) * SOUTH;
 }
 
 void	select_color(t_ray *r, t_game *game)
