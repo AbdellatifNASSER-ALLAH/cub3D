@@ -6,17 +6,11 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:00:20 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/10/02 18:57:38 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/26 17:49:08 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// Here we are checking for a valide .cub file
-// 	The extension .cub
-// 	Shouldn't be a directory
-// 	The existence of the file
-// 	Shouldn't be empty file
 
 static char	*find_last_dot(char *p);
 
@@ -27,12 +21,10 @@ void	valid_file(char *path, char *extension, t_config *cfg)
 	int		fd;
 
 	tmp = find_last_dot(path);
-	if (!tmp || ft_strncmp(tmp, extension, 4) != 0)
-		exit_err("Invalid extension", 1, cfg);
 	if (*(tmp + 4) && *(tmp + 4) == '\n')
 		*(tmp + 4) = 0;
-	if (*(tmp + 4))
-		exit_err("Invalid path", 1, cfg);
+	if (!tmp || *(tmp + 4) || ft_strncmp(tmp, extension, 4) != 0)
+		exit_err("Invalid extension", 1, cfg);
 	fd = open(path, O_DIRECTORY);
 	if (fd >= 0)
 	{
