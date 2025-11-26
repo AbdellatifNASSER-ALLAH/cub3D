@@ -6,7 +6,7 @@
 /*   By: abdnasse <abdnasse@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 03:21:37 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/11/24 17:36:38 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/26 13:50:30 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	extract_configs(t_config *cfg, char *l)
 		else if (ft_strncmp(l, "F ", 2) == 0)
 			do_tex(6, l, cfg);
 		else
-			exit_err("Unknow config lien", 1, cfg);
+			exit_err("Unknown config line", 1, cfg);
 	}
 	missing_textures(cfg);
 }
@@ -74,14 +74,14 @@ static void	handle_texture(int n, char *line, t_config *cfg)
 	{
 		valid_file(line, ".xpm", cfg);
 		if (cfg->tex_found[n]++)
-			exit_err("Dubplicated config", 1, cfg);
+			exit_err("Duplicated config", 1, cfg);
 		cfg->tex[n] = ft_strdup(line);
 	}
 	else if (n == 4)
 	{
 		valid_file(line, ".xpm", cfg);
 		if (cfg->door_found++)
-			exit_err("Dubplicated config", 1, cfg);
+			exit_err("Duplicated config", 1, cfg);
 		cfg->tex[DOOR] = ft_strdup(line);
 	}
 }
@@ -91,14 +91,14 @@ static void	handle_color(int n, char *line, t_config *cfg)
 	if (n == 5)
 	{
 		if (cfg->c_found++)
-			exit_err("Dubplicated Color C", 1, cfg);
+			exit_err("Duplicated Color C", 1, cfg);
 		if (!rgb(line, cfg->c_rgb))
 			exit_err("Parsing rgb colors", 1, cfg);
 	}
 	else if (n == 6)
 	{
 		if (cfg->f_found++)
-			exit_err("Dubplicated Color F", 1, cfg);
+			exit_err("Duplicated Color F", 1, cfg);
 		if (!rgb(line, cfg->f_rgb))
 			exit_err("Parsing rgb colors", 1, cfg);
 	}
