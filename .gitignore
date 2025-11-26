@@ -2,7 +2,7 @@
 /.cache/
 /.vscode/
 /compile_commands.json
-/Cub3D
+/cub3D
 *.o
 **/*.o
 /a.out
