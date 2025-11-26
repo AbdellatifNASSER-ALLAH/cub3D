@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 14:31:09 by abdnasse          #+#    #+#             */
-/*   Updated: 2025/11/24 16:55:25 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/26 17:25:29 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	exit_err(const char *msg, int st, t_config *cfg)
 {
 	if (cfg)
 		free_configs(cfg);
-	printf(RED "%s\n" RESET, msg);
+	printf(RED "Error\n" RESET);
+	printf("-> %s\n", msg);
 	exit(st);
 }
 
