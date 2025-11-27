@@ -6,7 +6,7 @@
 /*   By: ahakki <ahakki@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 23:48:01 by ahakki            #+#    #+#             */
-/*   Updated: 2025/11/24 23:48:04 by abdnasse         ###   ########.fr       */
+/*   Updated: 2025/11/27 06:40:02 by abdnasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@
 # define WIDTH 1280
 # define HEIGHT 920
 # define BLOCK 64
-
-# define TEXTURE_WIDTH 64
-# define TEXTURE_HEIGHT 64
 
 # define W 119
 # define A 97
@@ -68,7 +65,6 @@ typedef enum s_tex
 
 # define TORCH_SIZE 256
 # define TORCH_OFFSET_X 400
-# define TORCH_OFFSET_Y 0
 # define ATTACK_ANIMATION_FRAMES 15
 # define TRANSPARENT_COLOR 0x000000
 # define RIGHT_MOUSE_BUTTON 3
